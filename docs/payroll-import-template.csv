@@ -1,0 +1,4 @@
+record_type,department,cost_center_code,currency,gross,deductions,employer_contributions,net,headcount,ded:social_insurance,ded:income_tax,ded:advance_recovery,ded:default,emp:social_insurance,employee_ref,amount
+line,المبيعات,S,USD,3000.00,350.00,200.00,2650.00,4,150.00,100.00,50.00,50.00,200.00,,
+line,المعمل,P,SYP,13500000,1350000,0,12150000,9,,1350000,,,,,
+recovery,,,USD,,,,,,,,,,,E-1,50.00

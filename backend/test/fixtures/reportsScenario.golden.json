@@ -1,0 +1,1518 @@
+{
+  "ap_aging": {
+    "body": {
+      "as_of": "2026-12-31",
+      "control_minor": 73000,
+      "digits": 2,
+      "rows": [
+        {
+          "advances": -60000,
+          "b1_30": 0,
+          "b31_60": 0,
+          "b61_90": 0,
+          "b90_plus": 133000,
+          "current": 0,
+          "items": [
+            {
+              "amount_minor": 93000,
+              "bucket": "b90_plus",
+              "date": "2026-01-15",
+              "days_overdue": 320,
+              "description": "فاتورة مورد PI-00001",
+              "document": {
+                "currency_code": "USD",
+                "id": 1,
+                "open_minor": 33000,
+                "ref": null,
+                "type": "supplier_invoice"
+              },
+              "entry_number": "JE-00002",
+              "key": "inv:1",
+              "legacy": false,
+              "number": "PI-00001"
+            },
+            {
+              "amount_minor": -60000,
+              "bucket": "advances",
+              "date": "2026-02-20",
+              "days_overdue": 314,
+              "description": "دفعة للمورد PAY-00001 — مورد التصنيف",
+              "document": {
+                "id": 1,
+                "type": "supplier_payment"
+              },
+              "entry_number": "JE-00004",
+              "key": "pay:1",
+              "legacy": false,
+              "number": "PAY-00001"
+            },
+            {
+              "amount_minor": 40000,
+              "bucket": "b90_plus",
+              "date": "2026-02-01",
+              "days_overdue": 303,
+              "description": "فاتورة مورد PI-00002",
+              "document": {
+                "currency_code": "USD",
+                "id": 2,
+                "open_minor": 40000,
+                "ref": null,
+                "type": "supplier_invoice"
+              },
+              "entry_number": "JE-00003",
+              "key": "inv:2",
+              "legacy": false,
+              "number": "PI-00002"
+            }
+          ],
+          "legacy": 0,
+          "supplier_id": 1,
+          "supplier_name": "مورد التصنيف",
+          "total": 73000
+        }
+      ],
+      "totals": {
+        "advances": -60000,
+        "b1_30": 0,
+        "b31_60": 0,
+        "b61_90": 0,
+        "b90_plus": 133000,
+        "current": 0,
+        "legacy": 0,
+        "total": 73000
+      },
+      "unassigned_minor": 0
+    },
+    "status": 200
+  },
+  "ar_aging": {
+    "body": {
+      "as_of": "2026-12-31",
+      "buckets": [
+        "b0_30",
+        "b31_60",
+        "b61_90",
+        "b90_plus",
+        "legacy",
+        "credits"
+      ],
+      "control_minor": 13910,
+      "digits": 2,
+      "group_by": "customer",
+      "rows": [
+        {
+          "b0_30": 0,
+          "b31_60": 0,
+          "b61_90": 0,
+          "b90_plus": 8000,
+          "credits": 0,
+          "customers": 1,
+          "key": 2,
+          "label": "بقالة حلب",
+          "legacy": 0,
+          "total": 8000,
+          "total_fmt": "80.00"
+        },
+        {
+          "b0_30": 0,
+          "b31_60": 0,
+          "b61_90": 0,
+          "b90_plus": 5910,
+          "credits": 0,
+          "customers": 1,
+          "key": 1,
+          "label": "سوبرماركت دمشق",
+          "legacy": 0,
+          "total": 5910,
+          "total_fmt": "59.10"
+        }
+      ],
+      "totals": {
+        "b0_30": 0,
+        "b31_60": 0,
+        "b61_90": 0,
+        "b90_plus": 13910,
+        "credits": 0,
+        "legacy": 0,
+        "total": 13910
+      },
+      "unassigned_minor": 0
+    },
+    "status": 200
+  },
+  "balance_sheet": {
+    "body": {
+      "as_of": "2026-12-31",
+      "balanced": [
+        true
+      ],
+      "branchId": null,
+      "columns": [
+        {
+          "asOf": "2026-12-31",
+          "key": "current",
+          "label": "2026-12-31"
+        }
+      ],
+      "current_earnings": [
+        -160300
+      ],
+      "current_earnings_drill": [
+        {
+          "branchId": null,
+          "from": "1900-01-01",
+          "to": "2026-12-31",
+          "type": "revenue"
+        }
+      ],
+      "digits": 2,
+      "inventory_opening_missing": false,
+      "sections": {
+        "current_assets": [
+          {
+            "account_id": 3,
+            "amounts": [
+              -28000
+            ],
+            "code": "1110",
+            "drill": [
+              {
+                "accountId": 3,
+                "branchId": null,
+                "from": "1900-01-01",
+                "to": "2026-12-31"
+              }
+            ],
+            "name_ar": "الصندوق",
+            "name_en": "Cash on hand"
+          },
+          {
+            "account_id": 7,
+            "amounts": [
+              13910
+            ],
+            "code": "1130",
+            "drill": [
+              {
+                "accountId": 7,
+                "branchId": null,
+                "from": "1900-01-01",
+                "to": "2026-12-31"
+              }
+            ],
+            "name_ar": "الذمم المدينة (العملاء)",
+            "name_en": "Accounts receivable"
+          },
+          {
+            "account_id": 10,
+            "amounts": [
+              49600
+            ],
+            "code": "1150",
+            "drill": [
+              {
+                "accountId": 10,
+                "branchId": null,
+                "from": "1900-01-01",
+                "to": "2026-12-31"
+              }
+            ],
+            "name_ar": "مخزون البضاعة",
+            "name_en": "Merchandise inventory"
+          },
+          {
+            "account_id": 15,
+            "amounts": [
+              3000
+            ],
+            "code": "1180",
+            "drill": [
+              {
+                "accountId": 15,
+                "branchId": null,
+                "from": "1900-01-01",
+                "to": "2026-12-31"
+              }
+            ],
+            "name_ar": "ضريبة المدخلات (المشتريات)",
+            "name_en": "Input tax"
+          }
+        ],
+        "current_liabilities": [
+          {
+            "account_id": 23,
+            "amounts": [
+              73000
+            ],
+            "code": "2110",
+            "drill": [
+              {
+                "accountId": 23,
+                "branchId": null,
+                "from": "1900-01-01",
+                "to": "2026-12-31"
+              }
+            ],
+            "name_ar": "الذمم الدائنة (الموردون)",
+            "name_en": "Accounts payable"
+          },
+          {
+            "account_id": 24,
+            "amounts": [
+              15000
+            ],
+            "code": "2120",
+            "drill": [
+              {
+                "accountId": 24,
+                "branchId": null,
+                "from": "1900-01-01",
+                "to": "2026-12-31"
+              }
+            ],
+            "name_ar": "أوراق الدفع",
+            "name_en": "Notes payable"
+          },
+          {
+            "account_id": 26,
+            "amounts": [
+              110000
+            ],
+            "code": "2130",
+            "drill": [
+              {
+                "accountId": 26,
+                "branchId": null,
+                "from": "1900-01-01",
+                "to": "2026-12-31"
+              }
+            ],
+            "name_ar": "رواتب وأجور مستحقة",
+            "name_en": "Accrued salaries"
+          },
+          {
+            "account_id": 27,
+            "amounts": [
+              810
+            ],
+            "code": "2140",
+            "drill": [
+              {
+                "accountId": 27,
+                "branchId": null,
+                "from": "1900-01-01",
+                "to": "2026-12-31"
+              }
+            ],
+            "name_ar": "ضرائب ورسوم مستحقة",
+            "name_en": "Taxes payable"
+          }
+        ],
+        "equity": [],
+        "fixed_assets": [],
+        "long_term_liabilities": []
+      },
+      "totals": {
+        "assets": [
+          38510
+        ],
+        "current_assets": [
+          38510
+        ],
+        "current_liabilities": [
+          198810
+        ],
+        "equity": [
+          -160300
+        ],
+        "fixed_assets": [
+          0
+        ],
+        "liabilities": [
+          198810
+        ],
+        "liabilities_and_equity": [
+          38510
+        ],
+        "long_term_liabilities": [
+          0
+        ]
+      }
+    },
+    "status": 200
+  },
+  "cash_flow": {
+    "body": {
+      "branchId": null,
+      "cash_accounts": [
+        {
+          "code": "1110",
+          "id": 3,
+          "name_ar": "الصندوق"
+        },
+        {
+          "code": "1115",
+          "id": 5,
+          "name_ar": "حوالات قيد التحصيل"
+        },
+        {
+          "code": "1120",
+          "id": 6,
+          "name_ar": "البنوك"
+        }
+      ],
+      "closing_cash": -28000,
+      "costCenterId": null,
+      "digits": 2,
+      "direct": {
+        "net": -28000,
+        "sections": {
+          "financing": [],
+          "investing": [],
+          "operating": [
+            {
+              "account_id": 7,
+              "amount": 5000,
+              "code": "1130",
+              "drill": {
+                "accountId": 7,
+                "branchId": null,
+                "from": "2026-01-01",
+                "to": "2026-12-31"
+              },
+              "name_ar": "الذمم المدينة (العملاء)"
+            },
+            {
+              "account_id": 23,
+              "amount": -30000,
+              "code": "2110",
+              "drill": {
+                "accountId": 23,
+                "branchId": null,
+                "from": "2026-01-01",
+                "to": "2026-12-31"
+              },
+              "name_ar": "الذمم الدائنة (الموردون)"
+            },
+            {
+              "account_id": 56,
+              "amount": -3000,
+              "code": "6500",
+              "drill": {
+                "accountId": 56,
+                "branchId": null,
+                "from": "2026-01-01",
+                "to": "2026-12-31"
+              },
+              "name_ar": "مصاريف إدارية وعمومية"
+            }
+          ]
+        },
+        "totals": {
+          "financing": 0,
+          "investing": 0,
+          "operating": -28000
+        }
+      },
+      "from": "2026-01-01",
+      "indirect": {
+        "net": -28000,
+        "net_income": -160300,
+        "sections": {
+          "financing": [],
+          "investing": [],
+          "operating": [
+            {
+              "account_id": 7,
+              "amount": -13910,
+              "code": "1130",
+              "drill": {
+                "accountId": 7,
+                "branchId": null,
+                "from": "2026-01-01",
+                "to": "2026-12-31"
+              },
+              "name_ar": "الذمم المدينة (العملاء)"
+            },
+            {
+              "account_id": 10,
+              "amount": -49600,
+              "code": "1150",
+              "drill": {
+                "accountId": 10,
+                "branchId": null,
+                "from": "2026-01-01",
+                "to": "2026-12-31"
+              },
+              "name_ar": "مخزون البضاعة"
+            },
+            {
+              "account_id": 15,
+              "amount": -3000,
+              "code": "1180",
+              "drill": {
+                "accountId": 15,
+                "branchId": null,
+                "from": "2026-01-01",
+                "to": "2026-12-31"
+              },
+              "name_ar": "ضريبة المدخلات (المشتريات)"
+            },
+            {
+              "account_id": 23,
+              "amount": 73000,
+              "code": "2110",
+              "drill": {
+                "accountId": 23,
+                "branchId": null,
+                "from": "2026-01-01",
+                "to": "2026-12-31"
+              },
+              "name_ar": "الذمم الدائنة (الموردون)"
+            },
+            {
+              "account_id": 24,
+              "amount": 15000,
+              "code": "2120",
+              "drill": {
+                "accountId": 24,
+                "branchId": null,
+                "from": "2026-01-01",
+                "to": "2026-12-31"
+              },
+              "name_ar": "أوراق الدفع"
+            },
+            {
+              "account_id": 26,
+              "amount": 110000,
+              "code": "2130",
+              "drill": {
+                "accountId": 26,
+                "branchId": null,
+                "from": "2026-01-01",
+                "to": "2026-12-31"
+              },
+              "name_ar": "رواتب وأجور مستحقة"
+            },
+            {
+              "account_id": 27,
+              "amount": 810,
+              "code": "2140",
+              "drill": {
+                "accountId": 27,
+                "branchId": null,
+                "from": "2026-01-01",
+                "to": "2026-12-31"
+              },
+              "name_ar": "ضرائب ورسوم مستحقة"
+            }
+          ]
+        },
+        "totals": {
+          "financing": 0,
+          "investing": 0,
+          "operating": -28000
+        }
+      },
+      "net_change": -28000,
+      "opening_cash": 0,
+      "projectId": null,
+      "reconciles": true,
+      "to": "2026-12-31"
+    },
+    "status": 200
+  },
+  "expense_analysis": {
+    "body": {
+      "branchId": null,
+      "by": "account",
+      "costCenterId": null,
+      "digits": 2,
+      "from": "2026-01-01",
+      "projectId": null,
+      "rows": [
+        {
+          "amount": 120000,
+          "drill": {
+            "accountId": 52,
+            "branchId": null,
+            "costCenterId": null,
+            "excludeClosing": true,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "key": 52,
+          "label": "6100 — الرواتب والأجور",
+          "pct": 67.26
+        },
+        {
+          "amount": 40000,
+          "drill": {
+            "accountId": 53,
+            "branchId": null,
+            "costCenterId": null,
+            "excludeClosing": true,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "key": 53,
+          "label": "6200 — الإيجارات",
+          "pct": 22.42
+        },
+        {
+          "amount": 10000,
+          "drill": {
+            "accountId": 43,
+            "branchId": null,
+            "costCenterId": null,
+            "excludeClosing": true,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "key": 43,
+          "label": "5100 — تكلفة البضاعة المباعة",
+          "pct": 5.61
+        },
+        {
+          "amount": 8000,
+          "drill": {
+            "accountId": 56,
+            "branchId": null,
+            "costCenterId": null,
+            "excludeClosing": true,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "key": 56,
+          "label": "6500 — مصاريف إدارية وعمومية",
+          "pct": 4.48
+        },
+        {
+          "amount": 400,
+          "drill": {
+            "accountId": 49,
+            "branchId": null,
+            "costCenterId": null,
+            "excludeClosing": true,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "key": 49,
+          "label": "5800 — فروقات الجرد وتسويات المخزون",
+          "pct": 0.22
+        }
+      ],
+      "to": "2026-12-31",
+      "total": 178400
+    },
+    "status": 200
+  },
+  "income_statement": {
+    "body": {
+      "branchId": null,
+      "columns": [
+        {
+          "from": "2026-01-01",
+          "key": "current",
+          "label": "2026-01-01 → 2026-12-31",
+          "to": "2026-12-31"
+        }
+      ],
+      "costCenterId": null,
+      "digits": 2,
+      "from": "2026-01-01",
+      "inventory_opening_missing": false,
+      "projectId": null,
+      "sections": {
+        "cost_of_sales": [
+          {
+            "account_id": 43,
+            "amounts": [
+              10000
+            ],
+            "code": "5100",
+            "drill": [
+              {
+                "accountId": 43,
+                "branchId": null,
+                "costCenterId": null,
+                "excludeClosing": true,
+                "from": "2026-01-01",
+                "projectId": null,
+                "to": "2026-12-31"
+              }
+            ],
+            "name_ar": "تكلفة البضاعة المباعة",
+            "name_en": "Cost of goods sold"
+          },
+          {
+            "account_id": 49,
+            "amounts": [
+              400
+            ],
+            "code": "5800",
+            "drill": [
+              {
+                "accountId": 49,
+                "branchId": null,
+                "costCenterId": null,
+                "excludeClosing": true,
+                "from": "2026-01-01",
+                "projectId": null,
+                "to": "2026-12-31"
+              }
+            ],
+            "name_ar": "فروقات الجرد وتسويات المخزون",
+            "name_en": "Inventory count and adjustment differences"
+          }
+        ],
+        "expenses": [
+          {
+            "account_id": 52,
+            "amounts": [
+              120000
+            ],
+            "code": "6100",
+            "drill": [
+              {
+                "accountId": 52,
+                "branchId": null,
+                "costCenterId": null,
+                "excludeClosing": true,
+                "from": "2026-01-01",
+                "projectId": null,
+                "to": "2026-12-31"
+              }
+            ],
+            "name_ar": "الرواتب والأجور",
+            "name_en": "Salaries and wages"
+          },
+          {
+            "account_id": 53,
+            "amounts": [
+              40000
+            ],
+            "code": "6200",
+            "drill": [
+              {
+                "accountId": 53,
+                "branchId": null,
+                "costCenterId": null,
+                "excludeClosing": true,
+                "from": "2026-01-01",
+                "projectId": null,
+                "to": "2026-12-31"
+              }
+            ],
+            "name_ar": "الإيجارات",
+            "name_en": "Rent"
+          },
+          {
+            "account_id": 56,
+            "amounts": [
+              8000
+            ],
+            "code": "6500",
+            "drill": [
+              {
+                "accountId": 56,
+                "branchId": null,
+                "costCenterId": null,
+                "excludeClosing": true,
+                "from": "2026-01-01",
+                "projectId": null,
+                "to": "2026-12-31"
+              }
+            ],
+            "name_ar": "مصاريف إدارية وعمومية",
+            "name_en": "General and administrative"
+          }
+        ],
+        "other": [],
+        "revenue": [
+          {
+            "account_id": 38,
+            "amounts": [
+              19000
+            ],
+            "code": "4100",
+            "drill": [
+              {
+                "accountId": 38,
+                "branchId": null,
+                "costCenterId": null,
+                "excludeClosing": true,
+                "from": "2026-01-01",
+                "projectId": null,
+                "to": "2026-12-31"
+              }
+            ],
+            "name_ar": "إيرادات المبيعات",
+            "name_en": "Sales revenue"
+          },
+          {
+            "account_id": 39,
+            "amounts": [
+              -900
+            ],
+            "code": "4200",
+            "drill": [
+              {
+                "accountId": 39,
+                "branchId": null,
+                "costCenterId": null,
+                "excludeClosing": true,
+                "from": "2026-01-01",
+                "projectId": null,
+                "to": "2026-12-31"
+              }
+            ],
+            "name_ar": "مردودات ومسموحات المبيعات",
+            "name_en": "Sales returns and allowances"
+          }
+        ]
+      },
+      "to": "2026-12-31",
+      "total_drill": {
+        "expenses": [
+          {
+            "branchId": null,
+            "costCenterId": null,
+            "excludeClosing": true,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31",
+            "type": "expense"
+          }
+        ],
+        "revenue": [
+          {
+            "branchId": null,
+            "costCenterId": null,
+            "excludeClosing": true,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31",
+            "type": "revenue"
+          }
+        ]
+      },
+      "totals": {
+        "cost_of_sales": [
+          10400
+        ],
+        "expenses": [
+          168000
+        ],
+        "gross_profit": [
+          7700
+        ],
+        "net_income": [
+          -160300
+        ],
+        "operating_income": [
+          -160300
+        ],
+        "other": [
+          0
+        ],
+        "revenue": [
+          18100
+        ]
+      }
+    },
+    "status": 200
+  },
+  "payroll_cost": {
+    "body": {
+      "digits": 2,
+      "from": "2026-01",
+      "rows": [
+        {
+          "cost_base_minor": 125000,
+          "currency": "USD",
+          "department": "المبيعات",
+          "employer_contrib_minor": 5000,
+          "gross_minor": 120000,
+          "headcount": 0,
+          "net_minor": 110000,
+          "period": "2026-03"
+        }
+      ],
+      "to": "2026-12",
+      "total_cost_base_minor": 125000
+    },
+    "status": 200
+  },
+  "purchases_by_supplier": {
+    "body": {
+      "by": "supplier",
+      "digits": 2,
+      "from": "2026-01-01",
+      "rows": [
+        {
+          "base_minor": 100000,
+          "invoices": 2,
+          "key": "s:1",
+          "label": "مورد التصنيف",
+          "product_id": 1,
+          "qty": 151,
+          "supplier_id": 1
+        }
+      ],
+      "to": "2026-12-31",
+      "total_minor": 100000
+    },
+    "status": 200
+  },
+  "stock_count_variances": {
+    "body": [],
+    "status": 200
+  },
+  "stock_inventory_cost": {
+    "body": {
+      "custody_minor": 0,
+      "digits": 2,
+      "rows": [
+        {
+          "holder_id": 1,
+          "holder_kind": "warehouse",
+          "holder_name": "المستودع الرئيسي",
+          "method": "average",
+          "product_id": 2,
+          "product_name": "عصير",
+          "qty": 28,
+          "unit_cost_minor": 200,
+          "value_minor": 5600
+        },
+        {
+          "holder_id": 1,
+          "holder_kind": "warehouse",
+          "holder_name": "المستودع الرئيسي",
+          "method": "average",
+          "product_id": 1,
+          "product_name": "لوز",
+          "qty": 88,
+          "unit_cost_minor": 500,
+          "value_minor": 44000
+        }
+      ],
+      "total_minor": 49600,
+      "warehouse_minor": 49600
+    },
+    "status": 200
+  },
+  "stock_item_balance": {
+    "body": {
+      "digits": 2,
+      "rows": [
+        {
+          "available": 28,
+          "custody_qty": 0,
+          "method": "average",
+          "product_id": 2,
+          "product_name": "عصير",
+          "qty": 28,
+          "reserved": 0,
+          "unit_cost_minor": 200,
+          "value_minor": 5600,
+          "warehouse_qty": 28
+        },
+        {
+          "available": 88,
+          "custody_qty": 0,
+          "method": "average",
+          "product_id": 1,
+          "product_name": "لوز",
+          "qty": 88,
+          "reserved": 0,
+          "unit_cost_minor": 500,
+          "value_minor": 44000,
+          "warehouse_qty": 88
+        }
+      ],
+      "total_minor": 49600
+    },
+    "status": 200
+  },
+  "stock_profitability": {
+    "body": [
+      {
+        "cogs_minor": 6000,
+        "margin_minor": 5000,
+        "margin_pct": 45.45,
+        "product_id": 1,
+        "product_name": "لوز",
+        "qty": 12,
+        "revenue_minor": 11000
+      },
+      {
+        "cogs_minor": 4000,
+        "margin_minor": 4000,
+        "margin_pct": 50,
+        "product_id": 2,
+        "product_name": "عصير",
+        "qty": 20,
+        "revenue_minor": 8000
+      }
+    ],
+    "status": 200
+  },
+  "trial_balance": {
+    "body": {
+      "balanced": true,
+      "branchId": null,
+      "costCenterId": null,
+      "digits": 2,
+      "from": "2026-01-01",
+      "line_filtered": false,
+      "projectId": null,
+      "rows": [
+        {
+          "account_id": 1,
+          "closing_credit": 0,
+          "closing_debit": 38510,
+          "code": "1",
+          "depth": 0,
+          "drill": {
+            "accountId": 1,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": true,
+          "name_ar": "الأصول",
+          "name_en": "Assets",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 49390,
+          "period_debit": 87900,
+          "type": "asset"
+        },
+        {
+          "account_id": 2,
+          "closing_credit": 0,
+          "closing_debit": 38510,
+          "code": "11",
+          "depth": 1,
+          "drill": {
+            "accountId": 2,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": true,
+          "name_ar": "الأصول المتداولة",
+          "name_en": "Current assets",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 49390,
+          "period_debit": 87900,
+          "type": "asset"
+        },
+        {
+          "account_id": 3,
+          "closing_credit": 28000,
+          "closing_debit": 0,
+          "code": "1110",
+          "depth": 2,
+          "drill": {
+            "accountId": 3,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "الصندوق",
+          "name_en": "Cash on hand",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 33000,
+          "period_debit": 5000,
+          "type": "asset"
+        },
+        {
+          "account_id": 7,
+          "closing_credit": 0,
+          "closing_debit": 13910,
+          "code": "1130",
+          "depth": 2,
+          "drill": {
+            "accountId": 7,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "الذمم المدينة (العملاء)",
+          "name_en": "Accounts receivable",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 5990,
+          "period_debit": 19900,
+          "type": "asset"
+        },
+        {
+          "account_id": 10,
+          "closing_credit": 0,
+          "closing_debit": 49600,
+          "code": "1150",
+          "depth": 2,
+          "drill": {
+            "accountId": 10,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "مخزون البضاعة",
+          "name_en": "Merchandise inventory",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 10400,
+          "period_debit": 60000,
+          "type": "asset"
+        },
+        {
+          "account_id": 15,
+          "closing_credit": 0,
+          "closing_debit": 3000,
+          "code": "1180",
+          "depth": 2,
+          "drill": {
+            "accountId": 15,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "ضريبة المدخلات (المشتريات)",
+          "name_en": "Input tax",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 0,
+          "period_debit": 3000,
+          "type": "asset"
+        },
+        {
+          "account_id": 21,
+          "closing_credit": 198810,
+          "closing_debit": 0,
+          "code": "2",
+          "depth": 0,
+          "drill": {
+            "accountId": 21,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": true,
+          "name_ar": "الخصوم",
+          "name_en": "Liabilities",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 288900,
+          "period_debit": 90090,
+          "type": "liability"
+        },
+        {
+          "account_id": 22,
+          "closing_credit": 198810,
+          "closing_debit": 0,
+          "code": "21",
+          "depth": 1,
+          "drill": {
+            "accountId": 22,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": true,
+          "name_ar": "الخصوم المتداولة",
+          "name_en": "Current liabilities",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 288900,
+          "period_debit": 90090,
+          "type": "liability"
+        },
+        {
+          "account_id": 23,
+          "closing_credit": 73000,
+          "closing_debit": 0,
+          "code": "2110",
+          "depth": 2,
+          "drill": {
+            "accountId": 23,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "الذمم الدائنة (الموردون)",
+          "name_en": "Accounts payable",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 103000,
+          "period_debit": 30000,
+          "type": "liability"
+        },
+        {
+          "account_id": 24,
+          "closing_credit": 15000,
+          "closing_debit": 0,
+          "code": "2120",
+          "depth": 2,
+          "drill": {
+            "accountId": 24,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "أوراق الدفع",
+          "name_en": "Notes payable",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 15000,
+          "period_debit": 0,
+          "type": "liability"
+        },
+        {
+          "account_id": 26,
+          "closing_credit": 110000,
+          "closing_debit": 0,
+          "code": "2130",
+          "depth": 2,
+          "drill": {
+            "accountId": 26,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "رواتب وأجور مستحقة",
+          "name_en": "Accrued salaries",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 110000,
+          "period_debit": 0,
+          "type": "liability"
+        },
+        {
+          "account_id": 27,
+          "closing_credit": 810,
+          "closing_debit": 0,
+          "code": "2140",
+          "depth": 2,
+          "drill": {
+            "accountId": 27,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "ضرائب ورسوم مستحقة",
+          "name_en": "Taxes payable",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 900,
+          "period_debit": 90,
+          "type": "liability"
+        },
+        {
+          "account_id": 29,
+          "closing_credit": 0,
+          "closing_debit": 0,
+          "code": "2160",
+          "depth": 2,
+          "drill": {
+            "accountId": 29,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "بضاعة مستلمة لم تصل فواتيرها",
+          "name_en": "Goods received not invoiced (GRNI)",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 60000,
+          "period_debit": 60000,
+          "type": "liability"
+        },
+        {
+          "account_id": 37,
+          "closing_credit": 18100,
+          "closing_debit": 0,
+          "code": "4",
+          "depth": 0,
+          "drill": {
+            "accountId": 37,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": true,
+          "name_ar": "الإيرادات",
+          "name_en": "Revenue",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 19000,
+          "period_debit": 900,
+          "type": "revenue"
+        },
+        {
+          "account_id": 38,
+          "closing_credit": 19000,
+          "closing_debit": 0,
+          "code": "4100",
+          "depth": 1,
+          "drill": {
+            "accountId": 38,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "إيرادات المبيعات",
+          "name_en": "Sales revenue",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 19000,
+          "period_debit": 0,
+          "type": "revenue"
+        },
+        {
+          "account_id": 39,
+          "closing_credit": 0,
+          "closing_debit": 900,
+          "code": "4200",
+          "depth": 1,
+          "drill": {
+            "accountId": 39,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "مردودات ومسموحات المبيعات",
+          "name_en": "Sales returns and allowances",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 0,
+          "period_debit": 900,
+          "type": "revenue"
+        },
+        {
+          "account_id": 42,
+          "closing_credit": 0,
+          "closing_debit": 10400,
+          "code": "5",
+          "depth": 0,
+          "drill": {
+            "accountId": 42,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": true,
+          "name_ar": "تكلفة المبيعات",
+          "name_en": "Cost of sales",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 0,
+          "period_debit": 10400,
+          "type": "expense"
+        },
+        {
+          "account_id": 43,
+          "closing_credit": 0,
+          "closing_debit": 10000,
+          "code": "5100",
+          "depth": 1,
+          "drill": {
+            "accountId": 43,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "تكلفة البضاعة المباعة",
+          "name_en": "Cost of goods sold",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 0,
+          "period_debit": 10000,
+          "type": "expense"
+        },
+        {
+          "account_id": 49,
+          "closing_credit": 0,
+          "closing_debit": 400,
+          "code": "5800",
+          "depth": 1,
+          "drill": {
+            "accountId": 49,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "فروقات الجرد وتسويات المخزون",
+          "name_en": "Inventory count and adjustment differences",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 0,
+          "period_debit": 400,
+          "type": "expense"
+        },
+        {
+          "account_id": 51,
+          "closing_credit": 0,
+          "closing_debit": 168000,
+          "code": "6",
+          "depth": 0,
+          "drill": {
+            "accountId": 51,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": true,
+          "name_ar": "المصاريف",
+          "name_en": "Expenses",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 0,
+          "period_debit": 168000,
+          "type": "expense"
+        },
+        {
+          "account_id": 52,
+          "closing_credit": 0,
+          "closing_debit": 120000,
+          "code": "6100",
+          "depth": 1,
+          "drill": {
+            "accountId": 52,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "الرواتب والأجور",
+          "name_en": "Salaries and wages",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 0,
+          "period_debit": 120000,
+          "type": "expense"
+        },
+        {
+          "account_id": 53,
+          "closing_credit": 0,
+          "closing_debit": 40000,
+          "code": "6200",
+          "depth": 1,
+          "drill": {
+            "accountId": 53,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "الإيجارات",
+          "name_en": "Rent",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 0,
+          "period_debit": 40000,
+          "type": "expense"
+        },
+        {
+          "account_id": 56,
+          "closing_credit": 0,
+          "closing_debit": 8000,
+          "code": "6500",
+          "depth": 1,
+          "drill": {
+            "accountId": 56,
+            "branchId": null,
+            "costCenterId": null,
+            "from": "2026-01-01",
+            "projectId": null,
+            "to": "2026-12-31"
+          },
+          "is_header": false,
+          "name_ar": "مصاريف إدارية وعمومية",
+          "name_en": "General and administrative",
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 0,
+          "period_debit": 8000,
+          "type": "expense"
+        }
+      ],
+      "to": "2026-12-31",
+      "totals": {
+        "closing_credit": 245810,
+        "closing_debit": 245810,
+        "opening_credit": 0,
+        "opening_debit": 0,
+        "period_credit": 357290,
+        "period_debit": 357290
+      }
+    },
+    "status": 200
+  }
+}

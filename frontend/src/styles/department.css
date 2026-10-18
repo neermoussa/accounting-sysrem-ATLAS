@@ -1,0 +1,167 @@
+/* Department dashboards (warehouse / accounting / vendors).
+   Reads theme.css tokens only — no hardcoded colors. Spacing follows the
+   --atlas-space-* scale: 8 inside a component, 16 between siblings, 24-32
+   between sections, 48 only between a page header and its first section. */
+
+.dept-page {
+  max-width: var(--atlas-page-max);
+  margin-inline: auto;
+  padding: var(--atlas-page-pad-top) var(--atlas-page-pad-x) var(--atlas-page-pad-bottom);
+  display: flex;
+  flex-direction: column;
+  gap: var(--atlas-section-gap);
+}
+
+.dept-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--atlas-space-4);
+  padding-bottom: var(--atlas-space-5);
+  border-bottom: 1px solid var(--atlas-border-soft);
+}
+.dept-head-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--atlas-radius-card);
+  background: var(--atlas-raised);
+  border: 1px solid var(--atlas-border);
+  color: var(--atlas-text);
+}
+.dept-head-icon svg { width: 24px; height: 24px; }
+.dept-eyebrow {
+  margin: 0 0 var(--atlas-space-1);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--atlas-text-faint);
+}
+.dept-title {
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.dept-lede {
+  margin: var(--atlas-space-2) 0 0;
+  max-width: 60ch;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--atlas-text-muted);
+}
+
+.dept-section { display: flex; flex-direction: column; gap: var(--atlas-space-4); }
+.dept-section-title { font-size: 1rem; color: var(--atlas-text-secondary); font-weight: 600; }
+.dept-note { margin: 0; font-size: 0.78rem; line-height: 1.6; color: var(--atlas-text-faint); }
+
+.dept-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(236px, 1fr));
+  gap: var(--atlas-space-4);
+}
+.dept-stat {
+  display: flex;
+  flex-direction: column;
+  background: var(--atlas-panel);
+  border: 1px solid var(--atlas-border);
+  border-radius: var(--atlas-radius-card);
+  overflow: hidden;
+  transition: border-color var(--atlas-motion-fast) var(--atlas-ease);
+}
+.dept-stat:hover { border-color: var(--atlas-border-strong); }
+.dept-stat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--atlas-space-2);
+  padding: var(--atlas-space-4) var(--atlas-space-5);
+  min-height: 112px;
+  color: inherit;
+}
+a.dept-stat-main:hover { background: var(--atlas-raised); }
+.dept-stat-label { font-size: 0.8rem; line-height: 1.5; color: var(--atlas-text-muted); }
+.dept-stat-value {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--atlas-text);
+  font-variant-numeric: tabular-nums;
+}
+.dept-stat-value.is-warn { color: var(--atlas-warning); }
+.dept-stat-value.is-muted { color: var(--atlas-text-faint); }
+.dept-stat-sub { font-size: 0.74rem; color: var(--atlas-text-faint); }
+
+.dept-stat-shared {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--atlas-space-2);
+  padding: var(--atlas-space-2) var(--atlas-space-5);
+  border-top: 1px solid var(--atlas-border-soft);
+  background: var(--atlas-raised);
+  font-size: 0.72rem;
+  color: var(--atlas-text-faint);
+}
+.dept-chip {
+  padding: 2px 10px;
+  border-radius: var(--atlas-radius-pill);
+  background: var(--atlas-accent-soft);
+  border: 1px solid var(--atlas-border);
+  color: var(--atlas-text-secondary);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+a.dept-chip:hover { border-color: var(--atlas-border-strong); color: var(--atlas-text); }
+
+.dept-shortcuts { display: flex; flex-wrap: wrap; gap: var(--atlas-space-3); }
+.dept-shortcut {
+  padding: var(--atlas-space-3) var(--atlas-space-4);
+  border-radius: var(--atlas-radius-control);
+  background: var(--atlas-panel);
+  border: 1px solid var(--atlas-border);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--atlas-text-secondary);
+  transition: background var(--atlas-motion-fast) var(--atlas-ease), border-color var(--atlas-motion-fast) var(--atlas-ease), color var(--atlas-motion-fast) var(--atlas-ease);
+}
+.dept-shortcut:hover { background: var(--atlas-raised); border-color: var(--atlas-border-strong); color: var(--atlas-text); }
+
+.dept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--atlas-space-4); align-items: start; }
+.dept-card {
+  background: var(--atlas-panel);
+  border: 1px solid var(--atlas-border);
+  border-radius: var(--atlas-radius-card);
+  padding: var(--atlas-space-5);
+}
+.dept-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--atlas-space-3); margin-bottom: var(--atlas-space-3); }
+.dept-card-head h2 { font-size: 0.95rem; font-weight: 600; }
+.dept-card-link { font-size: 0.78rem; color: var(--atlas-text-muted); }
+.dept-card-link:hover { color: var(--atlas-text); }
+
+.dept-rows { list-style: none; margin: 0; padding: 0; }
+.dept-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--atlas-space-4);
+  padding: var(--atlas-space-3) 0;
+  font-size: 0.88rem;
+  color: var(--atlas-text-secondary);
+}
+.dept-row + .dept-row { border-top: 1px solid var(--atlas-border-soft); }
+.dept-row-val { font-variant-numeric: tabular-nums; color: var(--atlas-text); font-weight: 600; white-space: nowrap; }
+.dept-row-val.is-warn { color: var(--atlas-warning); }
+
+.dept-empty { margin: 0; font-size: 0.86rem; line-height: 1.7; color: var(--atlas-text-muted); }
+.dept-error { display: flex; align-items: center; justify-content: space-between; gap: var(--atlas-space-4); flex-wrap: wrap; }
+.dept-error p { margin: 0; color: var(--atlas-text-secondary); }
+
+@media (max-width: 768px) {
+  .dept-page { gap: var(--atlas-space-5); }
+  .dept-stats { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--atlas-space-3); }
+  .dept-stat-main { padding: var(--atlas-space-3) var(--atlas-space-4); min-height: 96px; }
+  .dept-stat-shared { padding-inline: var(--atlas-space-4); }
+  .dept-grid { grid-template-columns: 1fr; }
+}

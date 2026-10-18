@@ -1,0 +1,1246 @@
+{
+  "steps": {
+    "car_create_p2": {
+      "body": {
+        "company_id": 1,
+        "current_quantity": 6,
+        "id": 1,
+        "item_name": "شاي 500غ",
+        "lowStock": false,
+        "low_stock_alert_active": 0,
+        "min_quantity": 2,
+        "product_id": 2
+      },
+      "status": 201
+    },
+    "car_list": {
+      "body": [
+        {
+          "company_id": 1,
+          "current_quantity": 4,
+          "id": 3,
+          "item_name": "رز 5كغ",
+          "lowStock": false,
+          "low_stock_alert_active": 0,
+          "min_quantity": 0,
+          "product_id": 3
+        },
+        {
+          "company_id": 1,
+          "current_quantity": 24,
+          "id": 2,
+          "item_name": "سكر 1كغ",
+          "lowStock": false,
+          "low_stock_alert_active": 0,
+          "min_quantity": 0,
+          "product_id": 1
+        },
+        {
+          "company_id": 1,
+          "current_quantity": 14,
+          "id": 1,
+          "item_name": "شاي 500غ",
+          "lowStock": false,
+          "low_stock_alert_active": 0,
+          "min_quantity": 2,
+          "product_id": 2
+        }
+      ],
+      "status": 200
+    },
+    "car_quantity": {
+      "body": {
+        "company_id": 1,
+        "current_quantity": 5,
+        "id": 1,
+        "item_name": "شاي 500غ",
+        "lowStock": false,
+        "low_stock_alert_active": 0,
+        "min_quantity": 2,
+        "product_id": 2
+      },
+      "status": 200
+    },
+    "factory_alerts": {
+      "body": [],
+      "status": 200
+    },
+    "factory_count": {
+      "body": {
+        "count": {
+          "company_id": 1,
+          "filename": "جرد الشهر",
+          "id": 1,
+          "item_count": 2,
+          "variance_count": 1,
+          "warehouse": "factory"
+        }
+      },
+      "status": 201
+    },
+    "factory_count_history": {
+      "body": [
+        {
+          "company_id": 1,
+          "filename": "جرد الشهر",
+          "id": 1,
+          "item_count": 2,
+          "variance_count": 1,
+          "warehouse": "factory"
+        }
+      ],
+      "status": 200
+    },
+    "factory_create_p1": {
+      "body": {
+        "company_id": 1,
+        "current_quantity": 100,
+        "id": 1,
+        "item_name": "سكر 1كغ",
+        "lowStock": false,
+        "low_stock_alert_active": 0,
+        "min_quantity": 20,
+        "product_id": 1
+      },
+      "status": 201
+    },
+    "factory_create_p3": {
+      "body": {
+        "company_id": 1,
+        "current_quantity": 40,
+        "id": 3,
+        "item_name": "رز 5كغ",
+        "lowStock": false,
+        "low_stock_alert_active": 0,
+        "min_quantity": 0,
+        "product_id": 3
+      },
+      "status": 201
+    },
+    "factory_create_typed": {
+      "body": {
+        "company_id": 1,
+        "current_quantity": 8,
+        "id": 2,
+        "item_name": "زيت 1ل",
+        "lowStock": true,
+        "low_stock_alert_active": 0,
+        "min_quantity": 10,
+        "product_id": 4
+      },
+      "status": 201
+    },
+    "factory_delete": {
+      "body": null,
+      "status": 204
+    },
+    "factory_duplicate_refused": {
+      "body": {
+        "error": "product_already_in_inventory",
+        "message": "هذا المنتج له سطر مخزون بالفعل — عدّل الكمية على السطر الموجود"
+      },
+      "status": 409
+    },
+    "factory_edit": {
+      "body": {
+        "company_id": 1,
+        "current_quantity": 12,
+        "id": 2,
+        "item_name": "زيت 1ل",
+        "lowStock": false,
+        "low_stock_alert_active": 0,
+        "min_quantity": 10,
+        "product_id": 4
+      },
+      "status": 200
+    },
+    "factory_list": {
+      "body": [
+        {
+          "company_id": 1,
+          "current_quantity": 40,
+          "id": 3,
+          "item_name": "رز 5كغ",
+          "lowStock": false,
+          "low_stock_alert_active": 0,
+          "min_quantity": 0,
+          "product_id": 3
+        },
+        {
+          "company_id": 1,
+          "current_quantity": 87,
+          "id": 1,
+          "item_name": "سكر 1كغ",
+          "lowStock": false,
+          "low_stock_alert_active": 0,
+          "min_quantity": 20,
+          "product_id": 1
+        }
+      ],
+      "status": 200
+    },
+    "factory_quantity": {
+      "body": {
+        "company_id": 1,
+        "current_quantity": 90,
+        "id": 1,
+        "item_name": "سكر 1كغ",
+        "lowStock": false,
+        "low_stock_alert_active": 0,
+        "min_quantity": 20,
+        "product_id": 1
+      },
+      "status": 200
+    },
+    "product_رز 5كغ": {
+      "body": {
+        "active": 1,
+        "amin_code": null,
+        "barcode": null,
+        "base_price": null,
+        "box_weight_grams": null,
+        "brand": null,
+        "category": null,
+        "company_id": 1,
+        "cost_price": null,
+        "description": null,
+        "id": 3,
+        "image_url": null,
+        "name": "رز 5كغ",
+        "sku": null,
+        "sort_order": 3,
+        "unit": null
+      },
+      "status": 201
+    },
+    "product_سكر 1كغ": {
+      "body": {
+        "active": 1,
+        "amin_code": null,
+        "barcode": null,
+        "base_price": null,
+        "box_weight_grams": null,
+        "brand": null,
+        "category": null,
+        "company_id": 1,
+        "cost_price": null,
+        "description": null,
+        "id": 1,
+        "image_url": null,
+        "name": "سكر 1كغ",
+        "sku": null,
+        "sort_order": 1,
+        "unit": null
+      },
+      "status": 201
+    },
+    "product_شاي 500غ": {
+      "body": {
+        "active": 1,
+        "amin_code": null,
+        "barcode": null,
+        "base_price": null,
+        "box_weight_grams": null,
+        "brand": null,
+        "category": null,
+        "company_id": 1,
+        "cost_price": null,
+        "description": null,
+        "id": 2,
+        "image_url": null,
+        "name": "شاي 500غ",
+        "sku": null,
+        "sort_order": 2,
+        "unit": null
+      },
+      "status": 201
+    },
+    "return_approve": {
+      "body": {
+        "company_id": 1,
+        "creditApplied": null,
+        "financial_adjustment_amount": null,
+        "financial_adjustment_applied": 0,
+        "id": 1,
+        "items": [
+          {
+            "company_id": 1,
+            "discrepancy_reason": null,
+            "id": 1,
+            "inspected_qty": 4,
+            "inspection_notes": null,
+            "inspection_status": "valid",
+            "product_id": 3,
+            "product_name": "رز 5كغ",
+            "requested_qty": 4,
+            "restocked": 1,
+            "return_request_id": 1,
+            "unit_key": null,
+            "unit_value": 7.5
+          },
+          {
+            "company_id": 1,
+            "discrepancy_reason": null,
+            "id": 2,
+            "inspected_qty": 1,
+            "inspection_notes": null,
+            "inspection_status": "valid",
+            "product_id": null,
+            "product_name": "مادة بلا رقم",
+            "requested_qty": 1,
+            "restocked": 0,
+            "return_request_id": 1,
+            "unit_key": null,
+            "unit_value": null
+          }
+        ],
+        "media": [],
+        "order_id": null,
+        "reason": "زيادة",
+        "requested_by_id": 3,
+        "requested_by_name": "مندوب المناقلات",
+        "review_notes": null,
+        "shop_id": 1,
+        "status": "approved"
+      },
+      "status": 200
+    },
+    "return_create": {
+      "body": {
+        "company_id": 1,
+        "financial_adjustment_amount": null,
+        "financial_adjustment_applied": 0,
+        "id": 1,
+        "items": [
+          {
+            "company_id": 1,
+            "discrepancy_reason": null,
+            "id": 1,
+            "inspected_qty": null,
+            "inspection_notes": null,
+            "inspection_status": "pending_inspection",
+            "product_id": 3,
+            "product_name": "رز 5كغ",
+            "requested_qty": 4,
+            "restocked": 0,
+            "return_request_id": 1,
+            "unit_key": null,
+            "unit_value": 7.5
+          },
+          {
+            "company_id": 1,
+            "discrepancy_reason": null,
+            "id": 2,
+            "inspected_qty": null,
+            "inspection_notes": null,
+            "inspection_status": "pending_inspection",
+            "product_id": null,
+            "product_name": "مادة بلا رقم",
+            "requested_qty": 1,
+            "restocked": 0,
+            "return_request_id": 1,
+            "unit_key": null,
+            "unit_value": null
+          }
+        ],
+        "media": [],
+        "order_id": null,
+        "reason": "زيادة",
+        "requested_by_id": 3,
+        "requested_by_name": "مندوب المناقلات",
+        "review_notes": null,
+        "shop_id": 1,
+        "status": "pending_review"
+      },
+      "status": 201
+    },
+    "return_inspect_1": {
+      "body": {
+        "company_id": 1,
+        "discrepancy_reason": null,
+        "id": 1,
+        "inspected_qty": 4,
+        "inspection_notes": null,
+        "inspection_status": "valid",
+        "product_id": 3,
+        "product_name": "رز 5كغ",
+        "requested_qty": 4,
+        "restocked": 0,
+        "return_request_id": 1,
+        "unit_key": null,
+        "unit_value": 7.5
+      },
+      "status": 200
+    },
+    "return_inspect_2": {
+      "body": {
+        "company_id": 1,
+        "discrepancy_reason": null,
+        "id": 2,
+        "inspected_qty": 1,
+        "inspection_notes": null,
+        "inspection_status": "valid",
+        "product_id": null,
+        "product_name": "مادة بلا رقم",
+        "requested_qty": 1,
+        "restocked": 0,
+        "return_request_id": 1,
+        "unit_key": null,
+        "unit_value": null
+      },
+      "status": 200
+    },
+    "shop": {
+      "body": {
+        "active": 1,
+        "address": null,
+        "assigned_rep_id": null,
+        "avgIntervalDays": null,
+        "balance": null,
+        "balance_date": null,
+        "branch": null,
+        "business_type": null,
+        "classification": null,
+        "company_id": 1,
+        "contact_person": null,
+        "custom_fields": {},
+        "custom_fields_json": "{}",
+        "daysSinceOrder": null,
+        "debtThreshold": 500,
+        "debt_alert_active": 0,
+        "debt_threshold_override": null,
+        "email": null,
+        "expectedCycleDays": 14,
+        "id": 1,
+        "isAbnormallyOverdue": false,
+        "isOverDebt": false,
+        "isOverdue": false,
+        "lastOrderDate": null,
+        "lat": 33.5,
+        "lng": 36.3,
+        "name": "زبون المرتجع",
+        "notes": null,
+        "order_overdue_days_override": null,
+        "overdue_alert_active": 0,
+        "owner_name": null,
+        "phone": null,
+        "public_token": "<TOKEN>",
+        "region": null,
+        "status": "green",
+        "warehouse_id": null,
+        "whatsapp_customer_notify_enabled": 1,
+        "working_hours": null
+      },
+      "status": 201
+    },
+    "sync_count": {
+      "body": {
+        "results": [
+          {
+            "base_version": null,
+            "client_id": "c1",
+            "company_id": 1,
+            "entity_type": "inventory_count",
+            "error_message": null,
+            "id": 1,
+            "idempotency_key": "golden-count-1",
+            "operation": "create",
+            "payload": {
+              "productId": 1,
+              "quantity": 24
+            },
+            "payload_json": "{\"productId\":1,\"quantity\":24}",
+            "result": {
+              "company_id": 1,
+              "current_quantity": 24,
+              "id": 2,
+              "item_name": "سكر 1كغ",
+              "low_stock_alert_active": 0,
+              "min_quantity": 0,
+              "product_id": 1
+            },
+            "result_json": "{\"id\":2,\"company_id\":1,\"item_name\":\"سكر 1كغ\",\"product_id\":1,\"current_quantity\":24,\"min_quantity\":0,\"low_stock_alert_active\":0,\"created_at\":\"<TS>\",\"updated_at\":\"<TS>\"}",
+            "server_entity_id": 2,
+            "status": "applied",
+            "user_id": 1
+          }
+        ]
+      },
+      "status": 201
+    },
+    "transfer_confirm": {
+      "body": {
+        "company_id": 1,
+        "confirmed_by_id": 3,
+        "confirmed_by_name": "مندوب المناقلات",
+        "destination_label": "سيارة 1 / مندوب المناقلات",
+        "id": 1,
+        "items": [
+          {
+            "company_id": 1,
+            "discrepancy_note": null,
+            "discrepancy_reason": null,
+            "discrepancy_resolved_by_id": null,
+            "discrepancy_resolved_by_name": null,
+            "id": 1,
+            "prepared_qty": 25,
+            "product_id": 1,
+            "product_name": "سكر 1كغ",
+            "received_qty": 25,
+            "transfer_id": 1,
+            "unit_key": null,
+            "variance_qty": 0
+          },
+          {
+            "company_id": 1,
+            "discrepancy_note": null,
+            "discrepancy_reason": null,
+            "discrepancy_resolved_by_id": null,
+            "discrepancy_resolved_by_name": null,
+            "id": 2,
+            "prepared_qty": 10,
+            "product_id": 2,
+            "product_name": "شاي 500غ",
+            "received_qty": 9,
+            "transfer_id": 1,
+            "unit_key": null,
+            "variance_qty": -1
+          },
+          {
+            "company_id": 1,
+            "discrepancy_note": null,
+            "discrepancy_reason": null,
+            "discrepancy_resolved_by_id": null,
+            "discrepancy_resolved_by_name": null,
+            "id": 3,
+            "prepared_qty": 50,
+            "product_id": null,
+            "product_name": "أكياس",
+            "received_qty": 50,
+            "transfer_id": 1,
+            "unit_key": null,
+            "variance_qty": 0
+          }
+        ],
+        "mismatched": [
+          {
+            "company_id": 1,
+            "discrepancy_note": null,
+            "discrepancy_reason": null,
+            "discrepancy_resolved_by_id": null,
+            "discrepancy_resolved_by_name": null,
+            "id": 2,
+            "prepared_qty": 10,
+            "product_id": 2,
+            "product_name": "شاي 500غ",
+            "received_qty": 9,
+            "transfer_id": 1,
+            "unit_key": null,
+            "variance_qty": -1
+          }
+        ],
+        "notes": "تحميل الصباح",
+        "prepared_by_id": 2,
+        "prepared_by_name": "أمين المستودع",
+        "readied_by_id": 2,
+        "readied_by_name": "أمين المستودع",
+        "rep_id": 3,
+        "source_replenish_request_id": null,
+        "status": "discrepancy",
+        "vehicle_id": 1,
+        "warehouse_id": 1,
+        "warehouse_name": "المستودع المركزي"
+      },
+      "status": 200
+    },
+    "transfer_create": {
+      "body": {
+        "company_id": 1,
+        "confirmed_by_id": null,
+        "confirmed_by_name": null,
+        "destination_label": "سيارة 1 / مندوب المناقلات",
+        "id": 1,
+        "items": [],
+        "notes": "تحميل الصباح",
+        "prepared_by_id": 2,
+        "prepared_by_name": "أمين المستودع",
+        "readied_by_id": null,
+        "readied_by_name": null,
+        "rep_id": 3,
+        "source_replenish_request_id": null,
+        "status": "pending_preparation",
+        "vehicle_id": 1,
+        "warehouse_id": 1,
+        "warehouse_name": "المستودع المركزي"
+      },
+      "status": 201
+    },
+    "transfer_detail": {
+      "body": {
+        "company_id": 1,
+        "confirmed_by_id": null,
+        "confirmed_by_name": null,
+        "destination_label": "سيارة 1 / مندوب المناقلات",
+        "id": 1,
+        "items": [
+          {
+            "company_id": 1,
+            "discrepancy_note": null,
+            "discrepancy_reason": null,
+            "discrepancy_resolved_by_id": null,
+            "discrepancy_resolved_by_name": null,
+            "id": 1,
+            "prepared_qty": 25,
+            "product_id": 1,
+            "product_name": "سكر 1كغ",
+            "received_qty": null,
+            "transfer_id": 1,
+            "unit_key": null,
+            "variance_qty": null
+          },
+          {
+            "company_id": 1,
+            "discrepancy_note": null,
+            "discrepancy_reason": null,
+            "discrepancy_resolved_by_id": null,
+            "discrepancy_resolved_by_name": null,
+            "id": 2,
+            "prepared_qty": 10,
+            "product_id": 2,
+            "product_name": "شاي 500غ",
+            "received_qty": null,
+            "transfer_id": 1,
+            "unit_key": null,
+            "variance_qty": null
+          },
+          {
+            "company_id": 1,
+            "discrepancy_note": null,
+            "discrepancy_reason": null,
+            "discrepancy_resolved_by_id": null,
+            "discrepancy_resolved_by_name": null,
+            "id": 3,
+            "prepared_qty": 50,
+            "product_id": null,
+            "product_name": "أكياس",
+            "received_qty": null,
+            "transfer_id": 1,
+            "unit_key": null,
+            "variance_qty": null
+          }
+        ],
+        "notes": "تحميل الصباح",
+        "prepared_by_id": 2,
+        "prepared_by_name": "أمين المستودع",
+        "readied_by_id": 2,
+        "readied_by_name": "أمين المستودع",
+        "rep_id": 3,
+        "source_replenish_request_id": null,
+        "status": "loading",
+        "vehicle_id": 1,
+        "warehouse_id": 1,
+        "warehouse_name": "المستودع المركزي"
+      },
+      "status": 200
+    },
+    "transfer_final": {
+      "body": {
+        "company_id": 1,
+        "confirmed_by_id": 3,
+        "confirmed_by_name": "مندوب المناقلات",
+        "destination_label": "سيارة 1 / مندوب المناقلات",
+        "id": 1,
+        "items": [
+          {
+            "company_id": 1,
+            "discrepancy_note": null,
+            "discrepancy_reason": null,
+            "discrepancy_resolved_by_id": null,
+            "discrepancy_resolved_by_name": null,
+            "id": 1,
+            "prepared_qty": 25,
+            "product_id": 1,
+            "product_name": "سكر 1كغ",
+            "received_qty": 25,
+            "transfer_id": 1,
+            "unit_key": null,
+            "variance_qty": 0
+          },
+          {
+            "company_id": 1,
+            "discrepancy_note": "علبة مكسورة",
+            "discrepancy_reason": "كسر",
+            "discrepancy_resolved_by_id": 1,
+            "discrepancy_resolved_by_name": "مدير الاختبار",
+            "id": 2,
+            "prepared_qty": 10,
+            "product_id": 2,
+            "product_name": "شاي 500غ",
+            "received_qty": 9,
+            "transfer_id": 1,
+            "unit_key": null,
+            "variance_qty": -1
+          },
+          {
+            "company_id": 1,
+            "discrepancy_note": null,
+            "discrepancy_reason": null,
+            "discrepancy_resolved_by_id": null,
+            "discrepancy_resolved_by_name": null,
+            "id": 3,
+            "prepared_qty": 50,
+            "product_id": null,
+            "product_name": "أكياس",
+            "received_qty": 50,
+            "transfer_id": 1,
+            "unit_key": null,
+            "variance_qty": 0
+          }
+        ],
+        "notes": "تحميل الصباح",
+        "prepared_by_id": 2,
+        "prepared_by_name": "أمين المستودع",
+        "readied_by_id": 2,
+        "readied_by_name": "أمين المستودع",
+        "rep_id": 3,
+        "source_replenish_request_id": null,
+        "status": "closed",
+        "vehicle_id": 1,
+        "warehouse_id": 1,
+        "warehouse_name": "المستودع المركزي"
+      },
+      "status": 200
+    },
+    "transfer_item_free": {
+      "body": {
+        "company_id": 1,
+        "discrepancy_note": null,
+        "discrepancy_reason": null,
+        "discrepancy_resolved_by_id": null,
+        "discrepancy_resolved_by_name": null,
+        "id": 3,
+        "prepared_qty": 50,
+        "product_id": null,
+        "product_name": "أكياس",
+        "received_qty": null,
+        "transfer_id": 1,
+        "unit_key": null,
+        "variance_qty": null
+      },
+      "status": 201
+    },
+    "transfer_item_p1": {
+      "body": {
+        "company_id": 1,
+        "discrepancy_note": null,
+        "discrepancy_reason": null,
+        "discrepancy_resolved_by_id": null,
+        "discrepancy_resolved_by_name": null,
+        "id": 1,
+        "prepared_qty": 20,
+        "product_id": 1,
+        "product_name": "سكر 1كغ",
+        "received_qty": null,
+        "transfer_id": 1,
+        "unit_key": null,
+        "variance_qty": null
+      },
+      "status": 201
+    },
+    "transfer_item_p1_merge": {
+      "body": {
+        "company_id": 1,
+        "discrepancy_note": null,
+        "discrepancy_reason": null,
+        "discrepancy_resolved_by_id": null,
+        "discrepancy_resolved_by_name": null,
+        "id": 1,
+        "prepared_qty": 25,
+        "product_id": 1,
+        "product_name": "سكر 1كغ",
+        "received_qty": null,
+        "transfer_id": 1,
+        "unit_key": null,
+        "variance_qty": null
+      },
+      "status": 200
+    },
+    "transfer_item_p2": {
+      "body": {
+        "company_id": 1,
+        "discrepancy_note": null,
+        "discrepancy_reason": null,
+        "discrepancy_resolved_by_id": null,
+        "discrepancy_resolved_by_name": null,
+        "id": 2,
+        "prepared_qty": 10,
+        "product_id": 2,
+        "product_name": "شاي 500غ",
+        "received_qty": null,
+        "transfer_id": 1,
+        "unit_key": null,
+        "variance_qty": null
+      },
+      "status": 201
+    },
+    "transfer_ready": {
+      "body": {
+        "company_id": 1,
+        "confirmed_by_id": null,
+        "confirmed_by_name": null,
+        "destination_label": "سيارة 1 / مندوب المناقلات",
+        "id": 1,
+        "items": [
+          {
+            "company_id": 1,
+            "discrepancy_note": null,
+            "discrepancy_reason": null,
+            "discrepancy_resolved_by_id": null,
+            "discrepancy_resolved_by_name": null,
+            "id": 1,
+            "prepared_qty": 25,
+            "product_id": 1,
+            "product_name": "سكر 1كغ",
+            "received_qty": null,
+            "transfer_id": 1,
+            "unit_key": null,
+            "variance_qty": null
+          },
+          {
+            "company_id": 1,
+            "discrepancy_note": null,
+            "discrepancy_reason": null,
+            "discrepancy_resolved_by_id": null,
+            "discrepancy_resolved_by_name": null,
+            "id": 2,
+            "prepared_qty": 10,
+            "product_id": 2,
+            "product_name": "شاي 500غ",
+            "received_qty": null,
+            "transfer_id": 1,
+            "unit_key": null,
+            "variance_qty": null
+          },
+          {
+            "company_id": 1,
+            "discrepancy_note": null,
+            "discrepancy_reason": null,
+            "discrepancy_resolved_by_id": null,
+            "discrepancy_resolved_by_name": null,
+            "id": 3,
+            "prepared_qty": 50,
+            "product_id": null,
+            "product_name": "أكياس",
+            "received_qty": null,
+            "transfer_id": 1,
+            "unit_key": null,
+            "variance_qty": null
+          }
+        ],
+        "notes": "تحميل الصباح",
+        "prepared_by_id": 2,
+        "prepared_by_name": "أمين المستودع",
+        "readied_by_id": 2,
+        "readied_by_name": "أمين المستودع",
+        "rep_id": 3,
+        "source_replenish_request_id": null,
+        "status": "loading",
+        "vehicle_id": 1,
+        "warehouse_id": 1,
+        "warehouse_name": "المستودع المركزي"
+      },
+      "status": 200
+    },
+    "transfer_resolve": {
+      "body": {
+        "item": {
+          "company_id": 1,
+          "discrepancy_note": "علبة مكسورة",
+          "discrepancy_reason": "كسر",
+          "discrepancy_resolved_by_id": 1,
+          "discrepancy_resolved_by_name": "مدير الاختبار",
+          "id": 2,
+          "prepared_qty": 10,
+          "product_id": 2,
+          "product_name": "شاي 500غ",
+          "received_qty": 9,
+          "transfer_id": 1,
+          "unit_key": null,
+          "variance_qty": -1
+        },
+        "transfer": {
+          "company_id": 1,
+          "confirmed_by_id": 3,
+          "confirmed_by_name": "مندوب المناقلات",
+          "destination_label": "سيارة 1 / مندوب المناقلات",
+          "id": 1,
+          "items": [
+            {
+              "company_id": 1,
+              "discrepancy_note": null,
+              "discrepancy_reason": null,
+              "discrepancy_resolved_by_id": null,
+              "discrepancy_resolved_by_name": null,
+              "id": 1,
+              "prepared_qty": 25,
+              "product_id": 1,
+              "product_name": "سكر 1كغ",
+              "received_qty": 25,
+              "transfer_id": 1,
+              "unit_key": null,
+              "variance_qty": 0
+            },
+            {
+              "company_id": 1,
+              "discrepancy_note": "علبة مكسورة",
+              "discrepancy_reason": "كسر",
+              "discrepancy_resolved_by_id": 1,
+              "discrepancy_resolved_by_name": "مدير الاختبار",
+              "id": 2,
+              "prepared_qty": 10,
+              "product_id": 2,
+              "product_name": "شاي 500غ",
+              "received_qty": 9,
+              "transfer_id": 1,
+              "unit_key": null,
+              "variance_qty": -1
+            },
+            {
+              "company_id": 1,
+              "discrepancy_note": null,
+              "discrepancy_reason": null,
+              "discrepancy_resolved_by_id": null,
+              "discrepancy_resolved_by_name": null,
+              "id": 3,
+              "prepared_qty": 50,
+              "product_id": null,
+              "product_name": "أكياس",
+              "received_qty": 50,
+              "transfer_id": 1,
+              "unit_key": null,
+              "variance_qty": 0
+            }
+          ],
+          "notes": "تحميل الصباح",
+          "prepared_by_id": 2,
+          "prepared_by_name": "أمين المستودع",
+          "readied_by_id": 2,
+          "readied_by_name": "أمين المستودع",
+          "rep_id": 3,
+          "source_replenish_request_id": null,
+          "status": "closed",
+          "vehicle_id": 1,
+          "warehouse_id": 1,
+          "warehouse_name": "المستودع المركزي"
+        }
+      },
+      "status": 200
+    },
+    "vehicle": {
+      "body": {
+        "company_id": 1,
+        "id": 1,
+        "label": "سيارة 1"
+      },
+      "status": 201
+    },
+    "warehouse": {
+      "body": {
+        "branch": null,
+        "company_id": 1,
+        "id": 1,
+        "kind": "factory",
+        "name": "المستودع المركزي"
+      },
+      "status": 201
+    }
+  },
+  "tables": {
+    "car_inventory": [
+      {
+        "current_quantity": 14,
+        "id": 1,
+        "item_name": "شاي 500غ",
+        "low_stock_alert_active": 0,
+        "min_quantity": 2,
+        "product_id": 2
+      },
+      {
+        "current_quantity": 24,
+        "id": 2,
+        "item_name": "سكر 1كغ",
+        "low_stock_alert_active": 0,
+        "min_quantity": 0,
+        "product_id": 1
+      },
+      {
+        "current_quantity": 4,
+        "id": 3,
+        "item_name": "رز 5كغ",
+        "low_stock_alert_active": 0,
+        "min_quantity": 0,
+        "product_id": 3
+      }
+    ],
+    "custody_transfer_changes": [
+      {
+        "action": "create",
+        "after_value": null,
+        "before_value": null,
+        "field": null,
+        "item_id": null,
+        "transfer_id": 1
+      },
+      {
+        "action": "start_loading",
+        "after_value": "\"loading\"",
+        "before_value": "\"pending_preparation\"",
+        "field": "status",
+        "item_id": null,
+        "transfer_id": 1
+      },
+      {
+        "action": "add_item",
+        "after_value": "20",
+        "before_value": null,
+        "field": "prepared_qty",
+        "item_id": 1,
+        "transfer_id": 1
+      },
+      {
+        "action": "merge_item",
+        "after_value": "25",
+        "before_value": "20",
+        "field": "prepared_qty",
+        "item_id": 1,
+        "transfer_id": 1
+      },
+      {
+        "action": "add_item",
+        "after_value": "10",
+        "before_value": null,
+        "field": "prepared_qty",
+        "item_id": 2,
+        "transfer_id": 1
+      },
+      {
+        "action": "add_item",
+        "after_value": "50",
+        "before_value": null,
+        "field": "prepared_qty",
+        "item_id": 3,
+        "transfer_id": 1
+      },
+      {
+        "action": "approve_readiness",
+        "after_value": "true",
+        "before_value": null,
+        "field": "readied_at",
+        "item_id": null,
+        "transfer_id": 1
+      },
+      {
+        "action": "confirm_receipt",
+        "after_value": "25",
+        "before_value": "25",
+        "field": "received_qty",
+        "item_id": 1,
+        "transfer_id": 1
+      },
+      {
+        "action": "confirm_receipt",
+        "after_value": "9",
+        "before_value": "10",
+        "field": "received_qty",
+        "item_id": 2,
+        "transfer_id": 1
+      },
+      {
+        "action": "confirm_receipt",
+        "after_value": "50",
+        "before_value": "50",
+        "field": "received_qty",
+        "item_id": 3,
+        "transfer_id": 1
+      },
+      {
+        "action": "flag_discrepancy",
+        "after_value": "\"discrepancy\"",
+        "before_value": "\"loading\"",
+        "field": "status",
+        "item_id": null,
+        "transfer_id": 1
+      },
+      {
+        "action": "resolve_discrepancy",
+        "after_value": "{\"received_qty\":9,\"variance\":-1,\"reason\":\"كسر\",\"note\":\"علبة مكسورة\"}",
+        "before_value": "{\"received_qty\":9,\"variance\":-1}",
+        "field": "discrepancy_reason",
+        "item_id": 2,
+        "transfer_id": 1
+      },
+      {
+        "action": "close",
+        "after_value": "\"closed\"",
+        "before_value": "\"discrepancy_or_loading\"",
+        "field": "status",
+        "item_id": null,
+        "transfer_id": 1
+      }
+    ],
+    "custody_transfer_items": [
+      {
+        "discrepancy_note": null,
+        "discrepancy_reason": null,
+        "id": 1,
+        "prepared_qty": 25,
+        "product_id": 1,
+        "product_name": "سكر 1كغ",
+        "received_qty": 25,
+        "variance_qty": 0
+      },
+      {
+        "discrepancy_note": "علبة مكسورة",
+        "discrepancy_reason": "كسر",
+        "id": 2,
+        "prepared_qty": 10,
+        "product_id": 2,
+        "product_name": "شاي 500غ",
+        "received_qty": 9,
+        "variance_qty": -1
+      },
+      {
+        "discrepancy_note": null,
+        "discrepancy_reason": null,
+        "id": 3,
+        "prepared_qty": 50,
+        "product_id": null,
+        "product_name": "أكياس",
+        "received_qty": 50,
+        "variance_qty": 0
+      }
+    ],
+    "custody_transfers": [
+      {
+        "confirmed_by_name": "مندوب المناقلات",
+        "id": 1,
+        "notes": "تحميل الصباح",
+        "prepared_by_name": "أمين المستودع",
+        "readied_by_name": "أمين المستودع",
+        "rep_id": 3,
+        "status": "closed",
+        "vehicle_id": 1,
+        "warehouse_id": 1
+      }
+    ],
+    "factory_inventory": [
+      {
+        "current_quantity": 87,
+        "id": 1,
+        "item_name": "سكر 1كغ",
+        "low_stock_alert_active": 0,
+        "min_quantity": 20,
+        "product_id": 1
+      },
+      {
+        "current_quantity": 40,
+        "id": 3,
+        "item_name": "رز 5كغ",
+        "low_stock_alert_active": 0,
+        "min_quantity": 0,
+        "product_id": 3
+      }
+    ],
+    "inventory_count_rows": [
+      {
+        "classification": "minor",
+        "count_id": 1,
+        "counted_quantity": 87,
+        "expected_quantity": 90,
+        "item_name": "سكر 1كغ",
+        "matched_item_id": 1,
+        "reason": "تلف",
+        "variance": -3
+      },
+      {
+        "classification": "matched",
+        "count_id": 1,
+        "counted_quantity": 12,
+        "expected_quantity": 12,
+        "item_name": "زيت 1ل",
+        "matched_item_id": 2,
+        "reason": null,
+        "variance": 0
+      }
+    ],
+    "inventory_counts": [
+      {
+        "filename": "جرد الشهر",
+        "id": 1,
+        "item_count": 2,
+        "variance_count": 1,
+        "warehouse": "factory"
+      }
+    ],
+    "notifications": [
+      {
+        "entity_id": 2,
+        "entity_type": "factory_inventory",
+        "message_ar": "⚠️ صنف وصل للحد الأدنى بـمستودع المعمل\nزيت 1ل\nالمتبقي: 8 (الحد الأدنى: 10)",
+        "type": "low_stock"
+      },
+      {
+        "entity_id": 1,
+        "entity_type": "custody_transfer",
+        "message_ar": "مناقلة #1 جاهزة على الطبلية — يرجى المرور بالمستودع لاستلامها وتأكيد الكميات.",
+        "type": "custody_transfer_ready"
+      },
+      {
+        "entity_id": 1,
+        "entity_type": "custody_transfer",
+        "message_ar": "فرق بمناقلة #1: شاي 500غ (سُلِّم 10 / استُلم 9). بانتظار سبب وملاحظة من مستخدم مخوّل قبل الإغلاق.",
+        "type": "custody_transfer_discrepancy"
+      }
+    ],
+    "products": [
+      {
+        "cost_price": null,
+        "id": 1,
+        "name": "سكر 1كغ"
+      },
+      {
+        "cost_price": null,
+        "id": 2,
+        "name": "شاي 500غ"
+      },
+      {
+        "cost_price": null,
+        "id": 3,
+        "name": "رز 5كغ"
+      },
+      {
+        "cost_price": null,
+        "id": 4,
+        "name": "زيت 1ل"
+      }
+    ],
+    "return_items": [
+      {
+        "inspected_qty": 4,
+        "inspection_status": "valid",
+        "product_id": 3,
+        "product_name": "رز 5كغ",
+        "requested_qty": 4,
+        "restocked": 1
+      },
+      {
+        "inspected_qty": 1,
+        "inspection_status": "valid",
+        "product_id": null,
+        "product_name": "مادة بلا رقم",
+        "requested_qty": 1,
+        "restocked": 0
+      }
+    ]
+  }
+}

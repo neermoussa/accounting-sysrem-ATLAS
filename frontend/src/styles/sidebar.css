@@ -1,0 +1,216 @@
+.app-sidebar {
+  width: 224px;
+  flex-shrink: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--atlas-sidebar-bg);
+  border-inline-end: 1px solid var(--atlas-sidebar-border);
+  box-shadow: none;
+  transition: width 0.18s ease;
+  overflow-x: hidden;
+  z-index: 15;
+}
+.app-sidebar.collapsed {
+  width: 76px;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px 12px;
+  flex-shrink: 0;
+}
+.sidebar-brand-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--atlas-sidebar-chip-bg);
+}
+.sidebar-brand-mark {
+  height: 26px;
+  width: 26px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 6px 12px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 14px;
+  border-radius: 12px;
+  color: var(--atlas-sidebar-text);
+  font-size: 0.86rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.sidebar-link:hover {
+  background: var(--atlas-sidebar-hover-bg);
+  color: var(--atlas-sidebar-text-hover);
+}
+.sidebar-link.active {
+  background: var(--atlas-sidebar-active-bg);
+  color: var(--atlas-sidebar-active-text);
+  box-shadow: inset 2px 0 0 var(--atlas-sidebar-active-text);
+}
+
+.sidebar-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sidebar-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.sidebar-icon.flipped svg {
+  transform: scaleX(-1);
+}
+
+.sidebar-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-collapse-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px;
+  padding: 10px;
+  background: var(--atlas-sidebar-chip-bg);
+  border: 1px solid var(--atlas-sidebar-border);
+  border-radius: 10px;
+  color: var(--atlas-sidebar-text);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.sidebar-collapse-toggle:hover {
+  background: var(--atlas-sidebar-hover-bg);
+  color: var(--atlas-sidebar-text-hover);
+}
+
+.sidebar-backdrop {
+  display: none;
+}
+
+/* Below this width the sidebar can't coexist with page content at a usable
+   size (a 248px-wide fixed column alone eats most of a small phone
+   screen), so it becomes a fixed off-canvas drawer instead: hidden by
+   translating it fully off-screen, toggled open by the hamburger button in
+   the topbar, and dismissed by a tap on its own backdrop or on a nav link. */
+@media (max-width: 768px) {
+  .app-sidebar {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 260px;
+    max-width: 82vw;
+    transform: translateX(-100%);
+    transition: transform 0.22s ease;
+    z-index: 60;
+    box-shadow: 0 0 0 transparent;
+  }
+  [dir='rtl'] .app-sidebar {
+    transform: translateX(100%);
+  }
+  .app-sidebar.collapsed {
+    /* The icon-only "collapsed" desktop state doesn't apply on mobile —
+       the drawer is either fully open or fully off-screen. */
+    width: 260px;
+  }
+  .app-sidebar.collapsed .sidebar-brand-text,
+  .app-sidebar.collapsed .sidebar-label {
+    display: inline;
+  }
+  .app-sidebar.mobile-open {
+    transform: translateX(0);
+    box-shadow: 0 0 32px rgba(0, 0, 0, 0.18);
+  }
+  .sidebar-collapse-toggle {
+    display: none;
+  }
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 15, 20, 0.35);
+    z-index: 55;
+  }
+}
+
+.sidebar-brand-wordmark {
+  display: block;
+  width: 116px;
+  height: 34px;
+  object-fit: contain;
+  object-position: left center;
+  direction: ltr;
+  flex: 0 0 auto;
+}
+.sidebar-brand:has(.sidebar-brand-wordmark) { direction: ltr; }
+.app-sidebar.collapsed .sidebar-brand-wordmark { display: none; }
+
+/* Desktop navigation rail: user-toggled collapse (icon-only) via the button
+   at the bottom, not hover — hover-to-reveal made every nav label invisible
+   by default until a pointer happened to rest on the rail. */
+@media (min-width: 769px) {
+  .app-sidebar.collapsed {
+    width: 68px;
+  }
+}
+
+/* ---- Grouped navigation (field sales / departments / system) ---- */
+.sidebar-nav { gap: 2px; padding: 4px 12px 12px; }
+.sidebar-group { display: flex; flex-direction: column; gap: 2px; }
+.sidebar-group + .sidebar-group {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--atlas-sidebar-border);
+}
+.sidebar-group-label {
+  padding: 2px 14px 6px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--atlas-text-faint);
+}
+.sidebar-group-row { display: flex; align-items: center; gap: 2px; }
+.sidebar-group-row .sidebar-group-head { flex: 1; min-width: 0; }
+.sidebar-group-head { font-weight: 700; color: var(--atlas-text-secondary); }
+.sidebar-group-toggle {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: var(--atlas-sidebar-text);
+}
+.sidebar-group-toggle:hover { background: var(--atlas-sidebar-hover-bg); color: var(--atlas-sidebar-text-hover); }
+.sidebar-group-toggle svg { width: 16px; height: 16px; transition: transform var(--atlas-motion-fast) var(--atlas-ease); }
+.sidebar-group-toggle.is-open svg { transform: rotate(180deg); }
+.sidebar-link-child { padding-block: 8px; font-size: 0.82rem; }
+.app-sidebar:not(.collapsed) .sidebar-link-child { padding-inline-start: 30px; }

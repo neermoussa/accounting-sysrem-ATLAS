@@ -1,0 +1,281 @@
+/* Atlas identity — "horizon light" design language, unified with the
+   login screen's own palette (frontend/src/styles/auth.css).
+
+   Full black/white/gray system — see final report section B/C for the
+   full writeup. The old brand-blue accent family (`--atlas-brand`,
+   #1857c9/#4c86ff) has been REMOVED and replaced by a near-white "silver"
+   accent, the same one the login screen already uses (its `--login-*`
+   token values, promoted here to real global tokens so the whole app,
+   not just login, shares one identity). The `--atlas-brand*` token NAMES
+   are kept only so the ~40 files already referencing them don't need a
+   mechanical rename — their VALUES are now grayscale/silver, not blue.
+   Oct-2026 retouch: still black/white/grey (no new hue). Surfaces were
+   separated by a clearer step (canvas < panel < raised < raised-2), and
+   --atlas-text-muted/-faint were lifted because the old faint grey was
+   3.2:1 on the panel (below the 4.5:1 AA minimum for the small
+   labels/metadata that use it); they are now 7.3:1 and 5.0:1.
+   Status colors (red/amber/green) are untouched in hue — they are
+   semantic (error/warning/success), not brand color, and stay as-is. */
+:root {
+  color-scheme: dark;
+
+  /* ---- Canvas / surfaces (depth hierarchy: canvas -> panel -> raised ->
+     raised-2 (hover/focused) -> overlay (modal/popover)) ---- */
+  --atlas-canvas: #07090b;
+  --atlas-panel: #0e1115;
+  --atlas-raised: #151a20;
+  --atlas-raised-2: #1c222a;
+  --atlas-overlay: #181d23;
+  --atlas-border: rgb(255 255 255 / 12%);
+  --atlas-border-strong: rgb(255 255 255 / 20%);
+  --atlas-border-soft: rgb(255 255 255 / 7%);
+
+  /* ---- Text ---- */
+  --atlas-text: #f3f5f7;
+  --atlas-text-secondary: #c9d0d8;
+  --atlas-text-muted: #98a2ae;
+  --atlas-text-faint: #818b97;
+  --atlas-text-on-accent: #0e1115;
+
+  /* ---- "Brand" accent — now silver/white, matching the login screen.
+     Token names unchanged (`--atlas-brand*`) so existing usages across
+     the app pick up the new grayscale identity automatically; only the
+     values changed, from blue to near-white/silver. ---- */
+  --atlas-brand: #eef1f6;
+  --atlas-brand-rgb: 238 241 246;
+  --atlas-brand-strong: #ffffff;
+  --atlas-brand-signal: #ffffff;
+  --atlas-brand-glow: #eef1f6;
+  --atlas-brand-soft: rgb(var(--atlas-brand-rgb) / 14%);
+  --atlas-sky: #ffffff;
+
+  /* ---- The one precise bright accent (the "beam") — used sparingly for
+     a single hero/focal moment, never as a general UI color ---- */
+  --atlas-accent: #f5f8ff;
+  --atlas-accent-strong: #ffffff;
+  --atlas-accent-soft: rgb(245 248 255 / 10%);
+
+  /* ---- Semantic status (hue preserved, lightened for dark-surface AA) ---- */
+  --atlas-positive: #32c98a;
+  --atlas-warning: #f2b84b;
+  --atlas-critical: #f06c79;
+  --atlas-info: #8b95a1;
+  --status-red: var(--atlas-critical);
+  --status-yellow: var(--atlas-warning);
+  --status-green: var(--atlas-positive);
+
+  /* ---- Chart tokens ---- */
+  --atlas-chart-primary: var(--atlas-brand);
+  --atlas-chart-secondary: var(--atlas-positive);
+  --atlas-chart-tertiary: var(--atlas-warning);
+  --atlas-chart-quaternary: var(--atlas-critical);
+  --atlas-chart-grid: rgb(255 255 255 / 7%);
+  --atlas-chart-axis: var(--atlas-text-faint);
+  --atlas-chart-tooltip-bg: #1c222a;
+  --atlas-chart-tooltip-border: var(--atlas-border-strong);
+
+  /* ---- Gradients — used deliberately, for hierarchy, not on every card ---- */
+  --atlas-gradient-primary: linear-gradient(160deg, #cfd6e0 0%, #ffffff 100%);
+  --atlas-gradient-soft: linear-gradient(180deg, rgb(255 255 255 / 8%) 0%, transparent 70%);
+  --atlas-gradient-surface: linear-gradient(180deg, #181d23 0%, #0e1115 100%);
+  --atlas-gradient-chart: linear-gradient(180deg, rgb(255 255 255 / 14%) 0%, transparent 90%);
+  --atlas-gradient-highlight: radial-gradient(60% 140% at 50% 0%, rgb(245 248 255 / 16%) 0%, transparent 65%);
+  --atlas-ocean-gradient: var(--atlas-gradient-surface);
+  --atlas-sky-gradient: var(--atlas-gradient-surface);
+
+  /* ---- Radii ---- */
+  --atlas-radius-control: 8px;
+  --atlas-radius-card: 12px;
+  --atlas-radius-shell: 16px;
+  --atlas-radius-pill: 999px;
+
+  /* ---- Spacing scale ---- */
+  --atlas-space-1: 4px;
+  --atlas-space-2: 8px;
+  --atlas-space-3: 12px;
+  --atlas-space-4: 16px;
+  --atlas-space-5: 24px;
+  --atlas-space-6: 32px;
+  --atlas-space-7: 48px;
+
+  /* ---- Page layout rhythm — every screen's outer padding reads from
+     these so content edges line up from page to page. Side padding is
+     fluid (20px phone -> 40px desktop); a wide data page is capped and
+     centred so lines stay readable on large monitors. ---- */
+  --atlas-page-pad-x: clamp(20px, 3vw, 40px);
+  --atlas-page-pad-top: 28px;
+  --atlas-page-pad-bottom: 64px;
+  --atlas-page-max: 1440px;
+  --atlas-header-gap: 24px;
+  --atlas-section-gap: 32px;
+
+  /* ---- Shadows / focus ring ---- */
+  --atlas-shadow-panel: 0 10px 30px rgb(0 0 0 / 45%);
+  --atlas-shadow-raised: 0 16px 40px rgb(0 0 0 / 55%);
+  --atlas-shadow-focus: 0 0 0 3px rgb(var(--atlas-brand-rgb) / 35%);
+  --atlas-focus-ring: 0 0 0 2px var(--atlas-canvas), 0 0 0 4px var(--atlas-brand-signal);
+
+  /* ---- Motion ---- */
+  --atlas-motion-fast: 140ms;
+  --atlas-motion-panel: 220ms;
+  --atlas-motion-emphasis: 300ms;
+  --atlas-ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ---- Backward-compatible aliases used by existing screens ---- */
+  --accent: var(--atlas-brand);
+  --accent-light: var(--atlas-brand-signal);
+  --accent-pale: var(--atlas-brand-soft);
+  --accent-dark: var(--atlas-brand-strong);
+  --bg-deep: var(--atlas-canvas);
+  --bg-surface: var(--atlas-panel);
+  --bg-elevated: var(--atlas-raised);
+  --warm-white: var(--atlas-panel);
+  --warm-white-soft: var(--atlas-raised);
+  --ink: var(--atlas-text);
+  /* NOTE: despite the "-on-dark" naming (kept only for backward
+     compatibility with existing class names across the app), these two
+     aliases are the generic "primary text" / "muted text" tokens used
+     across the whole app — and now the app itself IS dark, so the naming
+     finally matches reality. */
+  --text-on-dark: var(--atlas-text);
+  --text-muted-on-dark: var(--atlas-text-muted);
+  --text-muted-on-light: var(--atlas-text-muted);
+  --border-accent: var(--atlas-border-strong);
+  --border-accent-soft: var(--atlas-border);
+  --shadow-soft: var(--atlas-shadow-panel);
+  --font-heading: 'Tajawal', 'IBM Plex Sans Arabic', sans-serif;
+  --font-body: 'Tajawal', 'IBM Plex Sans Arabic', sans-serif;
+  --kpi-grad-1: var(--atlas-panel);
+  --kpi-grad-2: var(--atlas-raised);
+  --kpi-grad-3: var(--atlas-raised-2);
+  --kpi-grad-4: var(--atlas-overlay);
+  --radius-lg: var(--atlas-radius-shell);
+
+  /* Dedicated sidebar chrome — already the darkest surface in the old
+     white-canvas identity; kept as its own token set so a future change
+     to general surfaces doesn't silently change the sidebar too, but now
+     tuned to sit one notch darker/quieter than the (now also dark) main
+     content so it still reads as a distinct rail. */
+  --atlas-sidebar-bg: #06080a;
+  --atlas-sidebar-chip-bg: #12161b;
+  --atlas-sidebar-border: rgb(255 255 255 / 8%);
+  --atlas-sidebar-text: #98a2ae;
+  --atlas-sidebar-text-hover: #ffffff;
+  --atlas-sidebar-hover-bg: rgb(255 255 255 / 6%);
+  --atlas-sidebar-active-bg: linear-gradient(90deg, rgb(255 255 255 / 14%), transparent);
+  --atlas-sidebar-active-text: #ffffff;
+}
+
+:root[dir='ltr'] {
+  --font-heading: 'Tajawal', 'IBM Plex Sans', sans-serif;
+  --font-body: 'Tajawal', 'IBM Plex Sans', sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  background: var(--atlas-canvas);
+  color: var(--atlas-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; letter-spacing: 0.01em; margin: 0; color: var(--atlas-text); }
+p, span, div { font-family: var(--font-body); }
+a { color: inherit; text-decoration: none; }
+button { font-family: var(--font-body); cursor: pointer; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--atlas-border-strong); border-radius: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ---------------------------------------------------------------------
+   Typography hierarchy — display / page title / section title / card
+   title / body / secondary / metadata / data(KPI). KPI numbers read as
+   important via weight + tight tracking, not raw oversized font-size. */
+.atlas-display { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2rem, 4vw, 3.1rem); letter-spacing: -0.03em; line-height: 1.05; color: var(--atlas-text); }
+.atlas-page-title { font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.35rem, 2.4vw, 1.8rem); letter-spacing: -0.02em; color: var(--atlas-text); }
+.atlas-section-title { font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; color: var(--atlas-text); }
+.atlas-card-title { font-family: var(--font-heading); font-weight: 600; font-size: 0.92rem; color: var(--atlas-text); }
+.atlas-body { font-size: 0.9rem; line-height: 1.6; color: var(--atlas-text-secondary); }
+.atlas-secondary { font-size: 0.82rem; color: var(--atlas-text-muted); }
+.atlas-metadata { font-size: 0.72rem; letter-spacing: 0.02em; color: var(--atlas-text-faint); text-transform: uppercase; }
+.atlas-kpi { font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.5rem, 2vw, 1.95rem); letter-spacing: -0.03em; line-height: 1; color: var(--atlas-text); }
+
+.atlas-grid-surface {
+  background-image:
+    linear-gradient(rgb(var(--atlas-brand-rgb) / 5%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--atlas-brand-rgb) / 5%) 1px, transparent 1px),
+    radial-gradient(circle at 24% 18%, rgb(var(--atlas-brand-rgb) / 8%), transparent 34rem);
+  background-size: 48px 48px, 48px 48px, 100% 100%;
+}
+.atlas-focus-visible:focus-visible,
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: none;
+  box-shadow: var(--atlas-shadow-focus);
+  border-radius: var(--atlas-radius-control);
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; scroll-behavior: auto !important; }
+}
+
+.gold-btn {
+  background: var(--atlas-brand); color: var(--atlas-text-on-accent); border: 1px solid transparent; border-radius: var(--atlas-radius-control);
+  padding: 12px 22px; font-weight: 700; font-size: 0.95rem; box-shadow: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.gold-btn:hover { background: var(--atlas-brand-strong); transform: translateY(-1px); box-shadow: 0 6px 18px rgb(0 0 0 / 35%); }
+.gold-btn:active { transform: translateY(0); }
+.gold-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+.ghost-btn {
+  background: transparent; color: var(--atlas-text-secondary); border: 1px solid var(--atlas-border-strong); border-radius: var(--atlas-radius-control);
+  padding: 10px 18px; font-weight: 600; font-size: 0.9rem; transition: background 0.15s ease, border-color 0.15s ease;
+}
+.ghost-btn:hover { background: var(--accent-pale); border-color: var(--accent-light); }
+
+/* ---------------------------------------------------------------------
+   Surfaces — depth hierarchy: page canvas -> .card (normal) ->
+   .card-elevated (raised) -> .card-focus (active/focused) -> .card-overlay
+   (modal/popover). Minimal borders, depth via subtle shadow/glow instead. */
+.card {
+  background: var(--atlas-panel);
+  color: var(--ink);
+  border: 1px solid var(--atlas-border);
+  border-radius: var(--atlas-radius-card);
+  box-shadow: var(--atlas-shadow-panel);
+}
+.card-elevated {
+  background: var(--atlas-raised);
+  color: var(--atlas-text);
+  border: 1px solid var(--atlas-border);
+  border-radius: var(--atlas-radius-card);
+  box-shadow: var(--atlas-shadow-raised);
+}
+.card-focus {
+  background: var(--atlas-raised-2);
+  color: var(--atlas-text);
+  border: 1px solid var(--atlas-border-strong);
+  border-radius: var(--atlas-radius-card);
+  box-shadow: var(--atlas-shadow-raised), 0 0 0 1px rgb(var(--atlas-brand-rgb) / 18%);
+}
+.card-overlay {
+  background: var(--atlas-overlay);
+  color: var(--atlas-text);
+  border: 1px solid var(--atlas-border-strong);
+  border-radius: var(--atlas-radius-shell);
+  box-shadow: 0 30px 70px rgb(0 0 0 / 65%);
+}
+
+.status-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 0 2px rgb(0 0 0 / 40%) inset; }
+.status-dot.red { background: var(--status-red); }
+.status-dot.yellow { background: var(--status-yellow); }
+.status-dot.green { background: var(--status-green); }
+.badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; }
+.badge.red { background: rgba(240, 108, 121, 0.14); color: var(--status-red); }
+.badge.yellow { background: rgba(242, 184, 75, 0.16); color: var(--status-yellow); }
+.badge.green { background: rgba(50, 201, 138, 0.16); color: var(--status-green); }
+html, body, #root { background: var(--atlas-canvas); color: var(--atlas-text); }

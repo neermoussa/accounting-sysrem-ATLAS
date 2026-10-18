@@ -1,0 +1,126 @@
+.audit-log-page {
+  padding: var(--atlas-page-pad-top) var(--atlas-page-pad-x) var(--atlas-page-pad-bottom);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.audit-log-page h1 {
+  font-size: 1.8rem;
+  color: var(--accent-dark);
+}
+
+.audit-log-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.audit-log-filter {
+  background: var(--atlas-panel);
+  border: 1px solid var(--border-accent);
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--accent-dark);
+  font-family: var(--font-body);
+}
+
+.audit-log-loading,
+.audit-log-empty {
+  color: var(--text-muted-on-light);
+}
+
+.audit-log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.audit-log-row {
+  padding: 4px 6px;
+  border-inline-start: 4px solid var(--accent);
+}
+.audit-log-row.danger {
+  border-inline-start-color: var(--status-red);
+}
+
+.audit-log-row-top {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 130px 1fr 140px 170px 24px;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  padding: 12px 10px;
+  text-align: start;
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+.audit-log-action {
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+.audit-log-shop {
+  font-weight: 600;
+}
+.audit-log-actor,
+.audit-log-date {
+  font-size: 0.85rem;
+  color: var(--text-muted-on-light);
+}
+.audit-log-toggle {
+  color: var(--accent);
+  font-size: 0.75rem;
+  justify-self: end;
+}
+
+.audit-diff {
+  padding: 6px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.audit-diff-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 0.88rem;
+  background: var(--warm-white-soft);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.audit-diff-label {
+  color: var(--text-muted-on-light);
+  min-width: 100px;
+  font-weight: 600;
+}
+.audit-diff-before {
+  color: var(--status-red);
+  text-decoration: line-through;
+}
+.audit-diff-arrow {
+  color: var(--text-muted-on-light);
+}
+.audit-diff-after {
+  color: var(--status-green);
+  font-weight: 700;
+}
+.audit-diff-empty {
+  padding: 0 16px 16px;
+  font-size: 0.85rem;
+  color: var(--text-muted-on-light);
+}
+
+@media (max-width: 720px) {
+  .audit-log-page {
+    padding: 20px;
+  }
+  .audit-log-row-top {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}

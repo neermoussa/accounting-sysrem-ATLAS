@@ -1,0 +1,6 @@
+node_modules/
+frontend/dist/
+backend/db/data.sqlite*
+backend/uploads/
+*.log
+backend/db/backups/

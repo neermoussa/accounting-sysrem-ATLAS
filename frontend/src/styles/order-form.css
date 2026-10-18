@@ -1,0 +1,141 @@
+.quick-order-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 8px;
+}
+
+.qof-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.qof-field label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted-on-light);
+}
+.qof-field input {
+  border: 1px solid var(--border-accent);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  background: var(--atlas-panel);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+.qof-field input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.qof-products {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.qof-product {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.qof-product-btn {
+  flex: 1;
+  text-align: start;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border-accent);
+  background: var(--warm-white-soft);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.qof-product.selected .qof-product-btn {
+  background: linear-gradient(180deg, var(--accent-light), var(--accent));
+  border-color: var(--accent-dark);
+  color: var(--bg-deep);
+}
+.qof-unit {
+  font-weight: 400;
+  opacity: 0.75;
+  font-size: 0.85em;
+}
+
+.qof-stepper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-deep);
+  border-radius: 12px;
+  padding: 6px 10px;
+  flex-shrink: 0;
+}
+.qof-stepper button {
+  /* 44px matches the standard mobile touch-target minimum (Apple HIG /
+     Material Design) — this is used on the field screens (Visit Mode) as a
+     repeated tap-and-tap-again action, so a comfortable target size matters
+     more here than on a one-off desktop click. */
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent);
+  color: var(--bg-deep);
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qof-stepper span {
+  min-width: 22px;
+  text-align: center;
+  color: var(--warm-white);
+  font-weight: 700;
+}
+
+.qof-qty-input {
+  width: 52px;
+  height: 36px;
+  text-align: center;
+  border-radius: 8px;
+  border: 1.5px solid transparent;
+  background: var(--warm-white);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0 4px;
+}
+.qof-qty-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.qof-empty {
+  color: var(--text-muted-on-light);
+  font-size: 0.9rem;
+}
+
+.qof-error {
+  color: var(--status-red);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.qof-actions {
+  display: flex;
+  gap: 10px;
+  position: sticky;
+  bottom: 0;
+  background: var(--warm-white);
+  padding-top: 10px;
+}
+.qof-save {
+  flex: 1;
+  font-size: 1.05rem;
+  padding: 14px;
+}

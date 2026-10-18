@@ -1,0 +1,92 @@
+/* Atlas Statistics — 5-tier layout (Executive KPIs -> Trends -> Operational
+   performance -> Exceptions/alerts -> Detailed breakdowns) built on the
+   shared design-system tokens (theme.css) and chart primitives
+   (components/charts/ChartPrimitives.jsx). No page-specific colors. */
+
+.stats-page { width: 100%; min-height: 100%; margin: 0 auto; max-width: var(--atlas-page-max); padding: var(--atlas-page-pad-top) var(--atlas-page-pad-x) var(--atlas-page-pad-bottom); background: var(--atlas-panel); color: var(--atlas-text); font-family: var(--font-body); }
+
+.stats-header { display: flex; align-items: end; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding-bottom: 20px; border-bottom: 1px solid var(--atlas-raised); }
+.stats-eyebrow { display: block; color: var(--atlas-text-muted); font: 700 .61rem/1.2 monospace; letter-spacing: .12em; text-transform: uppercase; }
+.stats-header h1 { margin: 9px 0 5px; color: var(--atlas-text); font-size: clamp(1.7rem, 3vw, 2.6rem); letter-spacing: -.05em; }
+.stats-header p { margin: 0; color: var(--atlas-text-muted); font-size: .75rem; }
+.stats-header-actions { display: flex; align-items: center; gap: 9px; }
+.stats-header-actions select, .stats-primary-action { min-height: 34px; border: 1px solid rgb(var(--atlas-brand-rgb) / 16%); border-radius: var(--atlas-radius-control); padding: 0 12px; font: .72rem var(--font-body); }
+.stats-header-actions select { background: var(--atlas-panel); color: var(--atlas-text); }
+.stats-primary-action { background: var(--atlas-brand); border-color: transparent; color: var(--atlas-text-on-accent); cursor: pointer; box-shadow: 0 0 14px rgb(var(--atlas-brand-rgb) / 22%); }
+.stats-primary-action:disabled { opacity: .55; cursor: wait; }
+
+.stats-loading { display: grid; min-height: 60vh; place-items: center; background: var(--atlas-panel); color: var(--atlas-text-muted); font-size: .85rem; }
+.stats-error { color: var(--atlas-critical); }
+
+/* Tab navigation into the five report sections (kept from the previous
+   layout — real routes, not decorative). */
+.stats-tabs { display: flex; gap: 6px; margin: 18px 0 4px; border-bottom: 1px solid rgb(var(--atlas-brand-rgb) / 14%); overflow-x: auto; }
+.stats-tab-btn { flex-shrink: 0; border: 0; border-bottom: 2px solid transparent; background: transparent; padding: 10px 16px; color: var(--atlas-text-muted); font: 600 .82rem var(--font-body); cursor: pointer; white-space: nowrap; }
+.stats-tab-btn:hover { color: var(--atlas-text); }
+.stats-tab-btn.active { color: var(--atlas-brand); border-bottom-color: var(--atlas-brand); }
+
+/* ---- Tier shell — shared by every Overview section ---- */
+.stats-tier { margin-top: 24px; }
+.stats-tier-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+.stats-tier-head h2 { margin: 0; color: var(--atlas-text); font-size: 1.05rem; letter-spacing: -.02em; }
+.stats-tier-head span { color: var(--atlas-text-muted); font-size: .68rem; }
+
+.stats-tier-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.stats-tier-grid-2 > * { min-width: 0; }
+.stats-tier-grid-full { grid-column: 1 / -1; }
+
+/* Chart-holding panels (trend / bar) share the same card chrome. */
+.stats-page .atlas-chart-frame { border: 1px solid rgb(var(--atlas-brand-rgb) / 14%); border-radius: var(--atlas-radius-card); background: var(--atlas-panel); box-shadow: 0 10px 26px rgb(0 0 0 / 16%); padding: 16px 18px; }
+
+/* Tier 3 — operational: recent activity list beside the sales-leaders bar chart. */
+.stats-activity-card { border: 1px solid rgb(var(--atlas-brand-rgb) / 14%); border-radius: var(--atlas-radius-card); background: var(--atlas-panel); box-shadow: 0 10px 26px rgb(0 0 0 / 16%); padding: 16px 18px; }
+.stats-activity-card h3 { margin: 0 0 10px; color: var(--atlas-text); font-size: .85rem; }
+.stats-activity-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgb(var(--atlas-brand-rgb) / 12%); color: var(--atlas-text-muted); font-size: .68rem; }
+.stats-activity-row:last-child { border-bottom: 0; }
+.stats-activity-row > span { display: flex; align-items: center; gap: 7px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.stats-activity-row b { color: var(--atlas-brand-signal); font: 700 .68rem monospace; white-space: nowrap; }
+.stats-activity-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--atlas-brand); box-shadow: 0 0 7px var(--atlas-brand); flex-shrink: 0; }
+
+/* Tier 4 — exceptions/alerts: reuses the existing semantic red/amber tokens. */
+.stats-alert-card { border: 1px solid rgb(var(--atlas-brand-rgb) / 14%); border-radius: var(--atlas-radius-card); background: var(--atlas-panel); box-shadow: 0 10px 26px rgb(0 0 0 / 16%); padding: 16px 18px; }
+.stats-alert-card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.stats-alert-card-head h3 { margin: 0; color: var(--atlas-text); font-size: .85rem; }
+.stats-alert-count { display: grid; min-width: 26px; height: 26px; padding: 0 6px; place-items: center; border-radius: var(--atlas-radius-pill); font: 700 .72rem monospace; }
+.stats-alert-count.negative { background: rgb(240 108 121 / 14%); color: var(--atlas-critical); }
+.stats-alert-count.warning { background: rgb(242 184 75 / 14%); color: var(--atlas-warning); }
+.stats-alert-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgb(var(--atlas-brand-rgb) / 12%); color: var(--atlas-text-muted); font-size: .7rem; }
+.stats-alert-row:last-child { border-bottom: 0; }
+.stats-alert-row strong.negative { color: var(--atlas-critical); font: 700 .7rem monospace; }
+.stats-alert-row strong.warning { color: var(--atlas-warning); font: 700 .7rem monospace; }
+
+.stats-empty-hint { margin: 6px 0 0; color: var(--atlas-text-faint); font-size: .72rem; }
+
+/* Tier 5 — jump into the full detail tables above (no separate re-render of
+   those tables here — they already live in the tab nav). */
+.stats-detail-links { display: flex; flex-wrap: wrap; gap: 10px; }
+.stats-detail-links button { border: 1px solid rgb(var(--atlas-brand-rgb) / 18%); border-radius: var(--atlas-radius-control); background: var(--atlas-raised); color: var(--atlas-brand-signal); padding: 10px 16px; font: 600 .74rem var(--font-body); cursor: pointer; }
+.stats-detail-links button:hover { background: var(--atlas-raised-2); color: var(--atlas-text); }
+
+@media (max-width: 1060px) {
+  .stats-tier-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .stats-page { padding-inline: 12px; }
+  .stats-header { align-items: start; flex-direction: column; }
+  .stats-header-actions { width: 100%; }
+  .stats-header-actions > * { flex: 1; }
+}
+
+/* Report tab panels (Sales / Balances / Inventory / Invoices / month-detail) —
+   these reuse SortableTable/KpiCard for their data grids, but need their own
+   card chrome, filter row, and export-button layout. */
+.stats-panel { margin-top: 18px; padding: 18px; border: 1px solid rgb(var(--atlas-brand-rgb) / 14%); border-radius: var(--atlas-radius-card); background: var(--atlas-panel); box-shadow: 0 10px 26px rgb(0 0 0 / 8%); }
+.stats-panel-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.stats-panel-header h2 { margin: 0; color: var(--atlas-text); font-size: 1.05rem; }
+.qof-actions { display: flex; gap: 8px; }
+.report-filters { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; margin-bottom: 16px; }
+.report-filters label { display: flex; flex-direction: column; gap: 4px; color: var(--atlas-text-muted); font-size: .72rem; }
+.report-filters input, .report-filters select { min-height: 36px; border: 1px solid rgb(var(--atlas-brand-rgb) / 18%); border-radius: var(--atlas-radius-control); padding: 0 10px; background: var(--atlas-panel); color: var(--atlas-text); font-family: var(--font-body); }
+.overview-tab .monthly-sales-section { margin-top: 18px; }
+.month-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 12px; }
+@media (max-width: 780px) { .month-detail-grid { grid-template-columns: 1fr; } .report-filters { flex-direction: column; align-items: stretch; } }

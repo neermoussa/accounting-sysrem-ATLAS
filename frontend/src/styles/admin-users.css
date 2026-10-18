@@ -1,0 +1,93 @@
+.admin-users-page {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: var(--atlas-page-pad-top) var(--atlas-page-pad-x) var(--atlas-page-pad-bottom);
+}
+.admin-users-page.loading {
+  color: var(--text-muted-on-dark);
+  padding: 60px;
+  text-align: center;
+}
+.admin-users-page h1 {
+  font-size: 2rem;
+  color: var(--accent-light);
+  margin-bottom: 24px;
+}
+
+.admin-users-error {
+  color: var(--status-red);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.admin-users-section {
+  margin-bottom: 30px;
+}
+.admin-users-section-title {
+  font-size: 1.1rem;
+  color: var(--accent-light);
+  margin-bottom: 12px;
+}
+
+.admin-users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-user-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 18px;
+}
+
+.admin-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.9rem;
+}
+.admin-user-info strong {
+  font-size: 1rem;
+}
+.admin-user-date {
+  font-size: 0.78rem;
+  color: var(--text-muted-on-light);
+}
+.admin-user-status {
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.admin-user-status.approved {
+  color: var(--status-green);
+}
+.admin-user-status.rejected {
+  color: var(--status-red);
+}
+.admin-user-perm-count {
+  font-size: 0.78rem;
+  color: var(--text-muted-on-light);
+}
+
+.admin-user-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.admin-user-actions select {
+  border: 1px solid var(--border-accent);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-family: var(--font-body);
+  background: var(--atlas-panel);
+}
+
+.no-access {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--text-muted-on-dark);
+}

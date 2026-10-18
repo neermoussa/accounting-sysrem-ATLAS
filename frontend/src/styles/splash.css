@@ -1,0 +1,112 @@
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--atlas-panel);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+.splash-screen.fading {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.atlas-splash-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--atlas-text);
+  font-family: var(--font-body);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  animation: atlas-splash-in 600ms cubic-bezier(.23,1,.32,1) both;
+}
+.atlas-splash-mark {
+  display: inline;
+  color: var(--atlas-brand-signal);
+  font-size: inherit;
+  font-weight: 800;
+  line-height: 1;
+}
+.splash-logo {
+  width: 220px;
+  max-width: 55vw;
+  height: auto;
+  /* Runs once on mount, then hands off seamlessly into the looping pulse —
+     the pulse's 0%/100% state matches the intro's end state exactly so
+     there's no visible jump at the handoff. */
+  animation:
+    splash-intro 0.5s ease-out forwards,
+    splash-pulse 2.2s ease-in-out 0.5s infinite;
+}
+.splash-screen.error .splash-logo {
+  animation: none;
+  opacity: 1;
+  transform: scale(1);
+}
+
+@keyframes atlas-splash-in {
+  from { opacity: 0; transform: translateY(8px) scale(.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes splash-intro {
+  from {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes splash-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.04);
+  }
+}
+
+.splash-error {
+  position: absolute;
+  bottom: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 360px;
+  text-align: center;
+  color: var(--atlas-text-muted);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  animation: splash-error-in 0.4s ease-out;
+}
+
+@keyframes splash-error-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.atlas-splash-wordmark {
+  display: block;
+  width: 220px;
+  max-width: 55vw;
+  height: auto;
+  direction: ltr;
+  object-fit: contain;
+}

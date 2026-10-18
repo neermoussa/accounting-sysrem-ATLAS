@@ -1,0 +1,78 @@
+.celebration-badge {
+  position: fixed;
+  top: 18%;
+  left: 50%;
+  transform: translate(-50%, -10px) scale(0.6);
+  opacity: 0;
+  z-index: 999;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--accent-light), var(--accent));
+  color: var(--bg-deep);
+  font-weight: 800;
+  font-size: 2.4rem;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(15, 138, 70, 0.35);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.celebration-badge.show {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.celebration-badge.calm {
+  font-size: 0.92rem;
+  font-weight: 700;
+  width: auto;
+  height: auto;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: var(--warm-white);
+  color: var(--status-green);
+  border: 1px solid var(--status-green);
+  box-shadow: var(--shadow-soft);
+  white-space: nowrap;
+}
+
+.demo-invoice-toast {
+  position: fixed;
+  top: 18%;
+  left: 50%;
+  transform: translate(-50%, -10px) scale(0.92);
+  opacity: 0;
+  z-index: 999;
+  pointer-events: none;
+  background: var(--warm-white);
+  border: 1px solid var(--status-green);
+  border-radius: 14px;
+  padding: 12px 20px;
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+  min-width: 200px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.demo-invoice-toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+.demo-invoice-toast-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--status-green);
+  margin-bottom: 4px;
+}
+.demo-invoice-toast-shop {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--bg-deep);
+}
+.demo-invoice-toast-amount {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--status-green);
+  margin-top: 2px;
+}

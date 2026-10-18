@@ -1,0 +1,39 @@
+.uploads-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--border-accent-soft);
+}
+.uploads-tab {
+  padding: 10px 18px;
+  border: none;
+  background: none;
+  color: var(--text-muted-on-light);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.uploads-tab:hover {
+  color: var(--accent-dark);
+}
+.uploads-tab.active {
+  color: var(--accent-dark);
+  border-bottom-color: var(--accent-dark);
+}
+
+.uploads-tab-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.upload-history-card {
+  padding: 22px;
+}
+.upload-history-title {
+  font-size: 1rem;
+  color: var(--accent-dark);
+  margin-bottom: 14px;
+}

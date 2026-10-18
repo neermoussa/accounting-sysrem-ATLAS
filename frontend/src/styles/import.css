@@ -1,0 +1,219 @@
+.import-page {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: var(--atlas-page-pad-top) var(--atlas-page-pad-x) var(--atlas-page-pad-bottom);
+}
+.import-title {
+  font-size: 2rem;
+  color: var(--accent-light);
+  margin-bottom: 20px;
+}
+
+.import-upload-card,
+.import-mapping-card {
+  padding: 26px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.import-hint {
+  color: var(--text-muted-on-light);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.import-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted-on-light);
+  max-width: 220px;
+}
+.import-field input {
+  border: 1px solid var(--border-accent);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-family: var(--font-body);
+}
+
+.import-dropzone {
+  border: 2px dashed var(--border-accent);
+  border-radius: 14px;
+  padding: 34px 20px;
+  text-align: center;
+  color: var(--accent-dark);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  position: relative;
+}
+.import-dropzone:hover {
+  background: var(--warm-white-soft);
+}
+.import-dropzone input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.import-mapping-selects {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.import-mapping-selects label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted-on-light);
+  flex: 1;
+  min-width: 200px;
+}
+.import-mapping-selects select {
+  border: 1px solid var(--border-accent);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-family: var(--font-body);
+  background: var(--atlas-panel);
+}
+
+.import-sample-table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid var(--border-accent-soft);
+}
+.import-sample-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.82rem;
+}
+.import-sample-table th,
+.import-sample-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border-accent-soft);
+  white-space: nowrap;
+  text-align: start;
+}
+.import-sample-table th {
+  background: var(--warm-white-soft);
+  color: var(--text-muted-on-light);
+  font-weight: 700;
+}
+.import-sample-table th.col-phone {
+  background: rgba(78, 140, 107, 0.18);
+  color: var(--status-green);
+}
+.import-sample-table th.col-balance {
+  background: rgba(15, 138, 70, 0.12);
+  color: var(--accent-dark);
+}
+
+.import-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-muted-on-light);
+}
+.import-checkbox.small {
+  font-size: 0.78rem;
+}
+
+.import-review {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.import-review-summary,
+.import-section {
+  padding: 20px 22px;
+}
+.import-review-summary h2 {
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+.import-review-counts {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.import-committed-note {
+  margin-top: 12px;
+  color: var(--status-green);
+  font-weight: 700;
+}
+
+.import-section h3 {
+  font-size: 1rem;
+  margin-bottom: 14px;
+  color: var(--accent-dark);
+}
+
+.unmatched-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.unmatched-row {
+  background: var(--warm-white-soft);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.unmatched-row-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+.unmatched-row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.unmatched-row-actions select {
+  flex: 1;
+  min-width: 180px;
+  border: 1px solid var(--border-accent);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-family: var(--font-body);
+  background: var(--atlas-panel);
+}
+.unmatched-row-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.matched-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.matched-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border-accent-soft);
+  font-size: 0.9rem;
+}
+
+.import-review-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 8px;
+}
+.import-commit-btn {
+  font-size: 1.05rem;
+  padding: 14px 26px;
+}

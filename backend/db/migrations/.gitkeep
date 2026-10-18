@@ -1,0 +1,4 @@
+This directory holds ordered, tracked schema migration files (NNNN_description.js),
+run by db/migrate.js. See that file's header comment for the format and the rules
+for writing production-safe migrations. Empty as of the production-hardening pass —
+no schema changes were needed in this phase, this is the tracked path for future ones.

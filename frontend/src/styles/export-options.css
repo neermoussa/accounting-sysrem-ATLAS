@@ -1,0 +1,65 @@
+.export-options-modal {
+  max-width: 420px;
+}
+.export-options-filter-note {
+  font-size: 0.8rem;
+  color: var(--atlas-text-muted);
+  margin: -4px 0 16px;
+}
+.export-options-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.export-options-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--atlas-text-muted);
+}
+.export-options-lang-toggle {
+  display: flex;
+  gap: 8px;
+}
+.export-options-lang-btn {
+  flex: 1;
+  padding: 9px 10px;
+  border-radius: var(--atlas-radius-control);
+  border: 1px solid var(--atlas-border);
+  background: var(--atlas-panel);
+  color: var(--atlas-text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+.export-options-lang-btn.active {
+  background: var(--atlas-brand-strong);
+  color: var(--atlas-text-on-accent);
+  border-color: var(--atlas-brand-strong);
+}
+.export-options-date-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.export-options-date-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--atlas-text-muted);
+  flex: 1;
+  min-width: 130px;
+}
+.export-options-date-row input {
+  border: 1px solid var(--atlas-border);
+  border-radius: var(--atlas-radius-control);
+  padding: 9px 10px;
+  font-size: 0.85rem;
+  background: var(--atlas-panel);
+  color: var(--atlas-text);
+}

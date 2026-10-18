@@ -1,0 +1,543 @@
+{
+  "key": "trading",
+  "name_ar": "دليل حسابات شركة تجارة وتوزيع",
+  "name_en": "Trading / distribution",
+  "accounts": [
+    {
+      "code": "1",
+      "name_ar": "الأصول",
+      "name_en": "Assets",
+      "type": "asset",
+      "parent": null,
+      "report_class": "current_asset"
+    },
+    {
+      "code": "11",
+      "name_ar": "الأصول المتداولة",
+      "name_en": "Current assets",
+      "type": "asset",
+      "parent": "1",
+      "report_class": "current_asset"
+    },
+    {
+      "code": "1110",
+      "name_ar": "الصندوق",
+      "name_en": "Cash on hand",
+      "type": "asset",
+      "parent": "11",
+      "system_key": "cash_default",
+      "report_class": "cash"
+    },
+    {
+      "code": "1112",
+      "name_ar": "نقدية لدى المندوبين",
+      "name_en": "Cash held by reps",
+      "type": "asset",
+      "parent": "11",
+      "system_key": "rep_cash_custody",
+      "report_class": "current_asset"
+    },
+    {
+      "code": "1115",
+      "name_ar": "حوالات قيد التحصيل",
+      "name_en": "Transfers in transit",
+      "type": "asset",
+      "parent": "11",
+      "system_key": "bank_in_transit",
+      "report_class": "cash"
+    },
+    {
+      "code": "1120",
+      "name_ar": "البنوك",
+      "name_en": "Banks",
+      "type": "asset",
+      "parent": "11",
+      "report_class": "cash"
+    },
+    {
+      "code": "1130",
+      "name_ar": "الذمم المدينة (العملاء)",
+      "name_en": "Accounts receivable",
+      "type": "asset",
+      "parent": "11",
+      "system_key": "ar_control",
+      "report_class": "current_asset"
+    },
+    {
+      "code": "1140",
+      "name_ar": "أوراق القبض",
+      "name_en": "Notes receivable",
+      "type": "asset",
+      "parent": "11",
+      "report_class": "current_asset"
+    },
+    {
+      "code": "1145",
+      "name_ar": "شيكات برسم التحصيل",
+      "name_en": "Cheques in portfolio",
+      "type": "asset",
+      "parent": "11",
+      "system_key": "cheques_in_portfolio",
+      "report_class": "current_asset"
+    },
+    {
+      "code": "1150",
+      "name_ar": "مخزون البضاعة",
+      "name_en": "Merchandise inventory",
+      "type": "asset",
+      "parent": "11",
+      "system_key": "inventory",
+      "report_class": "current_asset"
+    },
+    {
+      "code": "1155",
+      "name_ar": "بضاعة لدى المندوبين والسيارات",
+      "name_en": "Stock held by reps and vehicles",
+      "type": "asset",
+      "parent": "11",
+      "system_key": "inventory_custody",
+      "report_class": "current_asset"
+    },
+    {
+      "code": "1157",
+      "name_ar": "إنتاج تحت التشغيل",
+      "name_en": "Work in process",
+      "type": "asset",
+      "parent": "11",
+      "system_key": "wip",
+      "report_class": "current_asset"
+    },
+    {
+      "code": "1160",
+      "name_ar": "سلف الموظفين",
+      "name_en": "Employee advances",
+      "type": "asset",
+      "parent": "11",
+      "report_class": "current_asset"
+    },
+    {
+      "code": "1170",
+      "name_ar": "مصاريف مدفوعة مقدمًا",
+      "name_en": "Prepaid expenses",
+      "type": "asset",
+      "parent": "11",
+      "report_class": "current_asset"
+    },
+    {
+      "code": "1180",
+      "name_ar": "ضريبة المدخلات (المشتريات)",
+      "name_en": "Input tax",
+      "type": "asset",
+      "parent": "11",
+      "system_key": "input_tax",
+      "report_class": "current_asset"
+    },
+    {
+      "code": "12",
+      "name_ar": "الأصول الثابتة",
+      "name_en": "Fixed assets",
+      "type": "asset",
+      "parent": "1",
+      "report_class": "fixed_asset"
+    },
+    {
+      "code": "1210",
+      "name_ar": "الأراضي والمباني",
+      "name_en": "Land and buildings",
+      "type": "asset",
+      "parent": "12",
+      "report_class": "fixed_asset"
+    },
+    {
+      "code": "1220",
+      "name_ar": "السيارات ووسائط النقل",
+      "name_en": "Vehicles",
+      "type": "asset",
+      "parent": "12",
+      "report_class": "fixed_asset"
+    },
+    {
+      "code": "1230",
+      "name_ar": "الأثاث والتجهيزات",
+      "name_en": "Furniture and equipment",
+      "type": "asset",
+      "parent": "12",
+      "report_class": "fixed_asset"
+    },
+    {
+      "code": "1290",
+      "name_ar": "مجمع الإهتلاك",
+      "name_en": "Accumulated depreciation",
+      "type": "asset",
+      "parent": "12",
+      "normal_balance": "credit",
+      "report_class": "contra_asset"
+    },
+    {
+      "code": "2",
+      "name_ar": "الخصوم",
+      "name_en": "Liabilities",
+      "type": "liability",
+      "parent": null,
+      "report_class": "current_liability"
+    },
+    {
+      "code": "21",
+      "name_ar": "الخصوم المتداولة",
+      "name_en": "Current liabilities",
+      "type": "liability",
+      "parent": "2",
+      "report_class": "current_liability"
+    },
+    {
+      "code": "2110",
+      "name_ar": "الذمم الدائنة (الموردون)",
+      "name_en": "Accounts payable",
+      "type": "liability",
+      "parent": "21",
+      "system_key": "ap_control",
+      "report_class": "current_liability"
+    },
+    {
+      "code": "2120",
+      "name_ar": "أوراق الدفع",
+      "name_en": "Notes payable",
+      "type": "liability",
+      "parent": "21",
+      "report_class": "current_liability"
+    },
+    {
+      "code": "2125",
+      "name_ar": "شيكات صادرة برسم الدفع",
+      "name_en": "Cheques payable",
+      "type": "liability",
+      "parent": "21",
+      "system_key": "cheques_payable",
+      "report_class": "current_liability"
+    },
+    {
+      "code": "2130",
+      "name_ar": "رواتب وأجور مستحقة",
+      "name_en": "Accrued salaries",
+      "type": "liability",
+      "parent": "21",
+      "report_class": "current_liability"
+    },
+    {
+      "code": "2140",
+      "name_ar": "ضرائب ورسوم مستحقة",
+      "name_en": "Taxes payable",
+      "type": "liability",
+      "parent": "21",
+      "system_key": "output_tax",
+      "report_class": "current_liability"
+    },
+    {
+      "code": "2150",
+      "name_ar": "دفعات مقدمة من العملاء",
+      "name_en": "Customer advances",
+      "type": "liability",
+      "parent": "21",
+      "report_class": "current_liability"
+    },
+    {
+      "code": "2160",
+      "name_ar": "بضاعة مستلمة لم تصل فواتيرها",
+      "name_en": "Goods received not invoiced (GRNI)",
+      "type": "liability",
+      "parent": "21",
+      "system_key": "grni",
+      "report_class": "current_liability"
+    },
+    {
+      "code": "22",
+      "name_ar": "الخصوم طويلة الأجل",
+      "name_en": "Long-term liabilities",
+      "type": "liability",
+      "parent": "2",
+      "report_class": "long_term_liability"
+    },
+    {
+      "code": "2210",
+      "name_ar": "قروض طويلة الأجل",
+      "name_en": "Long-term loans",
+      "type": "liability",
+      "parent": "22",
+      "report_class": "long_term_liability"
+    },
+    {
+      "code": "3",
+      "name_ar": "حقوق الملكية",
+      "name_en": "Equity",
+      "type": "equity",
+      "parent": null,
+      "report_class": "equity"
+    },
+    {
+      "code": "3100",
+      "name_ar": "رأس المال",
+      "name_en": "Capital",
+      "type": "equity",
+      "parent": "3",
+      "report_class": "equity"
+    },
+    {
+      "code": "3200",
+      "name_ar": "الأرباح المحتجزة",
+      "name_en": "Retained earnings",
+      "type": "equity",
+      "parent": "3",
+      "system_key": "retained_earnings",
+      "report_class": "equity"
+    },
+    {
+      "code": "3300",
+      "name_ar": "جاري الشركاء",
+      "name_en": "Partners current account",
+      "type": "equity",
+      "parent": "3",
+      "report_class": "equity"
+    },
+    {
+      "code": "3900",
+      "name_ar": "حساب الأرصدة الافتتاحية",
+      "name_en": "Opening balance equity",
+      "type": "equity",
+      "parent": "3",
+      "system_key": "opening_balance_equity",
+      "report_class": "equity"
+    },
+    {
+      "code": "4",
+      "name_ar": "الإيرادات",
+      "name_en": "Revenue",
+      "type": "revenue",
+      "parent": null,
+      "report_class": "revenue"
+    },
+    {
+      "code": "4100",
+      "name_ar": "إيرادات المبيعات",
+      "name_en": "Sales revenue",
+      "type": "revenue",
+      "parent": "4",
+      "system_key": "sales_revenue",
+      "report_class": "revenue"
+    },
+    {
+      "code": "4200",
+      "name_ar": "مردودات ومسموحات المبيعات",
+      "name_en": "Sales returns and allowances",
+      "type": "revenue",
+      "parent": "4",
+      "normal_balance": "debit",
+      "system_key": "sales_returns",
+      "report_class": "revenue"
+    },
+    {
+      "code": "4300",
+      "name_ar": "الخصم المسموح به",
+      "name_en": "Sales discounts",
+      "type": "revenue",
+      "parent": "4",
+      "normal_balance": "debit",
+      "report_class": "revenue"
+    },
+    {
+      "code": "4900",
+      "name_ar": "إيرادات أخرى",
+      "name_en": "Other income",
+      "type": "revenue",
+      "parent": "4",
+      "report_class": "revenue"
+    },
+    {
+      "code": "5",
+      "name_ar": "تكلفة المبيعات",
+      "name_en": "Cost of sales",
+      "type": "expense",
+      "parent": null,
+      "report_class": "cogs"
+    },
+    {
+      "code": "5100",
+      "name_ar": "تكلفة البضاعة المباعة",
+      "name_en": "Cost of goods sold",
+      "type": "expense",
+      "parent": "5",
+      "system_key": "cogs",
+      "report_class": "cogs"
+    },
+    {
+      "code": "5200",
+      "name_ar": "مصاريف نقل المشتريات",
+      "name_en": "Freight-in",
+      "type": "expense",
+      "parent": "5",
+      "report_class": "cogs"
+    },
+    {
+      "code": "5310",
+      "name_ar": "أجور الإنتاج المحمّلة",
+      "name_en": "Production labour absorbed",
+      "type": "expense",
+      "parent": "5",
+      "system_key": "production_labour",
+      "report_class": "cogs"
+    },
+    {
+      "code": "5410",
+      "name_ar": "مصاريف الإنتاج غير المباشرة المحمّلة",
+      "name_en": "Production overhead absorbed",
+      "type": "expense",
+      "parent": "5",
+      "system_key": "production_overhead",
+      "report_class": "cogs"
+    },
+    {
+      "code": "5450",
+      "name_ar": "طاقة الإنتاج المحمّلة",
+      "name_en": "Production energy absorbed",
+      "type": "expense",
+      "parent": "5",
+      "system_key": "production_energy",
+      "report_class": "cogs"
+    },
+    {
+      "code": "5550",
+      "name_ar": "تالف وهدر المخزون",
+      "name_en": "Inventory wastage and damage",
+      "type": "expense",
+      "parent": "5",
+      "system_key": "inventory_wastage",
+      "report_class": "cogs"
+    },
+    {
+      "code": "5800",
+      "name_ar": "فروقات الجرد وتسويات المخزون",
+      "name_en": "Inventory count and adjustment differences",
+      "type": "expense",
+      "parent": "5",
+      "system_key": "inventory_adjustments",
+      "report_class": "cogs"
+    },
+    {
+      "code": "5900",
+      "name_ar": "فروقات أسعار الشراء",
+      "name_en": "Purchase price variance",
+      "type": "expense",
+      "parent": "5",
+      "system_key": "purchase_price_variance",
+      "report_class": "cogs"
+    },
+    {
+      "code": "6",
+      "name_ar": "المصاريف",
+      "name_en": "Expenses",
+      "type": "expense",
+      "parent": null,
+      "report_class": "opex"
+    },
+    {
+      "code": "6100",
+      "name_ar": "الرواتب والأجور",
+      "name_en": "Salaries and wages",
+      "type": "expense",
+      "parent": "6",
+      "report_class": "opex"
+    },
+    {
+      "code": "6200",
+      "name_ar": "الإيجارات",
+      "name_en": "Rent",
+      "type": "expense",
+      "parent": "6",
+      "report_class": "opex"
+    },
+    {
+      "code": "6300",
+      "name_ar": "الكهرباء والماء والمحروقات",
+      "name_en": "Utilities and fuel",
+      "type": "expense",
+      "parent": "6",
+      "report_class": "opex"
+    },
+    {
+      "code": "6400",
+      "name_ar": "مصاريف النقل والتوزيع",
+      "name_en": "Transport and distribution",
+      "type": "expense",
+      "parent": "6",
+      "report_class": "opex"
+    },
+    {
+      "code": "6500",
+      "name_ar": "مصاريف إدارية وعمومية",
+      "name_en": "General and administrative",
+      "type": "expense",
+      "parent": "6",
+      "report_class": "opex"
+    },
+    {
+      "code": "6600",
+      "name_ar": "مصروف الإهتلاك",
+      "name_en": "Depreciation expense",
+      "type": "expense",
+      "parent": "6",
+      "report_class": "opex"
+    },
+    {
+      "code": "6700",
+      "name_ar": "عمولات المندوبين",
+      "name_en": "Sales commissions",
+      "type": "expense",
+      "parent": "6",
+      "report_class": "opex"
+    },
+    {
+      "code": "6800",
+      "name_ar": "أرباح وخسائر فروقات الصرف المحققة",
+      "name_en": "Realized FX gain/loss",
+      "type": "expense",
+      "parent": "6",
+      "system_key": "fx_realized",
+      "report_class": "opex"
+    },
+    {
+      "code": "6810",
+      "name_ar": "أرباح وخسائر فروقات الصرف غير المحققة (إعادة التقييم)",
+      "name_en": "Unrealized FX gain/loss (revaluation)",
+      "type": "expense",
+      "parent": "6",
+      "system_key": "fx_unrealized",
+      "report_class": "opex"
+    },
+    {
+      "code": "6850",
+      "name_ar": "فروقات التقريب",
+      "name_en": "Rounding differences",
+      "type": "expense",
+      "parent": "6",
+      "system_key": "rounding_difference",
+      "report_class": "opex"
+    },
+    {
+      "code": "6900",
+      "name_ar": "مصاريف وعمولات بنكية",
+      "name_en": "Bank charges",
+      "type": "expense",
+      "parent": "6",
+      "system_key": "bank_charges",
+      "report_class": "opex"
+    },
+    {
+      "code": "6960",
+      "name_ar": "عجز وزيادة الصناديق",
+      "name_en": "Cash over and short",
+      "type": "expense",
+      "parent": "6",
+      "system_key": "cash_over_short",
+      "report_class": "opex"
+    }
+  ]
+}

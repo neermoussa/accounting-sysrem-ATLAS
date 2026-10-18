@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://atlas.local/schemas/payroll-import.schema.json",
+  "title": "Atlas payroll import (POST /api/payroll/periods/import)",
+  "description": "One batch from the HR program for one period. Amounts are decimal strings in the line's currency (or integer minor units in the *Minor fields). net must equal gross - deductions exactly. Splits by type, when given, must add up exactly. The whole batch is validated first; any bad row rejects the whole batch (400 import_invalid with errors[]).",
+  "type": "object",
+  "required": ["period", "externalId", "lines"],
+  "additionalProperties": false,
+  "properties": {
+    "period": { "type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$", "description": "YYYY-MM" },
+    "externalId": { "type": "string", "minLength": 1, "description": "The HR program's batch id. (company, period, externalId) is the idempotency key." },
+    "postingDate": { "type": "string", "format": "date", "description": "Default: the last day of the period." },
+    "lines": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["department", "currencyCode"],
+        "additionalProperties": false,
+        "properties": {
+          "department": { "type": "string", "minLength": 1 },
+          "costCenterId": { "type": ["integer", "null"], "description": "An Atlas cost center id of this company." },
+          "currencyCode": { "type": "string", "pattern": "^[A-Z]{3}$" },
+          "gross": { "$ref": "#/$defs/amount" },
+          "grossMinor": { "type": "integer", "minimum": 0 },
+          "deductions": { "$ref": "#/$defs/amount" },
+          "deductionsMinor": { "type": "integer", "minimum": 0 },
+          "employerContributions": { "$ref": "#/$defs/amount" },
+          "employerContributionsMinor": { "type": "integer", "minimum": 0 },
+          "net": { "$ref": "#/$defs/amount" },
+          "netMinor": { "type": "integer", "minimum": 0 },
+          "headcount": { "type": ["integer", "string", "null"] },
+          "deductionsByType": { "$ref": "#/$defs/split", "description": "Types: a deduction type code of the company, or advance_recovery." },
+          "employerContributionsByType": { "$ref": "#/$defs/split" }
+        }
+      }
+    },
+    "advanceRecoveries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["employeeRef", "currencyCode"],
+        "additionalProperties": false,
+        "properties": {
+          "employeeRef": { "type": "string", "minLength": 1 },
+          "currencyCode": { "type": "string", "pattern": "^[A-Z]{3}$" },
+          "amount": { "$ref": "#/$defs/amount" },
+          "amountMinor": { "type": "integer", "minimum": 1 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "amount": { "type": ["string", "number"], "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+    "split": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type"],
+        "additionalProperties": false,
+        "properties": {
+          "type": { "type": "string", "pattern": "^[a-z0-9_]{2,40}$" },
+          "amount": { "$ref": "#/$defs/amount" },
+          "amountMinor": { "type": "integer", "minimum": 0 }
+        }
+      }
+    }
+  }
+}

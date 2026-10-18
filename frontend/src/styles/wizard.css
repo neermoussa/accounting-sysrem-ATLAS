@@ -1,0 +1,200 @@
+.wizard-shell {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 28px clamp(16px, 3vw, 32px) 60px;
+}
+
+.wizard-header h1 {
+  margin: 0 0 6px;
+  color: var(--atlas-brand-glow);
+}
+.wizard-header p {
+  color: var(--atlas-text-muted);
+  margin: 0 0 20px;
+}
+
+.wizard-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.wizard-step-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--atlas-border);
+  background: var(--atlas-panel);
+  color: var(--atlas-text-muted);
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.wizard-step-btn.active {
+  border-color: var(--atlas-brand);
+  color: var(--atlas-text);
+  background: color-mix(in srgb, var(--atlas-brand) 12%, transparent);
+}
+.wizard-step-btn.done .wizard-step-num {
+  background: var(--atlas-positive);
+  color: #fff;
+}
+.wizard-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--atlas-raised);
+  font-size: 0.7rem;
+}
+
+.wizard-body {
+  padding: 24px;
+}
+.wizard-body h2 {
+  margin: 0 0 12px;
+}
+.wizard-subheading {
+  margin: 18px 0 8px;
+  font-size: 0.9rem;
+  color: var(--atlas-text-muted);
+}
+
+.wizard-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.wizard-inline-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.wizard-inline-row input {
+  flex: 1;
+}
+
+.wizard-color-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.wizard-color-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+.wizard-color-swatch.active {
+  border-color: var(--atlas-text);
+}
+
+.wizard-modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.wizard-module-row {
+  border: 1px solid var(--atlas-border);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.wizard-simple-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.wizard-simple-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--atlas-border);
+  border-radius: 8px;
+}
+.wizard-simple-list li button {
+  margin-inline-start: auto;
+}
+
+.wizard-inline-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.wizard-inline-form input,
+.wizard-inline-form select {
+  min-height: 38px;
+  border: 1px solid rgb(var(--atlas-brand-rgb) / 18%);
+  border-radius: 8px;
+  padding: 0 10px;
+  background: var(--atlas-panel);
+  color: var(--atlas-text);
+}
+
+.wizard-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  background: var(--atlas-raised);
+  color: var(--atlas-text-muted);
+}
+
+.wizard-vehicle-card {
+  border: 1px solid var(--atlas-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+.wizard-rep-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.wizard-rep-chip {
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--atlas-border);
+  background: var(--atlas-panel);
+  color: var(--atlas-text-muted);
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.wizard-rep-chip.active {
+  background: var(--atlas-brand);
+  color: var(--atlas-text-on-accent);
+  border-color: var(--atlas-brand);
+}
+
+.wizard-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.wizard-radio-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--atlas-border);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.wizard-standalone-next {
+  margin-top: 10px;
+}

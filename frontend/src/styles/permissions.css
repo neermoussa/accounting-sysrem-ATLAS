@@ -1,0 +1,175 @@
+.permissions-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--atlas-page-pad-top) var(--atlas-page-pad-x) var(--atlas-page-pad-bottom);
+}
+.permissions-page.loading {
+  color: var(--text-muted-on-dark);
+  padding: 60px;
+  text-align: center;
+}
+.permissions-page h1 {
+  font-size: 2rem;
+  color: var(--accent-light);
+  margin-bottom: 8px;
+}
+
+.permissions-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 18px;
+  margin-top: 20px;
+  align-items: start;
+}
+@media (max-width: 840px) {
+  .permissions-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.permissions-user-list {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 78vh;
+  overflow-y: auto;
+}
+.permissions-user-list h2 {
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+.permissions-user-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  text-align: start;
+  width: 100%;
+}
+.permissions-user-row:hover {
+  background: var(--accent-pale);
+}
+.permissions-user-row.active {
+  border-color: var(--border-accent);
+  background: var(--accent-pale);
+}
+.permissions-user-name {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.shield-badge {
+  font-size: 0.85rem;
+}
+.permissions-user-contact {
+  font-size: 0.78rem;
+  color: var(--text-muted-on-light);
+}
+
+.permissions-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.permissions-empty {
+  padding: 40px;
+  text-align: center;
+  color: var(--text-muted-on-dark);
+}
+
+.permissions-detail-header {
+  padding: 16px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.permissions-detail-header h2 {
+  font-size: 1.2rem;
+}
+.permissions-template-apply select {
+  border: 1px solid var(--border-accent);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-family: var(--font-body);
+  background: var(--atlas-panel);
+}
+
+.permissions-grid-card,
+.permissions-meta-card,
+.permissions-save-template-card,
+.permissions-templates-card {
+  padding: 16px 18px;
+}
+.permissions-grid-card h3,
+.permissions-meta-card h3,
+.permissions-save-template-card h3,
+.permissions-templates-card h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.permissions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 8px 16px;
+}
+.permissions-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  padding: 6px 4px;
+}
+.permissions-checkbox input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--accent);
+}
+.permissions-checkbox.meta {
+  font-weight: 700;
+}
+
+.permissions-save-row {
+  margin-top: 14px;
+}
+
+.permissions-meta-card {
+  border-color: rgba(224, 54, 44, 0.35);
+}
+
+.permissions-save-template-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.permissions-save-template-row input {
+  flex: 1;
+  min-width: 220px;
+  border: 1px solid var(--border-accent);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: var(--font-body);
+}
+
+.permissions-templates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.permissions-template-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid var(--border-accent-soft);
+  border-radius: 10px;
+}

@@ -1,0 +1,928 @@
+{
+  "steps": {
+    "car_pCar": {
+      "body": {
+        "company_id": 1,
+        "current_quantity": 50,
+        "id": 1,
+        "item_name": "لوز 1كغ",
+        "lowStock": false,
+        "low_stock_alert_active": 0,
+        "min_quantity": 0,
+        "product_id": 1
+      },
+      "status": 201
+    },
+    "car_pWh": {
+      "body": {
+        "company_id": 1,
+        "current_quantity": 2,
+        "id": 2,
+        "item_name": "كاجو 1كغ",
+        "lowStock": false,
+        "low_stock_alert_active": 0,
+        "min_quantity": 0,
+        "product_id": 2
+      },
+      "status": 201
+    },
+    "order_approve": {
+      "body": {
+        "approved_by_id": 1,
+        "approved_by_name": "مدير الاختبار",
+        "cancel_reason": null,
+        "company_id": 1,
+        "credit_limit_exceeded": 0,
+        "credit_override_reason": null,
+        "follow_up_of_order_id": null,
+        "id": 6,
+        "items": [
+          {
+            "product_id": 3,
+            "product_name": "فستق 1كغ",
+            "qty": 1
+          }
+        ],
+        "items_json": "[{\"product_id\":3,\"product_name\":\"فستق 1كغ\",\"qty\":1}]",
+        "rep_id": 2,
+        "return_reason": null,
+        "shop_id": 1,
+        "source": "rep_manual",
+        "status": "approved",
+        "total_value": 50
+      },
+      "status": 200
+    },
+    "order_both": {
+      "body": {
+        "approved_by_id": 1,
+        "approved_by_name": "مدير الاختبار",
+        "cancel_reason": null,
+        "company_id": 1,
+        "credit_limit_exceeded": 0,
+        "credit_override_reason": null,
+        "follow_up_of_order_id": null,
+        "id": 4,
+        "items": [
+          {
+            "product_id": 4,
+            "product_name": "خلطة فاخرة 1كغ",
+            "qty": 8
+          },
+          {
+            "product_name": "مادة حرة",
+            "qty": 1
+          }
+        ],
+        "items_json": "[{\"product_id\":4,\"product_name\":\"خلطة فاخرة 1كغ\",\"qty\":8},{\"product_name\":\"مادة حرة\",\"qty\":1}]",
+        "rep_id": 1,
+        "return_reason": null,
+        "shop_id": 1,
+        "source": "direct",
+        "status": "approved",
+        "total_value": 100
+      },
+      "status": 201
+    },
+    "order_car_covers": {
+      "body": {
+        "approved_by_id": 1,
+        "approved_by_name": "مدير الاختبار",
+        "cancel_reason": null,
+        "company_id": 1,
+        "credit_limit_exceeded": 0,
+        "credit_override_reason": null,
+        "follow_up_of_order_id": null,
+        "id": 1,
+        "items": [
+          {
+            "product_id": 1,
+            "product_name": "لوز 1كغ",
+            "qty": 10
+          }
+        ],
+        "items_json": "[{\"product_id\":1,\"product_name\":\"لوز 1كغ\",\"qty\":10}]",
+        "rep_id": 1,
+        "return_reason": null,
+        "shop_id": 1,
+        "source": "direct",
+        "status": "approved",
+        "total_value": 100
+      },
+      "status": 201
+    },
+    "order_default_policy": {
+      "body": {
+        "approved_by_id": 1,
+        "approved_by_name": "مدير الاختبار",
+        "cancel_reason": null,
+        "company_id": 1,
+        "credit_limit_exceeded": 0,
+        "credit_override_reason": null,
+        "follow_up_of_order_id": null,
+        "id": 5,
+        "items": [
+          {
+            "product_id": 5,
+            "product_name": "زبيب 500غ",
+            "qty": 2
+          }
+        ],
+        "items_json": "[{\"product_id\":5,\"product_name\":\"زبيب 500غ\",\"qty\":2}]",
+        "rep_id": 1,
+        "return_reason": null,
+        "shop_id": 1,
+        "source": "direct",
+        "status": "approved",
+        "total_value": 100
+      },
+      "status": 201
+    },
+    "order_pending": {
+      "body": {
+        "approved_by_id": null,
+        "approved_by_name": null,
+        "cancel_reason": null,
+        "company_id": 1,
+        "credit_limit_exceeded": 0,
+        "credit_override_reason": null,
+        "follow_up_of_order_id": null,
+        "id": 6,
+        "items": [
+          {
+            "product_id": 3,
+            "product_name": "فستق 1كغ",
+            "qty": 1
+          }
+        ],
+        "items_json": "[{\"product_id\":3,\"product_name\":\"فستق 1كغ\",\"qty\":1}]",
+        "rep_id": 2,
+        "return_reason": null,
+        "shop_id": 1,
+        "source": "rep_manual",
+        "status": "pending_approval",
+        "total_value": 50
+      },
+      "status": 201
+    },
+    "order_production": {
+      "body": {
+        "approved_by_id": 1,
+        "approved_by_name": "مدير الاختبار",
+        "cancel_reason": null,
+        "company_id": 1,
+        "credit_limit_exceeded": 0,
+        "credit_override_reason": null,
+        "follow_up_of_order_id": null,
+        "id": 3,
+        "items": [
+          {
+            "product_id": 3,
+            "product_name": "فستق 1كغ",
+            "qty": 7
+          }
+        ],
+        "items_json": "[{\"product_id\":3,\"product_name\":\"فستق 1كغ\",\"qty\":7}]",
+        "rep_id": 1,
+        "return_reason": null,
+        "shop_id": 1,
+        "source": "direct",
+        "status": "approved",
+        "total_value": 100
+      },
+      "status": 201
+    },
+    "order_replenish": {
+      "body": {
+        "approved_by_id": 1,
+        "approved_by_name": "مدير الاختبار",
+        "cancel_reason": null,
+        "company_id": 1,
+        "credit_limit_exceeded": 0,
+        "credit_override_reason": null,
+        "follow_up_of_order_id": null,
+        "id": 2,
+        "items": [
+          {
+            "product_id": 2,
+            "product_name": "كاجو 1كغ",
+            "qty": 12
+          }
+        ],
+        "items_json": "[{\"product_id\":2,\"product_name\":\"كاجو 1كغ\",\"qty\":12}]",
+        "rep_id": 1,
+        "return_reason": null,
+        "shop_id": 1,
+        "source": "direct",
+        "status": "approved",
+        "total_value": 100
+      },
+      "status": 201
+    },
+    "policy_category": {
+      "body": {
+        "category": "خلطات",
+        "company_id": 1,
+        "id": 2,
+        "lead_time_days": 2,
+        "load_early": 0,
+        "product_id": null
+      },
+      "status": 201
+    },
+    "policy_default": {
+      "body": null,
+      "status": 204
+    },
+    "policy_default_missing": {
+      "body": {
+        "error": "lead_time_days_required"
+      },
+      "status": 400
+    },
+    "policy_delete": {
+      "body": null,
+      "status": 204
+    },
+    "policy_delete_again": {
+      "body": {
+        "error": "not_found"
+      },
+      "status": 404
+    },
+    "policy_extra": {
+      "body": {
+        "category": "سكاكر",
+        "company_id": 1,
+        "id": 3,
+        "lead_time_days": 9,
+        "load_early": 0,
+        "product_id": null
+      },
+      "status": 201
+    },
+    "policy_list": {
+      "body": [
+        {
+          "category": null,
+          "company_id": 1,
+          "id": 1,
+          "lead_time_days": 5,
+          "load_early": 1,
+          "product_id": 3
+        },
+        {
+          "category": "خلطات",
+          "company_id": 1,
+          "id": 2,
+          "lead_time_days": 2,
+          "load_early": 0,
+          "product_id": null
+        }
+      ],
+      "status": 200
+    },
+    "policy_missing_days": {
+      "body": {
+        "error": "lead_time_days_required"
+      },
+      "status": 400
+    },
+    "policy_product": {
+      "body": {
+        "category": null,
+        "company_id": 1,
+        "id": 1,
+        "lead_time_days": 4,
+        "load_early": 1,
+        "product_id": 3
+      },
+      "status": 201
+    },
+    "policy_update": {
+      "body": {
+        "category": null,
+        "company_id": 1,
+        "id": 1,
+        "lead_time_days": 5,
+        "load_early": 1,
+        "product_id": 3
+      },
+      "status": 200
+    },
+    "product_خلطة فاخرة 1كغ": {
+      "body": {
+        "active": 1,
+        "amin_code": null,
+        "barcode": null,
+        "base_price": null,
+        "box_weight_grams": null,
+        "brand": null,
+        "category": "خلطات",
+        "company_id": 1,
+        "cost_price": null,
+        "description": null,
+        "id": 4,
+        "image_url": null,
+        "name": "خلطة فاخرة 1كغ",
+        "sku": null,
+        "sort_order": 4,
+        "unit": null
+      },
+      "status": 201
+    },
+    "product_زبيب 500غ": {
+      "body": {
+        "active": 1,
+        "amin_code": null,
+        "barcode": null,
+        "base_price": null,
+        "box_weight_grams": null,
+        "brand": null,
+        "category": null,
+        "company_id": 1,
+        "cost_price": null,
+        "description": null,
+        "id": 5,
+        "image_url": null,
+        "name": "زبيب 500غ",
+        "sku": null,
+        "sort_order": 5,
+        "unit": null
+      },
+      "status": 201
+    },
+    "product_فستق 1كغ": {
+      "body": {
+        "active": 1,
+        "amin_code": null,
+        "barcode": null,
+        "base_price": null,
+        "box_weight_grams": null,
+        "brand": null,
+        "category": "مكسرات",
+        "company_id": 1,
+        "cost_price": null,
+        "description": null,
+        "id": 3,
+        "image_url": null,
+        "name": "فستق 1كغ",
+        "sku": null,
+        "sort_order": 3,
+        "unit": null
+      },
+      "status": 201
+    },
+    "product_كاجو 1كغ": {
+      "body": {
+        "active": 1,
+        "amin_code": null,
+        "barcode": null,
+        "base_price": null,
+        "box_weight_grams": null,
+        "brand": null,
+        "category": "مكسرات",
+        "company_id": 1,
+        "cost_price": null,
+        "description": null,
+        "id": 2,
+        "image_url": null,
+        "name": "كاجو 1كغ",
+        "sku": null,
+        "sort_order": 2,
+        "unit": null
+      },
+      "status": 201
+    },
+    "product_لوز 1كغ": {
+      "body": {
+        "active": 1,
+        "amin_code": null,
+        "barcode": null,
+        "base_price": null,
+        "box_weight_grams": null,
+        "brand": null,
+        "category": "مكسرات",
+        "company_id": 1,
+        "cost_price": null,
+        "description": null,
+        "id": 1,
+        "image_url": null,
+        "name": "لوز 1كغ",
+        "sku": null,
+        "sort_order": 1,
+        "unit": null
+      },
+      "status": 201
+    },
+    "replenish_filtered": {
+      "body": [
+        {
+          "company_id": 1,
+          "id": 1,
+          "order_id": 2,
+          "product_id": 2,
+          "product_name": "كاجو 1كغ",
+          "rep_id": 1,
+          "requested_qty": 10,
+          "shop_id": 1,
+          "status": "pending",
+          "unit_key": null
+        },
+        {
+          "company_id": 1,
+          "id": 2,
+          "order_id": 4,
+          "product_id": 4,
+          "product_name": "خلطة فاخرة 1كغ",
+          "rep_id": 1,
+          "requested_qty": 3,
+          "shop_id": 1,
+          "status": "pending",
+          "unit_key": null
+        }
+      ],
+      "status": 200
+    },
+    "replenish_list": {
+      "body": [
+        {
+          "company_id": 1,
+          "id": 1,
+          "order_id": 2,
+          "product_id": 2,
+          "product_name": "كاجو 1كغ",
+          "rep_id": 1,
+          "requested_qty": 10,
+          "shop_id": 1,
+          "status": "pending",
+          "unit_key": null
+        },
+        {
+          "company_id": 1,
+          "id": 2,
+          "order_id": 4,
+          "product_id": 4,
+          "product_name": "خلطة فاخرة 1كغ",
+          "rep_id": 1,
+          "requested_qty": 3,
+          "shop_id": 1,
+          "status": "pending",
+          "unit_key": null
+        }
+      ],
+      "status": 200
+    },
+    "replenish_missing": {
+      "body": {
+        "error": "not_found"
+      },
+      "status": 404
+    },
+    "replenish_status": {
+      "body": {
+        "company_id": 1,
+        "id": 1,
+        "order_id": 2,
+        "product_id": 2,
+        "product_name": "كاجو 1كغ",
+        "rep_id": 1,
+        "requested_qty": 10,
+        "shop_id": 1,
+        "status": "prepared",
+        "unit_key": null
+      },
+      "status": 200
+    },
+    "replenish_status_bad": {
+      "body": {
+        "error": "invalid_status"
+      },
+      "status": 400
+    },
+    "request_get": {
+      "body": {
+        "available_qty": 0,
+        "company_id": 1,
+        "id": 1,
+        "order_id": 3,
+        "product_id": 3,
+        "product_name": "فستق 1كغ",
+        "rep_id": 1,
+        "requested_qty": 7,
+        "shop_id": 1,
+        "shortage_qty": 7,
+        "status": "pending_processing",
+        "unit_key": null
+      },
+      "status": 200
+    },
+    "request_get_missing": {
+      "body": {
+        "error": "not_found"
+      },
+      "status": 404
+    },
+    "request_rep_forbidden": {
+      "body": {
+        "error": "forbidden"
+      },
+      "status": 403
+    },
+    "request_status_bad": {
+      "body": {
+        "error": "invalid_status"
+      },
+      "status": 400
+    },
+    "request_status_in_production": {
+      "body": {
+        "available_qty": 0,
+        "company_id": 1,
+        "id": 1,
+        "order_id": 3,
+        "product_id": 3,
+        "product_name": "فستق 1كغ",
+        "rep_id": 1,
+        "requested_qty": 7,
+        "shop_id": 1,
+        "shortage_qty": 7,
+        "status": "in_production",
+        "unit_key": null
+      },
+      "status": 200
+    },
+    "request_status_ready": {
+      "body": {
+        "available_qty": 0,
+        "company_id": 1,
+        "id": 1,
+        "order_id": 3,
+        "product_id": 3,
+        "product_name": "فستق 1كغ",
+        "rep_id": 1,
+        "requested_qty": 7,
+        "shop_id": 1,
+        "shortage_qty": 7,
+        "status": "ready",
+        "unit_key": null
+      },
+      "status": 200
+    },
+    "requests_filtered": {
+      "body": [
+        {
+          "available_qty": 0,
+          "company_id": 1,
+          "id": 1,
+          "order_id": 3,
+          "product_id": 3,
+          "product_name": "فستق 1كغ",
+          "rep_id": 1,
+          "requested_qty": 7,
+          "shop_id": 1,
+          "shortage_qty": 7,
+          "status": "pending_processing",
+          "unit_key": null
+        },
+        {
+          "available_qty": 3,
+          "company_id": 1,
+          "id": 2,
+          "order_id": 4,
+          "product_id": 4,
+          "product_name": "خلطة فاخرة 1كغ",
+          "rep_id": 1,
+          "requested_qty": 8,
+          "shop_id": 1,
+          "shortage_qty": 5,
+          "status": "pending_processing",
+          "unit_key": null
+        },
+        {
+          "available_qty": 0,
+          "company_id": 1,
+          "id": 3,
+          "order_id": 5,
+          "product_id": 5,
+          "product_name": "زبيب 500غ",
+          "rep_id": 1,
+          "requested_qty": 2,
+          "shop_id": 1,
+          "shortage_qty": 2,
+          "status": "pending_processing",
+          "unit_key": null
+        },
+        {
+          "available_qty": 0,
+          "company_id": 1,
+          "id": 4,
+          "order_id": 6,
+          "product_id": 3,
+          "product_name": "فستق 1كغ",
+          "rep_id": 2,
+          "requested_qty": 1,
+          "shop_id": 1,
+          "shortage_qty": 1,
+          "status": "pending_processing",
+          "unit_key": null
+        }
+      ],
+      "status": 200
+    },
+    "requests_list": {
+      "body": [
+        {
+          "available_qty": 0,
+          "company_id": 1,
+          "id": 1,
+          "order_id": 3,
+          "product_id": 3,
+          "product_name": "فستق 1كغ",
+          "rep_id": 1,
+          "requested_qty": 7,
+          "shop_id": 1,
+          "shortage_qty": 7,
+          "status": "pending_processing",
+          "unit_key": null
+        },
+        {
+          "available_qty": 3,
+          "company_id": 1,
+          "id": 2,
+          "order_id": 4,
+          "product_id": 4,
+          "product_name": "خلطة فاخرة 1كغ",
+          "rep_id": 1,
+          "requested_qty": 8,
+          "shop_id": 1,
+          "shortage_qty": 5,
+          "status": "pending_processing",
+          "unit_key": null
+        },
+        {
+          "available_qty": 0,
+          "company_id": 1,
+          "id": 3,
+          "order_id": 5,
+          "product_id": 5,
+          "product_name": "زبيب 500غ",
+          "rep_id": 1,
+          "requested_qty": 2,
+          "shop_id": 1,
+          "shortage_qty": 2,
+          "status": "pending_processing",
+          "unit_key": null
+        },
+        {
+          "available_qty": 0,
+          "company_id": 1,
+          "id": 4,
+          "order_id": 6,
+          "product_id": 3,
+          "product_name": "فستق 1كغ",
+          "rep_id": 2,
+          "requested_qty": 1,
+          "shop_id": 1,
+          "shortage_qty": 1,
+          "status": "pending_processing",
+          "unit_key": null
+        }
+      ],
+      "status": 200
+    },
+    "shop": {
+      "body": {
+        "active": 1,
+        "address": null,
+        "assigned_rep_id": null,
+        "avgIntervalDays": null,
+        "balance": null,
+        "balance_date": null,
+        "branch": null,
+        "business_type": null,
+        "classification": null,
+        "company_id": 1,
+        "contact_person": null,
+        "custom_fields": {},
+        "custom_fields_json": "{}",
+        "daysSinceOrder": null,
+        "debtThreshold": 500,
+        "debt_alert_active": 0,
+        "debt_threshold_override": null,
+        "email": null,
+        "expectedCycleDays": 14,
+        "id": 1,
+        "isAbnormallyOverdue": false,
+        "isOverDebt": false,
+        "isOverdue": false,
+        "lastOrderDate": null,
+        "lat": 33.5,
+        "lng": 36.3,
+        "name": "محل المكسرات",
+        "notes": null,
+        "order_overdue_days_override": null,
+        "overdue_alert_active": 0,
+        "owner_name": null,
+        "phone": null,
+        "public_token": "<TOKEN>",
+        "region": null,
+        "status": "green",
+        "warehouse_id": null,
+        "whatsapp_customer_notify_enabled": 1,
+        "working_hours": null
+      },
+      "status": 201
+    },
+    "wh_pBoth": {
+      "body": {
+        "company_id": 1,
+        "current_quantity": 3,
+        "id": 2,
+        "item_name": "خلطة فاخرة 1كغ",
+        "lowStock": false,
+        "low_stock_alert_active": 0,
+        "min_quantity": 0,
+        "product_id": 4
+      },
+      "status": 201
+    },
+    "wh_pWh": {
+      "body": {
+        "company_id": 1,
+        "current_quantity": 40,
+        "id": 1,
+        "item_name": "كاجو 1كغ",
+        "lowStock": false,
+        "low_stock_alert_active": 0,
+        "min_quantity": 0,
+        "product_id": 2
+      },
+      "status": 201
+    }
+  },
+  "tables": {
+    "car_inventory": [
+      {
+        "current_quantity": 50,
+        "product_id": 1
+      },
+      {
+        "current_quantity": 2,
+        "product_id": 2
+      }
+    ],
+    "factory_inventory": [
+      {
+        "current_quantity": 40,
+        "product_id": 2
+      },
+      {
+        "current_quantity": 3,
+        "product_id": 4
+      }
+    ],
+    "notifications": [
+      {
+        "entity_id": 1,
+        "entity_type": "warehouse_replenish_request",
+        "message_ar": "يحتاج تجهيز 10 من \"كاجو 1كغ\" لتزويد سيارة المندوب — طلب #2 لمحل محل المكسرات.",
+        "type": "car_replenish_needed"
+      },
+      {
+        "entity_id": 1,
+        "entity_type": "production_request",
+        "message_ar": "طلب إنتاج جديد — طلب #3، العميل محل المكسرات، الصنف \"فستق 1كغ\"، المطلوب 7، المتوفر 0، الناقص 7، المندوب مدير الاختبار، موعد التسليم المتوقع 2026-03-15.",
+        "type": "production_request_created"
+      },
+      {
+        "entity_id": 2,
+        "entity_type": "production_request",
+        "message_ar": "طلب إنتاج جديد — طلب #4، العميل محل المكسرات، الصنف \"خلطة فاخرة 1كغ\"، المطلوب 8، المتوفر 3، الناقص 5، المندوب مدير الاختبار، موعد التسليم المتوقع 2026-03-12.",
+        "type": "production_request_created"
+      },
+      {
+        "entity_id": 2,
+        "entity_type": "warehouse_replenish_request",
+        "message_ar": "يحتاج تجهيز 3 من \"خلطة فاخرة 1كغ\" لتزويد سيارة المندوب — طلب #4 لمحل محل المكسرات.",
+        "type": "car_replenish_needed"
+      },
+      {
+        "entity_id": 3,
+        "entity_type": "production_request",
+        "message_ar": "طلب إنتاج جديد — طلب #5، العميل محل المكسرات، الصنف \"زبيب 500غ\"، المطلوب 2، المتوفر 0، الناقص 2، المندوب مدير الاختبار، موعد التسليم المتوقع 2026-03-13.",
+        "type": "production_request_created"
+      },
+      {
+        "entity_id": 4,
+        "entity_type": "production_request",
+        "message_ar": "طلب إنتاج جديد — طلب #6، العميل محل المكسرات، الصنف \"فستق 1كغ\"، المطلوب 1، المتوفر 0، الناقص 1، المندوب مندوب الإنتاج، موعد التسليم المتوقع 2026-03-16.",
+        "type": "production_request_created"
+      }
+    ],
+    "prep_lead_time_policies": [
+      {
+        "category": null,
+        "id": 1,
+        "lead_time_days": 5,
+        "load_early": 1,
+        "product_id": 3
+      },
+      {
+        "category": "خلطات",
+        "id": 2,
+        "lead_time_days": 2,
+        "load_early": 0,
+        "product_id": null
+      }
+    ],
+    "production_requests": [
+      {
+        "available_qty": 0,
+        "expected_delivery": "2026-03-15",
+        "id": 1,
+        "order_id": 3,
+        "product_id": 3,
+        "product_name": "فستق 1كغ",
+        "rep_id": 1,
+        "requested_qty": 7,
+        "shop_id": 1,
+        "shortage_qty": 7,
+        "status": "ready",
+        "unit_key": null
+      },
+      {
+        "available_qty": 3,
+        "expected_delivery": "2026-03-12",
+        "id": 2,
+        "order_id": 4,
+        "product_id": 4,
+        "product_name": "خلطة فاخرة 1كغ",
+        "rep_id": 1,
+        "requested_qty": 8,
+        "shop_id": 1,
+        "shortage_qty": 5,
+        "status": "pending_processing",
+        "unit_key": null
+      },
+      {
+        "available_qty": 0,
+        "expected_delivery": "2026-03-13",
+        "id": 3,
+        "order_id": 5,
+        "product_id": 5,
+        "product_name": "زبيب 500غ",
+        "rep_id": 1,
+        "requested_qty": 2,
+        "shop_id": 1,
+        "shortage_qty": 2,
+        "status": "pending_processing",
+        "unit_key": null
+      },
+      {
+        "available_qty": 0,
+        "expected_delivery": "2026-03-16",
+        "id": 4,
+        "order_id": 6,
+        "product_id": 3,
+        "product_name": "فستق 1كغ",
+        "rep_id": 2,
+        "requested_qty": 1,
+        "shop_id": 1,
+        "shortage_qty": 1,
+        "status": "pending_processing",
+        "unit_key": null
+      }
+    ],
+    "settings": [
+      {
+        "key": "default_prep_lead_time_days",
+        "value": "3"
+      }
+    ],
+    "warehouse_replenish_requests": [
+      {
+        "id": 1,
+        "order_id": 2,
+        "product_id": 2,
+        "product_name": "كاجو 1كغ",
+        "rep_id": 1,
+        "requested_qty": 10,
+        "shop_id": 1,
+        "status": "prepared",
+        "unit_key": null
+      },
+      {
+        "id": 2,
+        "order_id": 4,
+        "product_id": 4,
+        "product_name": "خلطة فاخرة 1كغ",
+        "rep_id": 1,
+        "requested_qty": 3,
+        "shop_id": 1,
+        "status": "pending",
+        "unit_key": null
+      }
+    ]
+  }
+}

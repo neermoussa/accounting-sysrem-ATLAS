@@ -1,0 +1,71 @@
+.target-gauges-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.radial-progress-card {
+  flex: 1 1 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px;
+  gap: 10px;
+  border: 1px solid rgb(var(--atlas-brand-rgb) / 14%);
+  background: var(--atlas-panel);
+  box-shadow: 0 12px 30px rgb(0 0 0 / 10%);
+}
+.radial-progress-card svg {
+  filter: drop-shadow(0 0 7px rgb(0 105 58 / 22%));
+}
+
+.radial-progress-title {
+  margin: 0;
+  font-size: 15px;
+  color: var(--atlas-brand-signal);
+  letter-spacing: .02em;
+}
+
+.radial-progress-ring {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+
+.radial-progress-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-align: center;
+  padding: 0 12px;
+}
+
+.radial-progress-percent {
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--atlas-brand-glow);
+  line-height: 1;
+  text-shadow: 0 0 14px rgb(0 105 58 / 22%);
+}
+
+.radial-progress-sub {
+  font-size: 12px;
+  color: var(--atlas-text-muted);
+}
+
+.radial-progress-footer {
+  font-size: 11px;
+  color: var(--atlas-text-muted);
+  margin-top: 2px;
+}
+
+.radial-progress-empty-hint {
+  font-size: 12px;
+  color: var(--atlas-text-muted);
+  text-align: center;
+}

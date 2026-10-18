@@ -1,0 +1,1165 @@
+{
+  "steps": {
+    "credit_note": {
+      "body": {
+        "company_id": 1,
+        "credit_note_number": "CN-00001",
+        "currency_code": "USD",
+        "id": 1,
+        "invoice": {
+          "id": 1,
+          "invoice_number": "SI-00001"
+        },
+        "invoice_id": 1,
+        "journal_entry": {
+          "entry_number": "JE-00002",
+          "id": 2
+        },
+        "journal_entry_id": 2,
+        "lines": [
+          {
+            "company_id": 1,
+            "credit_note_id": 1,
+            "description": "خدمة خاضعة",
+            "id": 1,
+            "invoice_line_id": 1,
+            "line_no": 1,
+            "net": "10.00",
+            "net_minor": 1000,
+            "product_id": null,
+            "qty": 1,
+            "tax": "1.50",
+            "tax_minor": 150,
+            "tax_rate_bp": 1500,
+            "unit_cost_minor": null,
+            "unit_price": "10.00",
+            "unit_price_minor": 1000
+          }
+        ],
+        "rate_e8": 100000000,
+        "rate_quote": "base_per_foreign",
+        "reason": null,
+        "restock": 0,
+        "return_request_id": null,
+        "rounding": "0.00",
+        "rounding_minor": 0,
+        "shop": {
+          "id": 1,
+          "name": "زبون الضريبة"
+        },
+        "shop_id": 1,
+        "status": "posted",
+        "subtotal": "10.00",
+        "subtotal_minor": 1000,
+        "tax": "1.50",
+        "tax_minor": 150,
+        "total": "11.50",
+        "total_base_minor": 1150,
+        "total_minor": 1150
+      },
+      "status": 201
+    },
+    "expense_invoice": {
+      "body": {
+        "base_open_minor": null,
+        "company_id": 1,
+        "currency_code": "USD",
+        "debit_notes": [],
+        "debited_minor": 0,
+        "digits": 2,
+        "exchange_rate": null,
+        "id": 1,
+        "invoice_number": null,
+        "journal_entry": null,
+        "journal_entry_id": null,
+        "kind": "expense",
+        "landed_allocations": [],
+        "landed_method": null,
+        "lines": [
+          {
+            "company_id": 1,
+            "debited_qty": 0,
+            "description": "إيجار",
+            "expense_account_code": "5200",
+            "expense_account_id": 44,
+            "fx_base_minor": null,
+            "grni_cleared_base_minor": null,
+            "id": 1,
+            "invoice_id": 1,
+            "landed_kind": null,
+            "line_base_minor": null,
+            "line_no": 1,
+            "net_minor": 30000,
+            "po_line_id": null,
+            "ppv_base_minor": null,
+            "product_id": null,
+            "product_name": null,
+            "qty": 1,
+            "tax_minor": 1500,
+            "tax_rate_bp": 500,
+            "unit_price_minor": 30000
+          },
+          {
+            "company_id": 1,
+            "debited_qty": 0,
+            "description": "كهرباء",
+            "expense_account_code": "5200",
+            "expense_account_id": 44,
+            "fx_base_minor": null,
+            "grni_cleared_base_minor": null,
+            "id": 2,
+            "invoice_id": 1,
+            "landed_kind": null,
+            "line_base_minor": null,
+            "line_no": 2,
+            "net_minor": 2470,
+            "po_line_id": null,
+            "ppv_base_minor": null,
+            "product_id": null,
+            "product_name": null,
+            "qty": 2,
+            "tax_minor": 0,
+            "tax_rate_bp": 0,
+            "unit_price_minor": 1235
+          }
+        ],
+        "match": null,
+        "match_details_json": null,
+        "match_status": "not_required",
+        "mismatch_approved_by": null,
+        "mismatch_reason": null,
+        "notes": null,
+        "open_minor": null,
+        "payments": [],
+        "po_id": null,
+        "posted_by": null,
+        "purchase_order": null,
+        "rate_e8": null,
+        "rate_quote": null,
+        "receipt": null,
+        "receipt_id": null,
+        "status": "draft",
+        "subtotal_minor": 32470,
+        "supplier": {
+          "id": 1,
+          "name": "مورد الضريبة",
+          "payment_terms_days": 30
+        },
+        "supplier_id": 1,
+        "supplier_invoice_ref": null,
+        "tax_minor": 1500,
+        "total_base_minor": null,
+        "total_minor": 33970
+      },
+      "status": 201
+    },
+    "expense_post": {
+      "body": {
+        "base_open_minor": 33970,
+        "company_id": 1,
+        "currency_code": "USD",
+        "debit_notes": [],
+        "debited_minor": 0,
+        "digits": 2,
+        "exchange_rate": "1",
+        "id": 1,
+        "invoice_number": "PI-00001",
+        "journal_entry": {
+          "entry_number": "JE-00003",
+          "id": 3
+        },
+        "journal_entry_id": 3,
+        "kind": "expense",
+        "landed_allocations": [],
+        "landed_method": null,
+        "lines": [
+          {
+            "company_id": 1,
+            "debited_qty": 0,
+            "description": "إيجار",
+            "expense_account_code": "5200",
+            "expense_account_id": 44,
+            "fx_base_minor": null,
+            "grni_cleared_base_minor": null,
+            "id": 1,
+            "invoice_id": 1,
+            "landed_kind": null,
+            "line_base_minor": null,
+            "line_no": 1,
+            "net_minor": 30000,
+            "po_line_id": null,
+            "ppv_base_minor": null,
+            "product_id": null,
+            "product_name": null,
+            "qty": 1,
+            "tax_minor": 1500,
+            "tax_rate_bp": 500,
+            "unit_price_minor": 30000
+          },
+          {
+            "company_id": 1,
+            "debited_qty": 0,
+            "description": "كهرباء",
+            "expense_account_code": "5200",
+            "expense_account_id": 44,
+            "fx_base_minor": null,
+            "grni_cleared_base_minor": null,
+            "id": 2,
+            "invoice_id": 1,
+            "landed_kind": null,
+            "line_base_minor": null,
+            "line_no": 2,
+            "net_minor": 2470,
+            "po_line_id": null,
+            "ppv_base_minor": null,
+            "product_id": null,
+            "product_name": null,
+            "qty": 2,
+            "tax_minor": 0,
+            "tax_rate_bp": 0,
+            "unit_price_minor": 1235
+          }
+        ],
+        "match": null,
+        "match_details_json": null,
+        "match_status": "not_required",
+        "mismatch_approved_by": null,
+        "mismatch_reason": null,
+        "notes": null,
+        "open_minor": 33970,
+        "payments": [],
+        "po_id": null,
+        "posted_by": 1,
+        "purchase_order": null,
+        "rate_e8": 100000000,
+        "rate_quote": "base_per_foreign",
+        "receipt": null,
+        "receipt_id": null,
+        "status": "posted",
+        "subtotal_minor": 32470,
+        "supplier": {
+          "id": 1,
+          "name": "مورد الضريبة",
+          "payment_terms_days": 30
+        },
+        "supplier_id": 1,
+        "supplier_invoice_ref": null,
+        "tax_minor": 1500,
+        "total_base_minor": 33970,
+        "total_minor": 33970
+      },
+      "status": 200
+    },
+    "go_live": {
+      "body": {
+        "backup_path": "<BACKUP_PATH>",
+        "customers": 0,
+        "date": "<TODAY>",
+        "dry_run": false,
+        "dry_run_id": 1,
+        "entry_ids": [],
+        "legacy_minor": 0,
+        "live": true,
+        "ok": true,
+        "open_items_import_id": null,
+        "open_items_minor": 0,
+        "problems": [],
+        "rows": [],
+        "run_id": 2,
+        "settings_changes": [
+          {
+            "from": false,
+            "key": "rep_cash_handover",
+            "message": "تفعيل تسليم نقدية المندوبين: التحصيل النقدي المؤكد يبقى في عهدة المندوب حتى يسلّمه إلى صندوق بسند تسليم",
+            "to": true
+          }
+        ],
+        "stock_mode": {
+          "custody_transfer_decrements_warehouse": false,
+          "message": "الوضع القديم: تحويل العهدة لا يُنقص رصيد المستودع — فعّل دفتر المخزون من شاشة المخزون",
+          "mode": "legacy"
+        },
+        "total": "0.00",
+        "total_minor": 0
+      },
+      "status": 200
+    },
+    "invoice_bad_rate": {
+      "body": {
+        "error": "invalid_tax_rate",
+        "message": "السطر 1: نسبة الضريبة غير صالحة"
+      },
+      "status": 400
+    },
+    "invoice_create": {
+      "body": {
+        "base_currency": "USD",
+        "branch_id": null,
+        "company_id": 1,
+        "credit_notes": [],
+        "credited": "0.00",
+        "credited_minor": 0,
+        "currency_code": "USD",
+        "discount": "0.50",
+        "discount_minor": 50,
+        "exchange_rate": null,
+        "id": 1,
+        "invoice_number": null,
+        "journal_entry": null,
+        "journal_entry_id": null,
+        "lines": [
+          {
+            "company_id": 1,
+            "credited_qty": 0,
+            "description": "خدمة خاضعة",
+            "discount": "0.00",
+            "discount_minor": 0,
+            "id": 1,
+            "invoice_id": 1,
+            "line_no": 1,
+            "net": "30.00",
+            "net_minor": 3000,
+            "price_source": "manual",
+            "product_id": null,
+            "qty": 3,
+            "revenue_account_code": "4100",
+            "revenue_account_id": 38,
+            "revenue_account_name": "إيرادات المبيعات",
+            "tax": "4.50",
+            "tax_minor": 450,
+            "tax_rate": "15.00",
+            "tax_rate_bp": 1500,
+            "unit_cost_minor": null,
+            "unit_key": null,
+            "unit_price": "10.00",
+            "unit_price_minor": 1000
+          },
+          {
+            "company_id": 1,
+            "credited_qty": 0,
+            "description": "مادة معفاة",
+            "discount": "0.00",
+            "discount_minor": 0,
+            "id": 2,
+            "invoice_id": 1,
+            "line_no": 2,
+            "net": "7.33",
+            "net_minor": 733,
+            "price_source": "manual",
+            "product_id": null,
+            "qty": 1,
+            "revenue_account_code": "4100",
+            "revenue_account_id": 38,
+            "revenue_account_name": "إيرادات المبيعات",
+            "tax": "0.00",
+            "tax_minor": 0,
+            "tax_rate": "0.00",
+            "tax_rate_bp": 0,
+            "unit_cost_minor": null,
+            "unit_key": null,
+            "unit_price": "7.33",
+            "unit_price_minor": 733
+          },
+          {
+            "company_id": 1,
+            "credited_qty": 0,
+            "description": "خدمة بنسبة كسرية",
+            "discount": "0.50",
+            "discount_minor": 50,
+            "id": 3,
+            "invoice_id": 1,
+            "line_no": 3,
+            "net": "7.27",
+            "net_minor": 727,
+            "price_source": "manual",
+            "product_id": null,
+            "qty": 7,
+            "revenue_account_code": "4100",
+            "revenue_account_id": 38,
+            "revenue_account_name": "إيرادات المبيعات",
+            "tax": "0.55",
+            "tax_minor": 55,
+            "tax_rate": "7.50",
+            "tax_rate_bp": 750,
+            "unit_cost_minor": null,
+            "unit_key": null,
+            "unit_price": "1.11",
+            "unit_price_minor": 111
+          }
+        ],
+        "notes": null,
+        "open": "49.65",
+        "order_id": null,
+        "posted_by": null,
+        "rate_e8": null,
+        "rate_quote": null,
+        "rounding": "0.00",
+        "rounding_minor": 0,
+        "shop": {
+          "address": null,
+          "id": 1,
+          "name": "زبون الضريبة",
+          "phone": null
+        },
+        "shop_id": 1,
+        "status": "draft",
+        "subtotal": "45.10",
+        "subtotal_minor": 4510,
+        "tax": "5.05",
+        "tax_minor": 505,
+        "total": "49.65",
+        "total_base": null,
+        "total_base_minor": null,
+        "total_minor": 4965,
+        "warehouse_id": null
+      },
+      "status": 201
+    },
+    "invoice_post": {
+      "body": {
+        "base_currency": "USD",
+        "branch_id": null,
+        "company_id": 1,
+        "credit_notes": [],
+        "credited": "0.00",
+        "credited_minor": 0,
+        "currency_code": "USD",
+        "discount": "0.50",
+        "discount_minor": 50,
+        "exchange_rate": "1",
+        "id": 1,
+        "invoice_number": "SI-00001",
+        "journal_entry": {
+          "entry_number": "JE-00001",
+          "id": 1,
+          "status": "posted"
+        },
+        "journal_entry_id": 1,
+        "lines": [
+          {
+            "company_id": 1,
+            "credited_qty": 0,
+            "description": "خدمة خاضعة",
+            "discount": "0.00",
+            "discount_minor": 0,
+            "id": 1,
+            "invoice_id": 1,
+            "line_no": 1,
+            "net": "30.00",
+            "net_minor": 3000,
+            "price_source": "manual",
+            "product_id": null,
+            "qty": 3,
+            "revenue_account_code": "4100",
+            "revenue_account_id": 38,
+            "revenue_account_name": "إيرادات المبيعات",
+            "tax": "4.50",
+            "tax_minor": 450,
+            "tax_rate": "15.00",
+            "tax_rate_bp": 1500,
+            "unit_cost_minor": null,
+            "unit_key": null,
+            "unit_price": "10.00",
+            "unit_price_minor": 1000
+          },
+          {
+            "company_id": 1,
+            "credited_qty": 0,
+            "description": "مادة معفاة",
+            "discount": "0.00",
+            "discount_minor": 0,
+            "id": 2,
+            "invoice_id": 1,
+            "line_no": 2,
+            "net": "7.33",
+            "net_minor": 733,
+            "price_source": "manual",
+            "product_id": null,
+            "qty": 1,
+            "revenue_account_code": "4100",
+            "revenue_account_id": 38,
+            "revenue_account_name": "إيرادات المبيعات",
+            "tax": "0.00",
+            "tax_minor": 0,
+            "tax_rate": "0.00",
+            "tax_rate_bp": 0,
+            "unit_cost_minor": null,
+            "unit_key": null,
+            "unit_price": "7.33",
+            "unit_price_minor": 733
+          },
+          {
+            "company_id": 1,
+            "credited_qty": 0,
+            "description": "خدمة بنسبة كسرية",
+            "discount": "0.50",
+            "discount_minor": 50,
+            "id": 3,
+            "invoice_id": 1,
+            "line_no": 3,
+            "net": "7.27",
+            "net_minor": 727,
+            "price_source": "manual",
+            "product_id": null,
+            "qty": 7,
+            "revenue_account_code": "4100",
+            "revenue_account_id": 38,
+            "revenue_account_name": "إيرادات المبيعات",
+            "tax": "0.55",
+            "tax_minor": 55,
+            "tax_rate": "7.50",
+            "tax_rate_bp": 750,
+            "unit_cost_minor": null,
+            "unit_key": null,
+            "unit_price": "1.11",
+            "unit_price_minor": 111
+          }
+        ],
+        "notes": null,
+        "open": "49.65",
+        "order_id": null,
+        "posted_by": 1,
+        "rate_e8": 100000000,
+        "rate_quote": "base_per_foreign",
+        "rounding": "0.00",
+        "rounding_minor": 0,
+        "shop": {
+          "address": null,
+          "id": 1,
+          "name": "زبون الضريبة",
+          "phone": null
+        },
+        "shop_id": 1,
+        "status": "posted",
+        "subtotal": "45.10",
+        "subtotal_minor": 4510,
+        "tax": "5.05",
+        "tax_minor": 505,
+        "total": "49.65",
+        "total_base": "49.65",
+        "total_base_minor": 4965,
+        "total_minor": 4965,
+        "warehouse_id": null
+      },
+      "status": 200
+    },
+    "month_end_checklist": {
+      "body": {
+        "blockers": 0,
+        "items": [
+          {
+            "count": 0,
+            "detail": null,
+            "key": "draft_entries",
+            "link": "/ledger/entries?status=draft&from=<DATE>&to=<DATE>",
+            "ok": true,
+            "severity": "blocker"
+          },
+          {
+            "count": 0,
+            "detail": null,
+            "key": "draft_invoices",
+            "link": "/sales/invoices?status=draft",
+            "ok": true,
+            "severity": "blocker"
+          },
+          {
+            "count": 0,
+            "detail": null,
+            "key": "pending_collections",
+            "link": "/collections",
+            "ok": true,
+            "severity": "blocker"
+          },
+          {
+            "count": 0,
+            "detail": null,
+            "key": "pending_returns",
+            "link": "/returns",
+            "ok": true,
+            "severity": "blocker"
+          },
+          {
+            "count": 0,
+            "detail": null,
+            "key": "uninvoiced_deliveries",
+            "link": "/sales/invoices?fromOrder=1",
+            "ok": true,
+            "severity": "warning"
+          },
+          {
+            "count": 0,
+            "detail": null,
+            "key": "cheques_due_not_deposited",
+            "link": "/receivables/cheques",
+            "ok": true,
+            "severity": "warning"
+          },
+          {
+            "count": 0,
+            "detail": null,
+            "key": "unallocated_receipts",
+            "link": "/receivables/receipts",
+            "ok": true,
+            "severity": "warning"
+          },
+          {
+            "count": 0,
+            "detail": null,
+            "key": "ar_reconciliation",
+            "link": "/receivables/reports?tab=reconciliation",
+            "ok": true,
+            "severity": "blocker"
+          },
+          {
+            "count": 0,
+            "detail": null,
+            "key": "ap_reconciliation",
+            "link": "/purchasing/reports?tab=aging",
+            "ok": true,
+            "severity": "blocker"
+          },
+          {
+            "count": 0,
+            "detail": null,
+            "key": "mismatched_supplier_invoices",
+            "link": "/purchasing?tab=invoices",
+            "ok": true,
+            "severity": "warning"
+          },
+          {
+            "count": 0,
+            "detail": null,
+            "key": "uninvoiced_receipts",
+            "link": "/purchasing?tab=receipts",
+            "ok": true,
+            "severity": "warning"
+          },
+          {
+            "count": 0,
+            "detail": null,
+            "key": "ledger_integrity",
+            "link": "/ledger/entries",
+            "ok": true,
+            "severity": "blocker"
+          }
+        ],
+        "period": {
+          "id": "<PERIOD_ID>",
+          "number": "<PERIOD_NO>",
+          "status": "open",
+          "year": 2026
+        },
+        "ready_to_close": true
+      },
+      "status": 200
+    },
+    "supplier": {
+      "body": {
+        "address": null,
+        "balance_minor": 0,
+        "code": null,
+        "company_id": 1,
+        "contact_name": null,
+        "currency_code": "USD",
+        "default_tax_rate_bp": 0,
+        "email": null,
+        "id": 1,
+        "is_active": 1,
+        "manual_rating": null,
+        "name": "مورد الضريبة",
+        "notes": null,
+        "payment_terms_days": 30,
+        "phone": null,
+        "rating_notes": null,
+        "ratings": {
+          "invoice_lines": 0,
+          "on_time_pct": null,
+          "on_time_receipts": 0,
+          "price_consistency_pct": null,
+          "quality_rejection_pct": null,
+          "received_qty": 0
+        },
+        "tax_number": null
+      },
+      "status": 201
+    },
+    "trial_balance": {
+      "body": {
+        "balanced": true,
+        "branchId": null,
+        "costCenterId": null,
+        "digits": 2,
+        "from": "<DATE>",
+        "line_filtered": false,
+        "projectId": null,
+        "rows": [
+          {
+            "account_id": 1,
+            "closing_credit": 0,
+            "closing_debit": 5315,
+            "code": "1",
+            "depth": 0,
+            "drill": {
+              "accountId": 1,
+              "branchId": null,
+              "costCenterId": null,
+              "from": "<DATE>",
+              "projectId": null,
+              "to": "<TODAY>"
+            },
+            "is_header": true,
+            "name_ar": "الأصول",
+            "name_en": "Assets",
+            "opening_credit": 0,
+            "opening_debit": 0,
+            "period_credit": 1150,
+            "period_debit": 6465,
+            "type": "asset"
+          },
+          {
+            "account_id": 2,
+            "closing_credit": 0,
+            "closing_debit": 5315,
+            "code": "11",
+            "depth": 1,
+            "drill": {
+              "accountId": 2,
+              "branchId": null,
+              "costCenterId": null,
+              "from": "<DATE>",
+              "projectId": null,
+              "to": "<TODAY>"
+            },
+            "is_header": true,
+            "name_ar": "الأصول المتداولة",
+            "name_en": "Current assets",
+            "opening_credit": 0,
+            "opening_debit": 0,
+            "period_credit": 1150,
+            "period_debit": 6465,
+            "type": "asset"
+          },
+          {
+            "account_id": 7,
+            "closing_credit": 0,
+            "closing_debit": 3815,
+            "code": "1130",
+            "depth": 2,
+            "drill": {
+              "accountId": 7,
+              "branchId": null,
+              "costCenterId": null,
+              "from": "<DATE>",
+              "projectId": null,
+              "to": "<TODAY>"
+            },
+            "is_header": false,
+            "name_ar": "الذمم المدينة (العملاء)",
+            "name_en": "Accounts receivable",
+            "opening_credit": 0,
+            "opening_debit": 0,
+            "period_credit": 1150,
+            "period_debit": 4965,
+            "type": "asset"
+          },
+          {
+            "account_id": 15,
+            "closing_credit": 0,
+            "closing_debit": 1500,
+            "code": "1180",
+            "depth": 2,
+            "drill": {
+              "accountId": 15,
+              "branchId": null,
+              "costCenterId": null,
+              "from": "<DATE>",
+              "projectId": null,
+              "to": "<TODAY>"
+            },
+            "is_header": false,
+            "name_ar": "ضريبة المدخلات (المشتريات)",
+            "name_en": "Input tax",
+            "opening_credit": 0,
+            "opening_debit": 0,
+            "period_credit": 0,
+            "period_debit": 1500,
+            "type": "asset"
+          },
+          {
+            "account_id": 21,
+            "closing_credit": 34325,
+            "closing_debit": 0,
+            "code": "2",
+            "depth": 0,
+            "drill": {
+              "accountId": 21,
+              "branchId": null,
+              "costCenterId": null,
+              "from": "<DATE>",
+              "projectId": null,
+              "to": "<TODAY>"
+            },
+            "is_header": true,
+            "name_ar": "الخصوم",
+            "name_en": "Liabilities",
+            "opening_credit": 0,
+            "opening_debit": 0,
+            "period_credit": 34475,
+            "period_debit": 150,
+            "type": "liability"
+          },
+          {
+            "account_id": 22,
+            "closing_credit": 34325,
+            "closing_debit": 0,
+            "code": "21",
+            "depth": 1,
+            "drill": {
+              "accountId": 22,
+              "branchId": null,
+              "costCenterId": null,
+              "from": "<DATE>",
+              "projectId": null,
+              "to": "<TODAY>"
+            },
+            "is_header": true,
+            "name_ar": "الخصوم المتداولة",
+            "name_en": "Current liabilities",
+            "opening_credit": 0,
+            "opening_debit": 0,
+            "period_credit": 34475,
+            "period_debit": 150,
+            "type": "liability"
+          },
+          {
+            "account_id": 23,
+            "closing_credit": 33970,
+            "closing_debit": 0,
+            "code": "2110",
+            "depth": 2,
+            "drill": {
+              "accountId": 23,
+              "branchId": null,
+              "costCenterId": null,
+              "from": "<DATE>",
+              "projectId": null,
+              "to": "<TODAY>"
+            },
+            "is_header": false,
+            "name_ar": "الذمم الدائنة (الموردون)",
+            "name_en": "Accounts payable",
+            "opening_credit": 0,
+            "opening_debit": 0,
+            "period_credit": 33970,
+            "period_debit": 0,
+            "type": "liability"
+          },
+          {
+            "account_id": 27,
+            "closing_credit": 355,
+            "closing_debit": 0,
+            "code": "2140",
+            "depth": 2,
+            "drill": {
+              "accountId": 27,
+              "branchId": null,
+              "costCenterId": null,
+              "from": "<DATE>",
+              "projectId": null,
+              "to": "<TODAY>"
+            },
+            "is_header": false,
+            "name_ar": "ضرائب ورسوم مستحقة",
+            "name_en": "Taxes payable",
+            "opening_credit": 0,
+            "opening_debit": 0,
+            "period_credit": 505,
+            "period_debit": 150,
+            "type": "liability"
+          },
+          {
+            "account_id": 37,
+            "closing_credit": 3460,
+            "closing_debit": 0,
+            "code": "4",
+            "depth": 0,
+            "drill": {
+              "accountId": 37,
+              "branchId": null,
+              "costCenterId": null,
+              "from": "<DATE>",
+              "projectId": null,
+              "to": "<TODAY>"
+            },
+            "is_header": true,
+            "name_ar": "الإيرادات",
+            "name_en": "Revenue",
+            "opening_credit": 0,
+            "opening_debit": 0,
+            "period_credit": 4460,
+            "period_debit": 1000,
+            "type": "revenue"
+          },
+          {
+            "account_id": 38,
+            "closing_credit": 4460,
+            "closing_debit": 0,
+            "code": "4100",
+            "depth": 1,
+            "drill": {
+              "accountId": 38,
+              "branchId": null,
+              "costCenterId": null,
+              "from": "<DATE>",
+              "projectId": null,
+              "to": "<TODAY>"
+            },
+            "is_header": false,
+            "name_ar": "إيرادات المبيعات",
+            "name_en": "Sales revenue",
+            "opening_credit": 0,
+            "opening_debit": 0,
+            "period_credit": 4460,
+            "period_debit": 0,
+            "type": "revenue"
+          },
+          {
+            "account_id": 39,
+            "closing_credit": 0,
+            "closing_debit": 1000,
+            "code": "4200",
+            "depth": 1,
+            "drill": {
+              "accountId": 39,
+              "branchId": null,
+              "costCenterId": null,
+              "from": "<DATE>",
+              "projectId": null,
+              "to": "<TODAY>"
+            },
+            "is_header": false,
+            "name_ar": "مردودات ومسموحات المبيعات",
+            "name_en": "Sales returns and allowances",
+            "opening_credit": 0,
+            "opening_debit": 0,
+            "period_credit": 0,
+            "period_debit": 1000,
+            "type": "revenue"
+          },
+          {
+            "account_id": 42,
+            "closing_credit": 0,
+            "closing_debit": 32470,
+            "code": "5",
+            "depth": 0,
+            "drill": {
+              "accountId": 42,
+              "branchId": null,
+              "costCenterId": null,
+              "from": "<DATE>",
+              "projectId": null,
+              "to": "<TODAY>"
+            },
+            "is_header": true,
+            "name_ar": "تكلفة المبيعات",
+            "name_en": "Cost of sales",
+            "opening_credit": 0,
+            "opening_debit": 0,
+            "period_credit": 0,
+            "period_debit": 32470,
+            "type": "expense"
+          },
+          {
+            "account_id": 44,
+            "closing_credit": 0,
+            "closing_debit": 32470,
+            "code": "5200",
+            "depth": 1,
+            "drill": {
+              "accountId": 44,
+              "branchId": null,
+              "costCenterId": null,
+              "from": "<DATE>",
+              "projectId": null,
+              "to": "<TODAY>"
+            },
+            "is_header": false,
+            "name_ar": "مصاريف نقل المشتريات",
+            "name_en": "Freight-in",
+            "opening_credit": 0,
+            "opening_debit": 0,
+            "period_credit": 0,
+            "period_debit": 32470,
+            "type": "expense"
+          }
+        ],
+        "to": "<TODAY>",
+        "totals": {
+          "closing_credit": 38785,
+          "closing_debit": 38785,
+          "opening_credit": 0,
+          "opening_debit": 0,
+          "period_credit": 40085,
+          "period_debit": 40085
+        }
+      },
+      "status": 200
+    }
+  },
+  "tables": {
+    "credit_notes": [
+      {
+        "rounding_minor": 0,
+        "subtotal_minor": 1000,
+        "tax_minor": 150,
+        "total_minor": 1150
+      }
+    ],
+    "journal_lines": [
+      {
+        "code": "1130",
+        "credit_minor": 0,
+        "debit_minor": 4965,
+        "source_type": "sales_invoice",
+        "system_key": "ar_control"
+      },
+      {
+        "code": "4100",
+        "credit_minor": 4460,
+        "debit_minor": 0,
+        "source_type": "sales_invoice",
+        "system_key": "sales_revenue"
+      },
+      {
+        "code": "2140",
+        "credit_minor": 505,
+        "debit_minor": 0,
+        "source_type": "sales_invoice",
+        "system_key": "output_tax"
+      },
+      {
+        "code": "4200",
+        "credit_minor": 0,
+        "debit_minor": 1000,
+        "source_type": "sales_credit_note",
+        "system_key": "sales_returns"
+      },
+      {
+        "code": "2140",
+        "credit_minor": 0,
+        "debit_minor": 150,
+        "source_type": "sales_credit_note",
+        "system_key": "output_tax"
+      },
+      {
+        "code": "1130",
+        "credit_minor": 1150,
+        "debit_minor": 0,
+        "source_type": "sales_credit_note",
+        "system_key": "ar_control"
+      },
+      {
+        "code": "5200",
+        "credit_minor": 0,
+        "debit_minor": 30000,
+        "source_type": "supplier_invoice",
+        "system_key": null
+      },
+      {
+        "code": "5200",
+        "credit_minor": 0,
+        "debit_minor": 2470,
+        "source_type": "supplier_invoice",
+        "system_key": null
+      },
+      {
+        "code": "1180",
+        "credit_minor": 0,
+        "debit_minor": 1500,
+        "source_type": "supplier_invoice",
+        "system_key": "input_tax"
+      },
+      {
+        "code": "2110",
+        "credit_minor": 33970,
+        "debit_minor": 0,
+        "source_type": "supplier_invoice",
+        "system_key": "ap_control"
+      }
+    ],
+    "sales_invoice_lines": [
+      {
+        "discount_minor": 0,
+        "line_no": 1,
+        "net_minor": 3000,
+        "qty": 3,
+        "tax_minor": 450,
+        "tax_rate_bp": 1500,
+        "unit_price_minor": 1000
+      },
+      {
+        "discount_minor": 0,
+        "line_no": 2,
+        "net_minor": 733,
+        "qty": 1,
+        "tax_minor": 0,
+        "tax_rate_bp": 0,
+        "unit_price_minor": 733
+      },
+      {
+        "discount_minor": 50,
+        "line_no": 3,
+        "net_minor": 727,
+        "qty": 7,
+        "tax_minor": 55,
+        "tax_rate_bp": 750,
+        "unit_price_minor": 111
+      }
+    ],
+    "sales_invoices": [
+      {
+        "discount_minor": 50,
+        "invoice_number": "SI-00001",
+        "rounding_minor": 0,
+        "status": "posted",
+        "subtotal_minor": 4510,
+        "tax_minor": 505,
+        "total_minor": 4965
+      }
+    ],
+    "supplier_invoice_lines": [
+      {
+        "line_no": 1,
+        "qty": 1,
+        "tax_rate_bp": 500,
+        "unit_price_minor": 30000
+      },
+      {
+        "line_no": 2,
+        "qty": 2,
+        "tax_rate_bp": 0,
+        "unit_price_minor": 1235
+      }
+    ],
+    "supplier_invoices": [
+      {
+        "kind": "expense",
+        "status": "posted",
+        "subtotal_minor": 32470,
+        "tax_minor": 1500,
+        "total_minor": 33970
+      }
+    ],
+    "tax_accounts": [
+      {
+        "balance": 1500,
+        "system_key": "input_tax"
+      },
+      {
+        "balance": -355,
+        "system_key": "output_tax"
+      }
+    ]
+  }
+}

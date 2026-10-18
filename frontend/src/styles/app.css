@@ -1,0 +1,500 @@
+.app-shell {
+  display: flex;
+  height: 100vh;
+}
+
+.app-content-col {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Reduced-chrome topbar: no solid full-width bar behind it — search,
+   notifications, language and profile read as a loose row of floating
+   controls over the page canvas, not a heavy header. */
+.app-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 20px;
+  background: transparent;
+  border-bottom: 0;
+  flex-shrink: 0;
+  z-index: 40;
+}
+
+.app-nav-search {
+  flex: 1;
+  max-width: 420px;
+}
+
+.app-user {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Map page only: the topbar leaves normal document flow and floats over
+   the full-bleed map canvas instead of reserving its own height, so the
+   map extends all the way to the top of the viewport. The bar itself keeps
+   a near-opaque panel background (not see-through) so the icons stay legible
+   no matter what the map is doing beneath it. */
+.app-nav-floating {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: 45;
+  background: color-mix(in srgb, var(--atlas-panel) 92%, transparent);
+  border-bottom: 1px solid var(--atlas-border);
+  backdrop-filter: blur(18px) saturate(1.1);
+  box-shadow: 0 14px 34px rgb(0 40 20 / 10%);
+}
+.app-nav-floating .app-nav-search,
+.app-nav-floating .app-user {
+  background: transparent;
+  border: 0;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+.app-nav-floating .app-icon-btn:hover,
+.app-nav-floating .global-search-icon-btn:hover {
+  color: var(--atlas-brand);
+  background: var(--atlas-raised);
+}
+.app-nav-floating .global-search.expanded .global-search-icon-btn {
+  color: var(--atlas-brand);
+}
+
+/* Shared outline-icon style for the topbar's quick actions (mute, language,
+   notifications) — gray by default, brand-green on hover/active, so the bar
+   reads as one consistent icon row instead of a mix of button styles. */
+.app-icon-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border: 1px solid var(--atlas-border);
+  background: color-mix(in srgb, var(--atlas-panel) 78%, transparent);
+  backdrop-filter: blur(14px);
+  border-radius: 999px;
+  color: var(--atlas-text-muted);
+  cursor: pointer;
+  transition: color var(--atlas-motion-fast) ease, background var(--atlas-motion-fast) ease, border-color var(--atlas-motion-fast) ease;
+  font-family: var(--font-body);
+}
+.app-icon-btn svg {
+  width: 19px;
+  height: 19px;
+}
+.app-icon-btn:hover {
+  color: var(--atlas-brand-signal);
+  background: var(--atlas-raised);
+}
+
+.app-lang-toggle {
+  width: 30px;
+  height: 30px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+}
+
+.app-sidebar-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border: 1px solid var(--atlas-border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--atlas-panel) 78%, transparent);
+  backdrop-filter: blur(14px);
+  color: var(--atlas-text);
+  padding: 0;
+}
+.app-sidebar-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+.app-main {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+  min-width: 0;
+}
+
+@media (max-width: 860px) {
+  .app-nav {
+    padding: 10px 14px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-sidebar-toggle {
+    display: flex;
+  }
+  /* The sidebar is now an off-canvas drawer (see sidebar.css), so it no
+     longer reserves any width for itself — the whole app-nav row is free
+     to use the full screen width, which is what the fixed-width button
+     cluster below needs to actually fit. */
+  .app-user {
+    gap: 2px;
+  }
+}
+
+/* Notifications bell */
+.notif-bell-wrap {
+  position: relative;
+}
+.notif-badge {
+  position: absolute;
+  top: 4px;
+  inset-inline-end: 4px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  border-radius: 999px;
+  background: var(--status-red);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  border: 1.5px solid #fff;
+}
+.notif-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  inset-inline-end: 0;
+  width: 320px;
+  max-height: 380px;
+  overflow-y: auto;
+  background: var(--atlas-panel);
+  border: 1px solid var(--atlas-border);
+  border-radius: 16px;
+  box-shadow: var(--atlas-shadow-panel);
+  z-index: 60;
+  padding: 8px 0;
+}
+.notif-dropdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 16px;
+}
+.notif-dropdown-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--atlas-text);
+}
+.notif-mark-all-btn {
+  background: none;
+  border: none;
+  color: var(--atlas-text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  padding: 0;
+}
+.notif-mark-all-btn:hover {
+  color: var(--atlas-brand);
+  text-decoration: underline;
+}
+.notif-empty {
+  padding: 20px 16px;
+  font-size: 0.82rem;
+  color: var(--atlas-text-muted);
+  text-align: center;
+}
+.notif-list {
+  display: flex;
+  flex-direction: column;
+}
+.notif-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 0.8rem;
+  color: var(--atlas-text);
+  border-top: 1px solid var(--atlas-border);
+  line-height: 1.4;
+  background: none;
+  border-inline-start-width: 3px;
+  border-inline-start-style: solid;
+  border-inline-start-color: transparent;
+  width: 100%;
+  text-align: start;
+  font-family: var(--font-body);
+  cursor: default;
+  transition: background .15s ease;
+}
+.notif-item.clickable {
+  cursor: pointer;
+}
+.notif-item.clickable:hover {
+  background: var(--atlas-raised);
+}
+.notif-item.read {
+  opacity: 0.55;
+}
+.notif-item.unread {
+  font-weight: 600;
+}
+.notif-unread-dot {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--atlas-brand);
+  margin-top: 5px;
+}
+.notif-item-message {
+  flex: 1;
+  min-width: 0;
+  white-space: pre-line;
+}
+.notif-item-time {
+  flex-shrink: 0;
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: var(--atlas-text-muted);
+}
+.notif-item.notif-debt {
+  border-inline-start-color: var(--status-red);
+}
+.notif-item.notif-overdue {
+  border-inline-start-color: var(--status-yellow);
+}
+.notif-item.notif-low_stock {
+  border-inline-start-color: var(--status-yellow);
+}
+.notif-item.notif-import {
+  border-inline-start-color: var(--status-green);
+}
+.notif-item.notif-invoice_processed {
+  border-inline-start-color: var(--status-green);
+}
+.notif-item.notif-invoice_mismatch {
+  border-inline-start-color: var(--status-red);
+}
+
+/* Account menu */
+.account-menu {
+  position: relative;
+}
+.account-avatar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  padding: 4px;
+  cursor: pointer;
+  border-radius: 999px;
+}
+.account-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent-dark);
+  color: var(--atlas-text-on-accent);
+  font-weight: 700;
+  font-size: 0.86rem;
+  font-family: var(--font-heading);
+}
+.account-avatar-lg {
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.account-avatar-btn:hover .account-avatar {
+  box-shadow: 0 0 0 3px var(--accent-pale);
+}
+
+.account-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  inset-inline-end: 0;
+  width: 260px;
+  background: var(--atlas-panel);
+  border: 1px solid var(--atlas-border);
+  border-radius: 14px;
+  box-shadow: var(--shadow-soft);
+  z-index: 60;
+  padding: 12px;
+}
+.account-dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 2px 4px 10px;
+}
+.account-dropdown-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--atlas-text);
+}
+.account-dropdown-role {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-dark);
+  background: var(--accent-pale);
+  padding: 1px 8px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-top: 3px;
+}
+.account-dropdown-divider {
+  height: 1px;
+  background: var(--border-accent-soft);
+  margin: 4px 0;
+}
+.account-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 8px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  font-size: 0.84rem;
+  font-family: var(--font-body);
+  color: var(--atlas-text);
+  cursor: pointer;
+  text-align: start;
+}
+.account-dropdown-item svg {
+  width: 17px;
+  height: 17px;
+  color: var(--atlas-text-muted);
+  flex-shrink: 0;
+}
+.account-dropdown-item:hover {
+  background: var(--bg-elevated);
+  color: var(--accent-dark);
+}
+.account-dropdown-item:hover svg {
+  color: var(--accent-dark);
+}
+.account-dropdown-logout {
+  color: var(--status-red);
+}
+.account-dropdown-logout svg {
+  color: var(--status-red);
+}
+.account-dropdown-logout:hover {
+  background: rgb(240 108 121 / 14%);
+  color: var(--status-red);
+}
+.account-dropdown-logout:hover svg {
+  color: var(--status-red);
+}
+
+.account-password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 6px 4px 4px;
+}
+.account-password-form input {
+  border: 1px solid var(--border-accent);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.82rem;
+  font-family: var(--font-body);
+}
+.account-password-feedback {
+  font-size: 0.76rem;
+  margin: 0;
+}
+.account-password-feedback.ok {
+  color: var(--status-green);
+}
+.account-password-feedback.error {
+  color: var(--status-red);
+}
+.account-password-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.account-password-actions button {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+}
+
+.app-error-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 60vh;
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--atlas-text);
+}
+.app-error-fallback-mark {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgb(193 68 59 / 12%);
+  color: var(--status-red);
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+.app-error-fallback strong {
+  font-size: 1.05rem;
+}
+.app-error-fallback span {
+  color: var(--atlas-text-muted);
+  max-width: 420px;
+  font-size: 0.9rem;
+}
+.app-error-fallback button {
+  margin-top: 6px;
+}
+
+
+
+/* In-app 404 (App.jsx's catch-all route) */
+.not-found-page {
+  padding: clamp(48px, 12vh, 110px) 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.not-found-code {
+  margin: 0;
+  font-size: clamp(3rem, 12vw, 5rem);
+  font-weight: 600;
+  letter-spacing: -.04em;
+  color: var(--atlas-text);
+  line-height: 1;
+}
+.not-found-title { margin: 0; color: var(--atlas-text); font-size: 1.05rem; }
+.not-found-hint { margin: 0 0 14px; color: var(--atlas-text-muted); font-size: .88rem; max-width: 46ch; }

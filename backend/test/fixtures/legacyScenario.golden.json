@@ -1,0 +1,547 @@
+{
+  "steps": {
+    "approve1": {
+      "body": {
+        "company_id": 1,
+        "creditApplied": 46.74,
+        "financial_adjustment_amount": 46.74,
+        "financial_adjustment_applied": 1,
+        "id": 1,
+        "items": [
+          {
+            "company_id": 1,
+            "discrepancy_reason": null,
+            "id": 1,
+            "inspected_qty": 3,
+            "inspection_notes": null,
+            "inspection_status": "valid",
+            "product_id": null,
+            "product_name": "مادة 1",
+            "requested_qty": 3,
+            "restocked": 0,
+            "return_request_id": 1,
+            "unit_key": null,
+            "unit_value": 12.25
+          },
+          {
+            "company_id": 1,
+            "discrepancy_reason": null,
+            "id": 2,
+            "inspected_qty": 1,
+            "inspection_notes": null,
+            "inspection_status": "valid",
+            "product_id": null,
+            "product_name": "مادة 2",
+            "requested_qty": 1,
+            "restocked": 0,
+            "return_request_id": 1,
+            "unit_key": null,
+            "unit_value": 9.99
+          }
+        ],
+        "media": [],
+        "order_id": null,
+        "reason": "تالف",
+        "requested_by_id": 1,
+        "requested_by_name": "مدير الاختبار",
+        "review_notes": null,
+        "shop_id": 1,
+        "status": "approved"
+      },
+      "status": 200
+    },
+    "approve2": {
+      "body": {
+        "company_id": 1,
+        "creditApplied": null,
+        "financial_adjustment_amount": null,
+        "financial_adjustment_applied": 0,
+        "id": 2,
+        "items": [
+          {
+            "company_id": 1,
+            "discrepancy_reason": null,
+            "id": 3,
+            "inspected_qty": 2,
+            "inspection_notes": null,
+            "inspection_status": "valid",
+            "product_id": null,
+            "product_name": "مادة 3",
+            "requested_qty": 2,
+            "restocked": 0,
+            "return_request_id": 2,
+            "unit_key": null,
+            "unit_value": 5
+          }
+        ],
+        "media": [],
+        "order_id": null,
+        "reason": null,
+        "requested_by_id": 1,
+        "requested_by_name": "مدير الاختبار",
+        "review_notes": null,
+        "shop_id": 2,
+        "status": "approved"
+      },
+      "status": 200
+    },
+    "confirm1": {
+      "body": {
+        "amount": 150,
+        "company_id": 1,
+        "confirmed_by_id": 1,
+        "confirmed_by_name": "مدير الاختبار",
+        "id": 1,
+        "method": "cash",
+        "notes": null,
+        "rejected_reason": null,
+        "rep_id": 1,
+        "shop_id": 1,
+        "status": "confirmed",
+        "transfer_reference": null
+      },
+      "status": 200
+    },
+    "confirm2": {
+      "body": {
+        "amount": 70.5,
+        "company_id": 1,
+        "confirmed_by_id": 1,
+        "confirmed_by_name": "مدير الاختبار",
+        "id": 2,
+        "method": "transfer",
+        "notes": null,
+        "rejected_reason": null,
+        "rep_id": 1,
+        "shop_id": 1,
+        "status": "confirmed",
+        "transfer_reference": "TRX-1"
+      },
+      "status": 200
+    },
+    "confirmAgain": {
+      "body": {
+        "currentStatus": "confirmed",
+        "error": "not_pending"
+      },
+      "status": 409
+    },
+    "manualAdjust": {
+      "body": {
+        "company_id": 1,
+        "creditApplied": 10,
+        "financial_adjustment_amount": 10,
+        "financial_adjustment_applied": 1,
+        "id": 2,
+        "items": [
+          {
+            "company_id": 1,
+            "discrepancy_reason": null,
+            "id": 3,
+            "inspected_qty": 2,
+            "inspection_notes": null,
+            "inspection_status": "valid",
+            "product_id": null,
+            "product_name": "مادة 3",
+            "requested_qty": 2,
+            "restocked": 0,
+            "return_request_id": 2,
+            "unit_key": null,
+            "unit_value": 5
+          }
+        ],
+        "media": [],
+        "order_id": null,
+        "reason": null,
+        "requested_by_id": 1,
+        "requested_by_name": "مدير الاختبار",
+        "review_notes": null,
+        "shop_id": 2,
+        "status": "approved"
+      },
+      "status": 200
+    },
+    "manualAdjustAgain": {
+      "body": {
+        "error": "already_applied"
+      },
+      "status": 409
+    },
+    "record": [
+      {
+        "body": {
+          "amount": 150,
+          "company_id": 1,
+          "confirmed_by_id": null,
+          "confirmed_by_name": null,
+          "id": 1,
+          "method": "cash",
+          "notes": null,
+          "rejected_reason": null,
+          "rep_id": 1,
+          "shop_id": 1,
+          "status": "pending_accountant_confirmation",
+          "transfer_reference": null
+        },
+        "status": 201
+      },
+      {
+        "body": {
+          "amount": 70.5,
+          "company_id": 1,
+          "confirmed_by_id": null,
+          "confirmed_by_name": null,
+          "id": 2,
+          "method": "transfer",
+          "notes": null,
+          "rejected_reason": null,
+          "rep_id": 1,
+          "shop_id": 1,
+          "status": "pending_verification",
+          "transfer_reference": "TRX-1"
+        },
+        "status": 201
+      },
+      {
+        "body": {
+          "amount": 30,
+          "company_id": 1,
+          "confirmed_by_id": null,
+          "confirmed_by_name": null,
+          "id": 3,
+          "method": "cash",
+          "notes": null,
+          "rejected_reason": null,
+          "rep_id": 1,
+          "shop_id": 2,
+          "status": "pending_accountant_confirmation",
+          "transfer_reference": null
+        },
+        "status": 201
+      }
+    ],
+    "reject3": {
+      "body": {
+        "amount": 30,
+        "company_id": 1,
+        "confirmed_by_id": null,
+        "confirmed_by_name": null,
+        "id": 3,
+        "method": "cash",
+        "notes": null,
+        "rejected_reason": "خطأ",
+        "rep_id": 1,
+        "shop_id": 2,
+        "status": "rejected",
+        "transfer_reference": null
+      },
+      "status": 200
+    },
+    "returnCreate": {
+      "status": 201
+    },
+    "settings": 204,
+    "shopA": {
+      "balance": 732.76,
+      "balanceHistory": [
+        {
+          "balance": 732.76,
+          "id": 3,
+          "report_date": "<TODAY>",
+          "shop_id": 1,
+          "source_file": "collection:1"
+        },
+        {
+          "balance": 1000,
+          "id": 1,
+          "report_date": "2026-01-01",
+          "shop_id": 1,
+          "source_file": "seed"
+        }
+      ],
+      "balance_date": "<TODAY>",
+      "status": 200,
+      "status_color": "red"
+    },
+    "shopB": {
+      "balance": 390,
+      "balanceHistory": [
+        {
+          "balance": 390,
+          "id": 6,
+          "report_date": "<TODAY>",
+          "shop_id": 2,
+          "source_file": "return_credit:2"
+        },
+        {
+          "balance": 400,
+          "id": 2,
+          "report_date": "2026-01-01",
+          "shop_id": 2,
+          "source_file": "seed"
+        }
+      ],
+      "balance_date": "<TODAY>",
+      "status": 200,
+      "status_color": "green"
+    },
+    "shops": [
+      201,
+      201
+    ],
+    "statementA": {
+      "body": {
+        "balanceDate": "<TODAY>",
+        "collections": [
+          {
+            "amount": 70.5,
+            "company_id": 1,
+            "confirmed_by_id": 1,
+            "confirmed_by_name": "مدير الاختبار",
+            "id": 2,
+            "method": "transfer",
+            "notes": null,
+            "rejected_reason": null,
+            "rep_id": 1,
+            "shop_id": 1,
+            "status": "confirmed",
+            "transfer_reference": "TRX-1"
+          },
+          {
+            "amount": 150,
+            "company_id": 1,
+            "confirmed_by_id": 1,
+            "confirmed_by_name": "مدير الاختبار",
+            "id": 1,
+            "method": "cash",
+            "notes": null,
+            "rejected_reason": null,
+            "rep_id": 1,
+            "shop_id": 1,
+            "status": "confirmed",
+            "transfer_reference": null
+          }
+        ],
+        "confirmedTotal": 220.5,
+        "currentBalance": 732.76,
+        "pendingCollections": [],
+        "shopId": 1
+      },
+      "status": 200
+    }
+  },
+  "tables": {
+    "balances": [
+      {
+        "balance": 1000,
+        "report_date": "2026-01-01",
+        "shop_id": 1,
+        "source_file": "seed"
+      },
+      {
+        "balance": 732.76,
+        "report_date": "<TODAY>",
+        "shop_id": 1,
+        "source_file": "collection:1"
+      },
+      {
+        "balance": 400,
+        "report_date": "2026-01-01",
+        "shop_id": 2,
+        "source_file": "seed"
+      },
+      {
+        "balance": 390,
+        "report_date": "<TODAY>",
+        "shop_id": 2,
+        "source_file": "return_credit:2"
+      }
+    ],
+    "collection_changes": [
+      {
+        "action": "record",
+        "after_value": "\"pending_accountant_confirmation\"",
+        "before_value": null,
+        "collection_id": 1,
+        "field": "status"
+      },
+      {
+        "action": "record",
+        "after_value": "\"pending_verification\"",
+        "before_value": null,
+        "collection_id": 2,
+        "field": "status"
+      },
+      {
+        "action": "record",
+        "after_value": "\"pending_accountant_confirmation\"",
+        "before_value": null,
+        "collection_id": 3,
+        "field": "status"
+      },
+      {
+        "action": "confirm",
+        "after_value": "\"confirmed\"",
+        "before_value": "\"pending_accountant_confirmation\"",
+        "collection_id": 1,
+        "field": "status"
+      },
+      {
+        "action": "confirm",
+        "after_value": "\"confirmed\"",
+        "before_value": "\"pending_verification\"",
+        "collection_id": 2,
+        "field": "status"
+      },
+      {
+        "action": "reject",
+        "after_value": "\"rejected\"",
+        "before_value": "\"pending_accountant_confirmation\"",
+        "collection_id": 3,
+        "field": "status"
+      }
+    ],
+    "collections": [
+      {
+        "amount": 150,
+        "confirmed_by_name": "مدير الاختبار",
+        "id": 1,
+        "method": "cash",
+        "rejected_reason": null,
+        "shop_id": 1,
+        "status": "confirmed",
+        "transfer_reference": null
+      },
+      {
+        "amount": 70.5,
+        "confirmed_by_name": "مدير الاختبار",
+        "id": 2,
+        "method": "transfer",
+        "rejected_reason": null,
+        "shop_id": 1,
+        "status": "confirmed",
+        "transfer_reference": "TRX-1"
+      },
+      {
+        "amount": 30,
+        "confirmed_by_name": null,
+        "id": 3,
+        "method": "cash",
+        "rejected_reason": "خطأ",
+        "shop_id": 2,
+        "status": "rejected",
+        "transfer_reference": null
+      }
+    ],
+    "return_changes": [
+      {
+        "action": "file_request",
+        "after_value": "\"pending_review\"",
+        "before_value": null,
+        "field": "status",
+        "return_request_id": 1
+      },
+      {
+        "action": "inspect",
+        "after_value": "{\"status\":\"valid\",\"inspected_qty\":3}",
+        "before_value": "{\"status\":\"pending_inspection\",\"requested_qty\":3}",
+        "field": "inspection_status",
+        "return_request_id": 1
+      },
+      {
+        "action": "inspect",
+        "after_value": "{\"status\":\"valid\",\"inspected_qty\":1}",
+        "before_value": "{\"status\":\"pending_inspection\",\"requested_qty\":1}",
+        "field": "inspection_status",
+        "return_request_id": 1
+      },
+      {
+        "action": "approve",
+        "after_value": "\"approved\"",
+        "before_value": "\"pending_review\"",
+        "field": "status",
+        "return_request_id": 1
+      },
+      {
+        "action": "apply_financial_adjustment",
+        "after_value": "46.74",
+        "before_value": null,
+        "field": "balance",
+        "return_request_id": 1
+      },
+      {
+        "action": "file_request",
+        "after_value": "\"pending_review\"",
+        "before_value": null,
+        "field": "status",
+        "return_request_id": 2
+      },
+      {
+        "action": "inspect",
+        "after_value": "{\"status\":\"valid\",\"inspected_qty\":2}",
+        "before_value": "{\"status\":\"pending_inspection\",\"requested_qty\":2}",
+        "field": "inspection_status",
+        "return_request_id": 2
+      },
+      {
+        "action": "approve",
+        "after_value": "\"approved\"",
+        "before_value": "\"pending_review\"",
+        "field": "status",
+        "return_request_id": 2
+      },
+      {
+        "action": "apply_financial_adjustment",
+        "after_value": "10",
+        "before_value": null,
+        "field": "balance",
+        "return_request_id": 2
+      }
+    ],
+    "return_items": [
+      {
+        "inspected_qty": 3,
+        "inspection_status": "valid",
+        "product_name": "مادة 1",
+        "requested_qty": 3,
+        "restocked": 0,
+        "return_request_id": 1,
+        "unit_value": 12.25
+      },
+      {
+        "inspected_qty": 1,
+        "inspection_status": "valid",
+        "product_name": "مادة 2",
+        "requested_qty": 1,
+        "restocked": 0,
+        "return_request_id": 1,
+        "unit_value": 9.99
+      },
+      {
+        "inspected_qty": 2,
+        "inspection_status": "valid",
+        "product_name": "مادة 3",
+        "requested_qty": 2,
+        "restocked": 0,
+        "return_request_id": 2,
+        "unit_value": 5
+      }
+    ],
+    "return_requests": [
+      {
+        "financial_adjustment_amount": 46.74,
+        "financial_adjustment_applied": 1,
+        "id": 1,
+        "shop_id": 1,
+        "status": "approved"
+      },
+      {
+        "financial_adjustment_amount": 10,
+        "financial_adjustment_applied": 1,
+        "id": 2,
+        "shop_id": 2,
+        "status": "approved"
+      }
+    ]
+  }
+}

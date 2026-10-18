@@ -1,0 +1,162 @@
+/* Atlas chart foundation — token-driven, reused by every chart in the app.
+   Backgrounds/gridlines/tooltip all read --atlas-chart-* custom properties
+   from theme.css, so a palette change updates every chart in one place. */
+
+.atlas-chart-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.atlas-chart-frame-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.atlas-chart-frame-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--atlas-text);
+}
+.atlas-chart-frame-subtitle {
+  font-size: 0.68rem;
+  color: var(--atlas-text-muted);
+}
+.atlas-chart-frame-body {
+  min-height: var(--atlas-chart-height, 200px);
+  position: relative;
+}
+
+.atlas-chart-skeleton {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 100%;
+  padding: 8px;
+}
+.atlas-chart-skeleton-bar {
+  flex: 1;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--atlas-raised) 25%, var(--atlas-raised-2) 50%, var(--atlas-raised) 75%);
+  background-size: 200% 100%;
+  animation: atlas-chart-shimmer 1.4s ease-in-out infinite;
+}
+.atlas-chart-skeleton-bar:nth-child(1) { height: 55%; }
+.atlas-chart-skeleton-bar:nth-child(2) { height: 85%; }
+.atlas-chart-skeleton-bar:nth-child(3) { height: 40%; }
+@keyframes atlas-chart-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atlas-chart-skeleton-bar { animation: none; opacity: 0.5; }
+}
+
+.atlas-chart-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 80px;
+  color: var(--atlas-text-faint);
+  font-size: 0.78rem;
+}
+
+.atlas-sparkline { display: block; width: 100%; height: 100%; overflow: visible; }
+
+/* ---- Line/area trend chart ---- */
+.atlas-chart-trend {
+  position: relative;
+  width: 100%;
+  height: var(--atlas-chart-height, 220px);
+}
+.atlas-chart-trend-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: var(--atlas-gradient-chart);
+  border-radius: var(--atlas-radius-control);
+}
+.atlas-chart-grid-line { stroke: var(--atlas-chart-grid); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.atlas-chart-hover-line { stroke: var(--atlas-border-strong); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.atlas-chart-dot { transition: r 0.1s ease; }
+
+.atlas-chart-tooltip {
+  position: absolute;
+  transform: translate(-50%, -120%);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--atlas-chart-tooltip-bg);
+  border: 1px solid var(--atlas-chart-tooltip-border);
+  box-shadow: var(--atlas-shadow-raised);
+  font-size: 0.68rem;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 5;
+}
+[dir='rtl'] .atlas-chart-tooltip { transform: translate(50%, -120%); }
+.atlas-chart-tooltip-label { color: var(--atlas-text-muted); }
+.atlas-chart-tooltip-value { color: var(--atlas-text); font-size: 0.78rem; }
+
+/* ---- Bar chart ---- */
+.atlas-chart-bars {
+  --atlas-chart-bar-color: var(--atlas-chart-primary);
+  width: 100%;
+  height: var(--atlas-chart-height, 220px);
+}
+.atlas-chart-bars-plot {
+  display: flex;
+  align-items: end;
+  gap: clamp(4px, 1vw, 12px);
+  height: 100%;
+  padding: 10px 8px 0;
+  border-bottom: 1px solid var(--atlas-chart-grid);
+  background: repeating-linear-gradient(to top, transparent 0 24%, var(--atlas-chart-grid) 24% calc(24% + 1px), transparent calc(24% + 1px) 49%, var(--atlas-chart-grid) 49% calc(49% + 1px), transparent calc(49% + 1px) 74%, var(--atlas-chart-grid) 74% calc(74% + 1px));
+  border-radius: var(--atlas-radius-control);
+}
+.atlas-chart-bar-col {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  min-width: 6px;
+  gap: 6px;
+}
+.atlas-chart-bar-track {
+  display: flex;
+  align-items: end;
+  height: calc(100% - 20px);
+  width: min(28px, 80%);
+}
+.atlas-chart-bar {
+  display: block;
+  width: 100%;
+  min-height: 2px;
+  border-radius: 3px 3px 0 0;
+  background: var(--atlas-chart-bar-color);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--atlas-chart-bar-color) 45%, transparent);
+  transition: filter var(--atlas-motion-fast) ease;
+}
+.atlas-chart-bar-col.active .atlas-chart-bar { filter: brightness(1.2); }
+.atlas-chart-bar-label {
+  color: var(--atlas-text-faint);
+  font: 0.6rem monospace;
+  white-space: nowrap;
+}
+.atlas-chart-tooltip-bar {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+
+@media (max-width: 620px) {
+  .atlas-chart-frame-title { font-size: 0.76rem; }
+  .atlas-chart-bar-label { font-size: 0.54rem; }
+}

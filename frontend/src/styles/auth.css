@@ -1,0 +1,217 @@
+/* Atlas Login — full-viewport background is the actual reference
+   photograph (public/atlas-login-scene.webp: near-black canvas, a single
+   vertical beam of light striking a churning foam/spray vortex, the
+   "ATLAS" wordmark already baked into the image mid-beam, scattered stars
+   throughout) — not a CSS re-creation. Wide 1280x720 (16:9) composition,
+   centered horizontally and vertically on the beam/vortex — background
+   position stays `center` at every breakpoint: at portrait/mobile
+   viewports `cover` is height-bound against this image's aspect ratio, so
+   the full vertical extent (wordmark through vortex) already renders with
+   no vertical crop, only symmetric left/right cropping. The login form
+   sits in a translucent glass panel pinned to one side so it never covers
+   the beam/vortex focal point. Single source of truth for this screen —
+   no stacked per-breakpoint overrides. */
+
+.auth-shell {
+  /* Scoped token subset for this one screen (same precedent as
+     chart-primitives.css's --atlas-chart-* subset), pulling from the
+     reference image's own color language — deep black canvas, near-white
+     beam/text, soft silver-white glows — rather than the app's
+     operational brand blue (--atlas-brand*), which is correct everywhere
+     else post-login but doesn't appear anywhere in the reference scene. */
+  --login-ink: #f5f7fa;
+  --login-ink-muted: #9aa3ad;
+  --login-ink-faint: #6b7480;
+  --login-hairline: rgb(255 255 255 / 14%);
+  --login-hairline-strong: rgb(255 255 255 / 24%);
+  --login-silver: #eef1f6;
+  --login-silver-strong: #ffffff;
+  --login-glow-ring: 0 0 0 3px rgb(255 255 255 / 16%);
+  --login-on-silver: #0a0c10;
+
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+  background-color: var(--atlas-canvas);
+  background-image: url('/atlas-login-scene.webp');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  isolation: isolate;
+}
+
+/* ---------- Scene: the real reference photograph, full-bleed ---------- */
+/* A thin readability scrim over the image — NOT a beam/splash
+   re-creation — so the glass panel's border and the page content keep
+   contrast against whatever part of the photo sits behind them. */
+.auth-scene-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgb(0 0 0 / 12%) 0%, transparent 30%, transparent 60%, rgb(0 0 0 / 35%) 100%);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Frame: form pinned to one side, never over the beam ---------- */
+.auth-frame {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: clamp(14px, 3vw, 40px);
+  box-sizing: border-box;
+}
+
+.auth-panel {
+  position: relative;
+  width: min(420px, 92vw);
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 4vw, 40px);
+  border-radius: var(--atlas-radius-shell);
+  background: rgb(11 13 16 / 62%);
+  border: 1px solid var(--login-hairline);
+  backdrop-filter: blur(22px) saturate(1.1);
+  box-shadow: 0 30px 80px rgb(0 0 0 / 55%);
+}
+.auth-panel-brand { direction: ltr; margin-bottom: clamp(24px, 6vh, 56px); display: flex; align-items: center; justify-content: flex-end; }
+.auth-lang-toggle {
+  padding: 6px 12px;
+  border: 1px solid var(--login-hairline-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--login-ink-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.auth-lang-toggle:hover { color: var(--login-silver-strong); border-color: var(--login-hairline-strong); }
+.auth-panel-body { display: flex; flex-direction: column; flex: 1; justify-content: center; }
+.auth-note { margin: 18px 0 0; color: var(--login-ink-faint); font-size: .72rem; text-align: center; }
+
+/* The "create an account" toggle reads as a corner action (reference:
+   top-right), not a button glued under the submit control — pulled out of
+   normal flow and pinned to the panel's top corner regardless of where the
+   active form (login vs. register) renders it in the DOM. */
+.auth-panel { padding-top: clamp(20px, 3.6vh, 40px); }
+
+.auth-panel .auth-card {
+  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.auth-title { margin: 0 0 6px; color: var(--login-ink); font-size: clamp(1.5rem, 3vw, 1.9rem); font-weight: 500; letter-spacing: -.03em; text-align: start; }
+.auth-fields-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 2vw, 24px); }
+.auth-field { display: flex; flex-direction: column; gap: 10px; min-width: 0; color: var(--login-ink-muted); font-size: .66rem; font-weight: 500; letter-spacing: .02em; }
+.auth-field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 2px;
+  border: 0;
+  border-bottom: 1px solid var(--login-hairline-strong);
+  border-radius: 0;
+  color: var(--login-ink);
+  background: transparent;
+  font: .88rem var(--font-body);
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+.auth-field input:focus { outline: none; border-color: var(--login-silver-strong); box-shadow: 0 1px 0 0 var(--login-silver-strong), var(--login-glow-ring); }
+.auth-field input:focus-visible { box-shadow: 0 1px 0 0 var(--login-silver-strong), var(--login-glow-ring); }
+.auth-error { margin: 0; padding: 9px 12px; color: var(--status-red); background: rgb(240 108 121 / 12%); border: 1px solid rgb(240 108 121 / 30%); border-radius: 6px; font-size: .78rem; text-align: start; }
+.auth-pending-message { color: var(--login-ink-muted); text-align: center; line-height: 1.8; margin: 0; }
+
+.auth-card .auth-submit {
+  align-self: flex-start;
+  width: 58px;
+  height: 58px;
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--login-silver);
+  color: var(--login-on-silver);
+  font-size: .6rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgb(255 255 255 / 20%);
+  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+}
+.auth-card .auth-submit:hover { background: var(--login-silver-strong); transform: translateY(-2px); box-shadow: 0 12px 30px rgb(255 255 255 / 30%); }
+.auth-card .auth-submit:disabled { opacity: .6; cursor: wait; transform: none; }
+
+/* AuthGate's own "create a company" action lives in .auth-panel-body, as a
+   sibling of the .auth-card form, not inside it — target it via .auth-panel
+   so the selector's specificity (0,2,0) reliably beats the shared
+   .ghost-btn base color (0,1,0) regardless of CSS bundle order. Kept in
+   normal document flow (not corner-pinned over the brand/lang-toggle
+   header row, which it collides with at panel widths this app actually
+   ships at) rather than the reference composition's own unrelated corner
+   placement — this is app chrome, not part of the background scene. */
+.auth-panel .auth-switch {
+  align-self: flex-start;
+  width: auto;
+  margin-top: 4px;
+  padding: 0;
+  color: var(--login-ink-muted);
+  background: transparent;
+  border: 0;
+  font-size: .68rem;
+  letter-spacing: .01em;
+  cursor: pointer;
+}
+.auth-panel .auth-switch:hover { background: transparent; color: var(--login-silver-strong); }
+
+/* LoginPage's own "no account yet" link — kept in normal document flow
+   (not corner-pinned) so it never collides with the brand/lang-toggle row
+   above it, in either language. Scoped via .auth-panel (not just the bare
+   class) for the same specificity-over-.ghost-btn reason as above. */
+.auth-panel .auth-switch-inline {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: var(--login-ink-muted);
+  font-size: .72rem;
+  cursor: pointer;
+}
+.auth-panel .auth-switch-inline:hover { color: var(--login-silver-strong); background: transparent; }
+
+.auth-loading { min-height: 100dvh; display: flex; align-items: center; justify-content: center; background: var(--atlas-canvas); color: var(--login-ink-muted); }
+
+@media (max-width: 760px) {
+  .auth-frame { padding: 0; align-items: flex-end; justify-content: center; }
+  .auth-panel {
+    width: 100%;
+    max-width: none;
+    min-height: 62dvh;
+    border-radius: var(--atlas-radius-shell) var(--atlas-radius-shell) 0 0;
+    border-bottom: 0;
+    padding: 28px 22px 40px;
+    justify-content: flex-start;
+    background: rgb(11 13 16 / 78%);
+  }
+  .auth-panel-body { justify-content: flex-start; margin-top: clamp(12px, 4vh, 28px); }
+  .auth-fields-row { grid-template-columns: 1fr; gap: 16px; }
+}

@@ -1,0 +1,48 @@
+.shop-import-preview {
+  max-width: 100%;
+  padding: 22px;
+}
+.shop-import-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.shop-import-header h2 {
+  font-size: 1.1rem;
+  color: var(--accent-dark);
+}
+.shop-import-counts {
+  font-size: 0.85rem;
+  color: var(--text-muted-on-light);
+}
+
+.shop-import-table td {
+  padding: 6px 8px;
+}
+.shop-import-table input {
+  width: 100%;
+  min-width: 90px;
+  border: 1px solid var(--border-accent-soft);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+}
+.shop-import-table input:disabled {
+  background: transparent;
+  border-color: transparent;
+  color: var(--ink);
+}
+.needs-review-row {
+  background: rgba(217, 164, 65, 0.08);
+}
+.shop-import-reason {
+  margin: 4px 0 0;
+  font-size: 0.72rem;
+  color: var(--status-red);
+  max-width: 220px;
+  white-space: normal;
+}
