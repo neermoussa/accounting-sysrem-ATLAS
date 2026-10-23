@@ -574,6 +574,9 @@ function closeOrder(companyId, id, { date, lotCode, expiryDate, quarantine = fal
   if (expiryDate && !isValidDate(expiryDate)) fail('invalid_date', 'تاريخ الصلاحية غير صالح');
   const cost = actualCost(companyId, o, d);
   if (cost.fg_value_minor < 0) fail('negative_cost', 'قيمة المنتجات الثانوية تتجاوز تكلفة الدفعة — راجع أسعارها', 409);
+  // Theoretical cost on the production date, fixed now for every basis
+  // (the variance report reads it; later purchases must not move it).
+  const theoretical = THEORETICAL_BASES.map((basis) => [basis, M.versionCost(companyId, o.version_id, { date: d, basis, batches: o.batches })]);
   const v = db.prepare('SELECT shelf_life_days FROM mfg_recipe_versions WHERE id = ?').get(o.version_id);
   const minComponentExpiry = db.prepare("SELECT MIN(l.expiry_date) e FROM mfg_order_events e JOIN stock_lots l ON l.id = e.lot_id WHERE e.order_id = ? AND e.kind = 'issue' AND l.expiry_date IS NOT NULL").get(o.id).e;
   const expiry = expiryDate || (v.shelf_life_days ? addDays(d, v.shelf_life_days) : minComponentExpiry || null);
@@ -608,6 +611,8 @@ function closeOrder(companyId, id, { date, lotCode, expiryDate, quarantine = fal
     for (const k of ['labour', 'energy', 'overhead']) costRow.run(companyId, o.id, k, cost[k].basis, cost[k].basis_qty, cost[k].rate_id, cost[k].rate_minor, cost[k].amount_minor);
     for (const b of cost.byproducts) costRow.run(companyId, o.id, 'byproduct_credit', 'unit', b.qty, b.rate_id, b.rate_minor, -b.amount_minor);
     if (cost.abnormal_loss_minor) costRow.run(companyId, o.id, 'abnormal_loss', 'unit', cost.abnormal_loss_qty, null, null, -cost.abnormal_loss_minor);
+    const thRow = db.prepare("INSERT INTO mfg_order_theoretical_costs (company_id, order_id, basis, cost_json, source) VALUES (?, ?, ?, ?, 'close')");
+    for (const [basis, th] of theoretical) thRow.run(companyId, o.id, basis, JSON.stringify(th));
     db.prepare("UPDATE production_requests SET status = 'ready', updated_at = datetime('now') WHERE id IN (SELECT production_request_id FROM mfg_order_requests WHERE order_id = ?) AND status = 'in_production'").run(o.id);
     if (quarantine) db.prepare("UPDATE stock_lots SET status = 'quarantine', status_reason = ? WHERE id = ?").run(o.qc_status === 'failed' ? 'لم تجتز فحص الجودة' : 'استلام في الحجر', lot.id);
     db.prepare("UPDATE mfg_orders SET status = 'closed', production_date = ?, output_lot_id = ?, journal_entry_id = ?, cost_json = ?, updated_at = datetime('now') WHERE id = ?").run(d, lot.id, entry?.id ?? null, JSON.stringify(cost), o.id);
@@ -701,14 +706,27 @@ function consumption(companyId, q = {}) {
   return db.prepare(`SELECT p.name AS product_name, SUM(-m.qty) qty, SUM(-m.value_minor) value_minor, COUNT(DISTINCT m.source_id) orders
     FROM stock_moves m JOIN products p ON p.id = m.product_id WHERE m.company_id = ? AND m.move_type IN ('production_issue', 'production_return') AND m.move_date BETWEEN ? AND ? GROUP BY p.name ORDER BY value_minor DESC`).all(companyId, from, to).map((r) => ({ ...r }));
 }
-// Actual vs theoretical (same date, latest purchase prices, actual output).
+// The theoretical cost an order closed with (taken at close; orders closed
+// before migration 0030 have the one taken when it ran). Without a row
+// (none should remain) it is computed live and marked 'live'.
+const THEORETICAL_BASES = ['latest', 'average', 'standard'];
+function theoreticalCost(companyId, o, basis) {
+  const row = db.prepare('SELECT cost_json FROM mfg_order_theoretical_costs WHERE order_id = ? AND basis = ?').get(o.id, basis);
+  if (row) return { th: JSON.parse(row.cost_json), source: 'snapshot' };
+  return { th: M.versionCost(companyId, o.version_id, { date: o.production_date, basis, batches: o.batches }), source: 'live' };
+}
+
+// Actual vs theoretical (production date, actual output). Theoretical =
+// the cost fixed when the order closed, so a closed period does not move.
 function variances(companyId, q = {}) {
+  const basis = q.basis || 'latest';
+  if (!THEORETICAL_BASES.includes(basis)) fail('invalid_basis', 'أساس التسعير غير صالح');
   return closedOrders(companyId, q).filter((o) => o.status === 'closed').map((o) => {
     const v = db.prepare('SELECT batch_output_qty FROM mfg_recipe_versions WHERE id = ?').get(o.version_id);
-    const th = M.versionCost(companyId, o.version_id, { date: o.production_date, basis: q.basis || 'latest', batches: o.batches });
+    const { th, source } = theoreticalCost(companyId, o, basis);
     const thMaterials = th.materials_minor + th.packaging_minor;
     return {
-      order_number: o.order_number, product_name: o.product_name, production_date: o.production_date, batches: o.batches, expected_units: Q(v.batch_output_qty * o.batches), actual_units: o.cost.actual_units,
+      order_number: o.order_number, product_name: o.product_name, production_date: o.production_date, batches: o.batches, expected_units: Q(v.batch_output_qty * o.batches), actual_units: o.cost.actual_units, theoretical_source: source,
       theoretical_materials_minor: thMaterials, actual_materials_minor: o.cost.materials_minor, materials_variance_minor: o.cost.materials_minor - thMaterials,
       theoretical_labour_minor: th.labour.amount_minor, actual_labour_minor: o.cost.labour.amount_minor, labour_variance_minor: o.cost.labour.amount_minor - th.labour.amount_minor,
       theoretical_overhead_minor: th.overhead.amount_minor + th.energy.amount_minor, actual_overhead_minor: o.cost.overhead.amount_minor + o.cost.energy.amount_minor,

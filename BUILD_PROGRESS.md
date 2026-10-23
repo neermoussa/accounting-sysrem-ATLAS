@@ -660,6 +660,14 @@ The original repository (`hamada010502/accounting-sysrem-ATLAS`) was not reachab
 
 Item 0 — the six pre-12a items are present in this import (tests run locally, 17/17 pass): year rollover (`test/yearRollover.test.js`), deduction types (`test/payrollDeductions.test.js`), advance-recovery property (`test/payrollAdvancesProperty.test.js`), import format (`test/payrollImportFormat.test.js` + `docs/payroll-import-*`), payroll 403 / isolation (`test/payrollIsolation.test.js`), CI SHAs recorded (table "Before Prompt 12" — old-repo SHAs).
 
+### Item 1 — cost-variance report stable for closed periods
+
+- **What actually moved (premise check):** the "latest" price already reads only goods receipts dated on or before the production date. What moved a closed period: a material with NO receipt by then (opening stock, count surplus) falls back to the CURRENT stock average, and `basis=average` is always the current average. Shown on the old code: October's theoretical materials went 19.00 -> 26.69 after a November purchase (`test/costVarianceStable.test.js` with the snapshot assertions removed, run before the fix).
+- **Fix:** closing an order stores its theoretical cost for all three bases (`latest`, `average`, `standard`) on the production date, in the same transaction as the close (`mfg_order_theoretical_costs`, source `close`). `variances()` reads that snapshot; an order without one (none should remain) is computed live and marked `theoretical_source: 'live'`. An unknown `basis` is now refused (400 `invalid_basis`); it used to be silently treated as `latest`.
+- **Migration 0030:** creates the table and snapshots every already-closed order (source `migration`) from the data as it stands when it runs. `latest` equals what the report showed; `average` is frozen at that moment.
+- **Tests (`test/costVarianceStable.test.js`, 4):** failure injection at `mfg.close.after_moves` leaves no snapshot; close stores 3 snapshots and the October report (default, `basis=average`, and `/api/analytics/run/cost_variances`) is identical after October is closed and November purchases + a new labour rate are posted, while the live calculation for that date has moved; an order without a snapshot is marked `live`; snapshot company = order company. Existing variance numbers in `test/manufacturing.test.js` unchanged.
+- **Gate:** `npm test` 373/373 (strict PDF); build ok. Migration gate: database built by the BASELINE code (505b407 worktree: `migrate` + `seed-demo-company` + `seed-ledger-demo` + a manufacturing company with 2 closed orders through the API) -> copy -> `node db/migrate.js` with the new code: applied 0030, re-run "up to date", schema identical to a fresh init (416 objects excl. `schema_migrations`, 0 diff), integrity 0 violations for both companies, 0 FK violations, row counts unchanged, 6 snapshot rows; the variance report after migration == before migration for all three bases.
+
 ## CI status
 
 | Commit | What | CI |
