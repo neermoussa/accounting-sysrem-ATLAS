@@ -674,6 +674,7 @@ Item 0 — the six pre-12a items are present in this import (tests run locally, 
 - `lib/analytics/runner.js`: at most `ATLAS_REPORT_WORKERS` reports run at once (default 2); the next `ATLAS_REPORT_QUEUE` wait in arrival order (default 8); beyond that `503 reports_busy` with `Retry-After: ATLAS_REPORT_RETRY_AFTER_S` (default 5) — the analytics route sets the header. A queued report's timeout starts when it starts running. A report that fails, times out or cannot start frees its slot. Bad env values fall back to the defaults. `configure()` (change limits at run time) is test-only.
 - **Tests (`test/reportPool.test.js`, 4):** defaults / env overrides / bad values (child process); 2 workers + 2 queued, the fifth refused directly and over HTTP (503, `Retry-After: 7`), peak never above 2, queued ones run after the first two, API free again afterwards; queued report waits ~2 s (longer than its own 1.2 s timeout) and still runs; failing and timed-out reports release the worker; `configure` refused outside NODE_ENV=test. All 4 fail on the old runner.
 - Test infra: `test/helpers.js` responses now carry `headers` as a NON-enumerable property. (First version made it enumerable and broke the flag-off golden, which serialises whole responses; caught by the full run, fixed before commit.)
+- **Commit / CI:** 54a9a68 — #8 (PR) green; #7 (push) still running when this was written (Chromium install step), recorded next round.
 - **Gate:** `npm test` 377/377 (strict PDF); build ok. No schema change.
 
 ### Item 3 — branch reports with two real branches, rename, disable
@@ -681,7 +682,16 @@ Item 0 — the six pre-12a items are present in this import (tests run locally, 
 - **Gaps the test found (fixed):** the ready `expense_analysis` had no branch dimension (`invalid_dimension`), and the ready `trial_balance` had no branch filter, although `fact_journal_lines` / `fact_expenses` carry `branch_id` and the Prompt 4 reports have both. Added `by=branch` and `branchId` (tenant-checked; the TB drill carries it). Unfiltered output unchanged.
 - **Behaviour documented by the test (unchanged code):** a rename is "remove + add" (decision Fix 3, after Prompt 1): the old branch keeps its id, name and history (inactive), new documents go to the new id; reports show both, nothing is merged. A disabled branch refuses new invoices and journal entries (`invalid_branch`) and keeps its history in every report. Re-adding the same name re-activates the same id.
 - **Tests (`test/branchReports.test.js`, 4):** sales by branch, expenses by branch and TB by branch split exactly per branch (an unbranched invoice shows as "—"); ready TB by branch == Prompt 4 TB with the same filter (per-account period columns and totals); drill rows add up; incremental facts == full rebuild after every step; rename; disable; foreign company's branch id refused.
+- **Commit / CI:** 2689600 — green #9 (push) / #10 (PR).
 - **Gate:** `npm test` 381/381 (strict PDF); build ok. No schema change.
+
+### Item 4 — randomized property test: facts incremental == full rebuild
+
+- **Test (`test/factsProperty.test.js`):** 3 seeds (11, 2026, 90210) × 60 random operations through the real API: sales invoices (2 warehouses, 2 branches or none, product + service lines), credit notes (restock or not), approved returns (live: credit note), customer receipts, purchase receipts (2 warehouses), supplier invoices (with and without price difference), supplier payments, debit notes with returned goods, stock adjustments, transfers, wastage, production orders closed (with wastage events) or rejected, payroll imports + posts, payroll corrections (reopen -> re-import -> re-post), manual entries and their reversals.
+- **After every operation:** the queue is drained incrementally in random chunks of 1–6 documents, then all nine fact tables are compared row for row with a full rebuild. The rebuild runs inside a transaction that is ROLLED BACK, so the incremental state is never reset and carries across the whole sequence (the test also asserts the rollback left it untouched). Each seed must run every core operation kind and fill every fact table.
+- **Mutation check:** skipping the incremental builder of one group (sales, production, payroll or purchase) fails all 3 seeds; restored afterwards (no diff).
+- **Result:** no mismatch found. ~10 s for the file.
+- **Gate:** `npm test` 384/384 (strict PDF); build ok. No schema change.
 
 ## CI status
 
