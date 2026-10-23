@@ -691,7 +691,25 @@ Item 0 — the six pre-12a items are present in this import (tests run locally, 
 - **After every operation:** the queue is drained incrementally in random chunks of 1–6 documents, then all nine fact tables are compared row for row with a full rebuild. The rebuild runs inside a transaction that is ROLLED BACK, so the incremental state is never reset and carries across the whole sequence (the test also asserts the rollback left it untouched). Each seed must run every core operation kind and fill every fact table.
 - **Mutation check:** skipping the incremental builder of one group (sales, production, payroll or purchase) fails all 3 seeds; restored afterwards (no diff).
 - **Result:** no mismatch found. ~10 s for the file.
+- **Commit / CI:** 574afe9 — recorded next round.
 - **Gate:** `npm test` 384/384 (strict PDF); build ok. No schema change.
+
+## Prompt 12b — Report Builder, saved and scheduled reports, exports, sends (in progress)
+
+| Commit | Step |
+|---|---|
+| a028465 | Golden of the legacy pivot / heatmap, recorded on the baseline commit 505b407 BEFORE any 12b change (`test/pivotGolden.test.js`, `test/fixtures/pivotScenario.js` + `.golden.json`) |
+| (this) | a. Safe expression parser (`lib/analytics/expr.js`); b. the query spec engine (`lib/analytics/query.js`), `/api/report-builder` (catalog, run, drill, dimension values), facts mode of `/api/reports/pivot/table` and `/heatmap/data`, permissions `view_costs`, `share_reports`, `schedule_reports`, `send_reports` (migration 0031 grants them to owners) |
+
+**Decisions (12b so far):**
+- **Cost data** = per-item / per-document cost and margin: sales `cost` / `margin`, stock move values, production batch costs, purchase prices (the whole purchases and payables sources). Ledger account totals (incl. COGS in the journal source) are financial statements, already open to `view_financial_reports`, so they are not gated. `view_costs` is new; it applies to the 12b engine only. **The 12a ready reports and `/api/analytics/drill` do not check it yet** (they show sales cost / stock value to any `view_financial_reports` holder) — Prompt 13's "hide costs" item.
+- **Payroll data:** the payroll source, and the `employee` dimension of expenses, need `manage_payroll_intake` or `approve_payroll_posting`; the builder's drill drops `employee_id` without them.
+- The builder has its own drill (`/api/report-builder/drill`) with those column rules; the 12a drill is unchanged.
+- The journal source leaves year-end closing entries out unless `includeClosing: true`.
+- Unknown spec keys, sources, measures, dimensions, filter ops or sort keys are refused (400); filter ids go through tenantRefs; values are bound parameters, never SQL text; a calc reads only the measures selected in the same spec.
+- Comparison: `previous_year` = same dates a year earlier (29 Feb -> 28 Feb); `previous_period` = the same number of whole months before when the period is whole months, else the same number of days just before. Change % is null when the base is 0.
+
+**Tests so far:** `test/reportExpr.test.js` (5), `test/reportBuilder.test.js` (12), `test/pivotGolden.test.js` (1). Mutation checks: removing the permission checks, the tenantRefs check, or the NULL-keeping `not_in` each fails a test. Migration gate 0030 + 0031 on a baseline-built copy: schema identical to fresh (416 objects), re-run no-op, the 4 permissions granted to both owners and nobody else, integrity 0, FK 0. `npm test` 402/402.
 
 ## CI status
 

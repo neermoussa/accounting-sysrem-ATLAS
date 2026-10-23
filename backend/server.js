@@ -156,6 +156,7 @@ app.use('/api/manufacturing', require('./routes/manufacturing'));
 app.use('/api/accounting', require('./routes/accountingExtras'));
 app.use('/api/payroll', require('./routes/payroll'));
 app.use('/api/analytics', require('./routes/analytics'));
+app.use('/api/report-builder', require('./routes/reportBuilder'));
 
 app.get('/api/health', (req, res) => {
   schemaStatus = migrationStatus.status(db);
