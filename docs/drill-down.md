@@ -39,3 +39,14 @@ Each row carries one of two drill objects:
   - Filter keys must be columns of that fact table, plus `from`/`to`. Ids go through tenantRefs.
 
 The drill rows add up to the amount clicked. `test/analytics.test.js` checks this for sales, aging and batch-cost rows.
+
+## Report Builder (Prompt 12b, `/api/report-builder`)
+
+Each builder row carries `drill = { kind: 'builder', source, filters }`. The filters are the dimension columns of that row plus `from` / `to` (`YYYY-MM` for the payroll source). The page calls `GET /api/report-builder/drill?source=<source>&filters=<json>`, which returns the fact rows behind the amount.
+
+That drill applies the engine's permissions:
+- Cost columns (`cost_base_minor`, stock `value_minor`, production cost columns) are removed for users without `view_costs`.
+- `employee_id` is removed without the payroll permissions.
+- The payroll source needs them outright.
+
+Filter keys must be dimension columns of the source, and ids go through tenantRefs. The drill rows add up to the row (`test/reportBuilder.test.js`). The 12a `/api/analytics/drill` above is unchanged and does not apply `view_costs` (Prompt 13).

@@ -37,7 +37,8 @@ How the columns were filled:
 | 11-lite Payroll accounting | DONE | 0d1ddfb | #63 / #64 / #65 green |
 | Before-12 items (rollover, deductions, …) | DONE | 6353c08 … 34dab34, 522ebab | #66–#79 all green |
 | 12a Facts + ready reports | DONE | 73b44db | #84 / #86 / #85 green |
-| 12b Report Builder, saved/scheduled, exports | NEXT | — | — |
+| NEXT ACTION items 0–4 (new repo) | BUILT — awaiting review | c6b0d29, ebecacb, 54a9a68, 2689600, 574afe9 (new repo; old SHAs above refer to the old repo) | #3–#12 green |
+| 12b Report Builder, saved/scheduled, exports | BUILT — awaiting review | a028465, 90d2f1b, 843fb54 + the screen commit | #13–#18 green; screen commit: see PR |
 | 12c Natural language + smart alerts | TODO | — | — |
 | 13 Roles, approvals, audit | TODO | — | — |
 | 14 Mobile / offline / API | TODO | — | — |

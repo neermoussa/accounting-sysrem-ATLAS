@@ -81,6 +81,15 @@ test('a request is only a request: nothing is delivered, the approvers are notif
   ctx.pending = r.id;
 });
 
+test('recipient list: company users with channel and permission flags, no contact details; send_reports only', async () => {
+  const list = ok(await ctx.sender.client.get('/api/report-builder/recipients'));
+  const cost = list.find((u) => u.id === ctx.costReader.userId);
+  assert.deepEqual([cost.phone, cost.email, cost.costs, cost.payroll], [true, false, true, false]);
+  assert.equal(list.find((u) => u.id === ctx.mailUser.userId).email, true);
+  assert.ok(list.every((u) => !('contact' in u)), 'no phone numbers or e-mails in the list');
+  assert.equal((await ctx.plain.client.get('/api/report-builder/recipients')).status, 403);
+});
+
 test('explicit recipients only; addresses must fit the channel', async () => {
   const bad = [
     [{ channel: 'whatsapp', recipients: [] }, 'invalid_recipients'],

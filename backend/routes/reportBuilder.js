@@ -56,7 +56,7 @@ async function runSpec(companyId, permissions, spec, now) {
   return { spec: normalized, ...result, freshness: facts.freshness(companyId) };
 }
 
-router.get('/catalog', requireAnyPermission(...VIEW), handle((req) => ({ sources: Q.catalogFor(req.user.permissions), presets: ['this_month', 'last_month', 'mtd', 'this_quarter', 'last_quarter', 'this_year', 'last_year', 'ytd', 'last_n_days'] })));
+router.get('/catalog', requireAnyPermission(...VIEW), handle((req) => ({ sources: Q.catalogFor(req.user.permissions), digits: db.prepare('SELECT minor_unit_digits d FROM currencies WHERE company_id = ? AND is_base = 1').get(req.companyId)?.d ?? 2, presets: ['this_month', 'last_month', 'mtd', 'this_quarter', 'last_quarter', 'this_year', 'last_year', 'ytd', 'last_n_days'] })));
 
 router.post('/run', requireAnyPermission(...VIEW), handle((req) => runSpec(req.companyId, req.user.permissions, (req.body || {}).spec, clock.today())));
 
@@ -123,6 +123,16 @@ router.get('/saved/:id/schedules', requireAnyPermission(...VIEW), handle((req) =
 router.post('/saved/:id/schedules', requirePermission('schedule_reports'), handle((req, res) => { res.status(201); return RB.createSchedule(req.companyId, req.params.id, req.user, req.body || {}); }));
 router.put('/schedules/:id', requirePermission('schedule_reports'), handle((req) => RB.updateSchedule(req.companyId, req.params.id, req.user, req.body || {})));
 router.delete('/schedules/:id', requirePermission('schedule_reports'), handle((req) => RB.deleteSchedule(req.companyId, req.params.id, req.user)));
+// Company users a send can name (no contact details: only which channel
+// they can receive on and whether they may receive cost / payroll data).
+router.get('/recipients', requirePermission('send_reports'), handle((req) => {
+  const { getUserPermissions } = require('../lib/permissions');
+  return db.prepare("SELECT id, name, contact FROM users WHERE company_id = ? AND status = 'approved' ORDER BY name").all(req.companyId).map((u) => {
+    const perms = getUserPermissions(u.id);
+    const c = String(u.contact || '');
+    return { id: u.id, name: u.name, email: /@/.test(c), phone: /^\+?[\d\s-]{8,20}$/.test(c), costs: perms.includes(Q.COSTS_PERM), payroll: Q.PAYROLL_PERMS.some((p) => perms.includes(p)) };
+  });
+}));
 router.post('/runs/:id/sends', requirePermission('send_reports'), handle((req, res) => { res.status(201); return RB.requestSend(req.companyId, req.params.id, req.user, req.body || {}); }));
 router.get('/sends', requirePermission('send_reports'), handle((req) => RB.listSends(req.companyId, { status: req.query.status })));
 router.get('/sends/:id/file', requirePermission('send_reports'), handle((req, res) => {

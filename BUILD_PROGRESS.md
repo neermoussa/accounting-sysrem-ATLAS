@@ -22,7 +22,7 @@
 | 9 | Manufacturing | done |
 | 10 | Fixed assets & tax | done |
 | 11 | HR & payroll — replaced by 11-lite (payroll accounting only) | done (11-lite) |
-| 12 | Reporting engine | 12a done; 12b in progress; 12c pending |
+| 12 | Reporting engine | 12a done; 12b built (awaiting review); 12c pending |
 | 13 | Roles, approvals, audit | pending |
 | 14 | Integrations API | pending |
 | 15 | Hardening | pending |
@@ -674,7 +674,7 @@ Item 0 — the six pre-12a items are present in this import (tests run locally, 
 - `lib/analytics/runner.js`: at most `ATLAS_REPORT_WORKERS` reports run at once (default 2); the next `ATLAS_REPORT_QUEUE` wait in arrival order (default 8); beyond that `503 reports_busy` with `Retry-After: ATLAS_REPORT_RETRY_AFTER_S` (default 5) — the analytics route sets the header. A queued report's timeout starts when it starts running. A report that fails, times out or cannot start frees its slot. Bad env values fall back to the defaults. `configure()` (change limits at run time) is test-only.
 - **Tests (`test/reportPool.test.js`, 4):** defaults / env overrides / bad values (child process); 2 workers + 2 queued, the fifth refused directly and over HTTP (503, `Retry-After: 7`), peak never above 2, queued ones run after the first two, API free again afterwards; queued report waits ~2 s (longer than its own 1.2 s timeout) and still runs; failing and timed-out reports release the worker; `configure` refused outside NODE_ENV=test. All 4 fail on the old runner.
 - Test infra: `test/helpers.js` responses now carry `headers` as a NON-enumerable property. (First version made it enumerable and broke the flag-off golden, which serialises whole responses; caught by the full run, fixed before commit.)
-- **Commit / CI:** 54a9a68 — #8 (PR) green; #7 (push) still running when this was written (Chromium install step), recorded next round.
+- **Commit / CI:** 54a9a68 — green #7 (push; slow Chromium install step on the runner) / #8 (PR).
 - **Gate:** `npm test` 377/377 (strict PDF); build ok. No schema change.
 
 ### Item 3 — branch reports with two real branches, rename, disable
@@ -691,17 +691,18 @@ Item 0 — the six pre-12a items are present in this import (tests run locally, 
 - **After every operation:** the queue is drained incrementally in random chunks of 1–6 documents, then all nine fact tables are compared row for row with a full rebuild. The rebuild runs inside a transaction that is ROLLED BACK, so the incremental state is never reset and carries across the whole sequence (the test also asserts the rollback left it untouched). Each seed must run every core operation kind and fill every fact table.
 - **Mutation check:** skipping the incremental builder of one group (sales, production, payroll or purchase) fails all 3 seeds; restored afterwards (no diff).
 - **Result:** no mismatch found. ~10 s for the file.
-- **Commit / CI:** 574afe9 — recorded next round.
+- **Commit / CI:** 574afe9 — green #11 (push) / #12 (PR).
 - **Gate:** `npm test` 384/384 (strict PDF); build ok. No schema change.
 
-## Prompt 12b — Report Builder, saved and scheduled reports, exports, sends (in progress)
+## Prompt 12b — Report Builder, saved and scheduled reports, exports, sends (built; awaiting review)
 
 | Commit | Step |
 |---|---|
-| a028465 | Golden of the legacy pivot / heatmap, recorded on the baseline commit 505b407 BEFORE any 12b change (`test/pivotGolden.test.js`, `test/fixtures/pivotScenario.js` + `.golden.json`) |
-| (this) | a. Safe expression parser (`lib/analytics/expr.js`); b. the query spec engine (`lib/analytics/query.js`), `/api/report-builder` (catalog, run, drill, dimension values), facts mode of `/api/reports/pivot/table` and `/heatmap/data`, permissions `view_costs`, `share_reports`, `schedule_reports`, `send_reports` (migration 0031 grants them to owners) |
+| a028465 | Golden of the legacy pivot / heatmap, recorded on the baseline commit 505b407 BEFORE any 12b change (`test/pivotGolden.test.js`, `test/fixtures/pivotScenario.js` + `.golden.json`) — CI green #13 / #14 |
+| 90d2f1b | a. Safe expression parser (`lib/analytics/expr.js`); b. the query spec engine (`lib/analytics/query.js`), `/api/report-builder` (catalog, run, drill, dimension values), facts mode of `/api/reports/pivot/table` and `/heatmap/data`, permissions `view_costs`, `share_reports`, `schedule_reports`, `send_reports` (migration 0031 grants them to owners) — CI green #15 / #16 |
 
-| (this) | c–f. Saved reports (private / shared), manual and scheduled runs into files (xlsx / pdf / csv), downloads, human-approved e-mail / WhatsApp sends — `lib/reportBuilder.js`, tables in `db/reportBuilderSchema.js` (migration 0032), routes under `/api/report-builder`, schedule sweep every minute in `server.js` |
+| 843fb54 | c–f. Saved reports (private / shared), manual and scheduled runs into files (xlsx / pdf / csv), downloads, human-approved e-mail / WhatsApp sends — `lib/reportBuilder.js`, tables in `db/reportBuilderSchema.js` (migration 0032), routes under `/api/report-builder`, schedule sweep every minute in `server.js` — CI green #17 / #18 |
+| (this) | g. Screen `/reports/builder` (`frontend/src/pages/analytics/ReportBuilderPage.jsx`): builder, saved reports (files, schedules, send requests), send approvals; ar + en strings; nav entry in the accounting group (also `/reports/ready`, which 12a left in the system group); `GET /recipients` (no contact details) and base-currency digits in `/catalog`; `docs/report-builder.md`, builder drill in `docs/drill-down.md` |
 
 **Decisions (12b so far):**
 - **Cost data** = per-item / per-document cost and margin: sales `cost` / `margin`, stock move values, production batch costs, purchase prices (the whole purchases and payables sources). Ledger account totals (incl. COGS in the journal source) are financial statements, already open to `view_financial_reports`, so they are not gated. `view_costs` is new; it applies to the 12b engine only. **The 12a ready reports and `/api/analytics/drill` do not check it yet** (they show sales cost / stock value to any `view_financial_reports` holder) — Prompt 13's "hide costs" item.
@@ -717,7 +718,37 @@ Item 0 — the six pre-12a items are present in this import (tests run locally, 
 - **Sends:** request (needs `send_reports`) names 1..20 explicit recipients — a company user, a phone (WhatsApp) or an e-mail; nothing is delivered until approved. Approval = delivery; the requester cannot approve while another `send_reports` holder exists (new SoD step `report_send` in `lib/purchasing.js` SOD_STEPS, owner break-glass with a reason, audited). The approver must hold the data's permissions (report + the run's needs); they can review the file first (`GET /sends/:id/file`, audited), even when the saved report is private to the requester. A run with cost / payroll data goes only to company users holding that permission (no outside address) — checked at request AND again at approval. A double approval cannot send twice (status claimed first).
 - **Transports:** WhatsApp = the existing per-company session; `lib/whatsapp.js` gained `sendFileToNumber` (MessageMedia, same connection gating as `sendToNumber`). **E-mail has no transport in Atlas**: an approved e-mail send is recorded as `failed` / `email_not_configured` per recipient — open decision for Hamada (provider / SMTP, and a new dependency). Results are stored per recipient (`sent`, `partially_sent`, `failed`).
 
-**Tests so far:** `test/reportExpr.test.js` (5), `test/reportBuilder.test.js` (12), `test/pivotGolden.test.js` (1), `test/reportSaved.test.js` (6), `test/reportSchedule.test.js` (7), `test/reportSend.test.js` (9). Mutation checks: removing the permission checks, the tenantRefs check, or the NULL-keeping `not_in` (engine); the needs check on user recipients, the outside-address refusal, the re-check at approval, or the SoD guard (sends) — each fails a test. Migration gate 0030–0032 on a baseline-built copy: schema identical to fresh (425 objects), re-run no-op, the 4 permissions granted to both owners and nobody else (+8 rows), integrity 0, FK 0, data counts unchanged. `npm test` 424/424 (strict PDF).
+**Requirement -> test (12b):**
+
+| Requirement | Test |
+|---|---|
+| Fields, filters, grouping | `reportBuilder` "sales by region x month equals independent SQL…", "filters: in / not_in, with null…" |
+| Period-vs-period and YoY | `reportBuilder` "compare: March vs February…", "period presets follow the injected clock…" |
+| Calculated ratios through a SAFE parser (no eval / new Function) | `reportExpr` (5, incl. hostile input and a source scan), `reportBuilder` "calculated ratios…" |
+| Extend the existing pivot and heatmap, do not replace them | `pivotGolden` (legacy output byte-for-byte as recorded on 505b407), `reportBuilder` "pivot and heatmap facts mode…" |
+| ONE whitelisted JSON spec validated against a catalog | `reportBuilder` "hostile or malformed specs are refused…" (20 cases) |
+| Company scoping inside the engine | `reportBuilder` "tenant isolation…"; `reportSaved` / `reportSend` tenant tests |
+| Payroll / cost permission checks inside the engine | `reportBuilder` "permissions inside the engine…" (catalog, run, drill, dimension values, pivot; `Q.validate` directly) |
+| Saved reports private / shared, permission-gated | `reportSaved` (6) |
+| Scheduling idempotent per (report, scheduled time) | `reportSchedule` "idempotent per slot…" |
+| Missed runs catch up once, not N times | `reportSchedule` "…a missed stretch runs once (the latest slot)…" |
+| Injected-clock tests incl. the year boundary | `reportSchedule` "slot maths…", "year boundary…" |
+| Export PDF / Excel / CSV through the existing path | `reportSchedule` "files: xlsx reads back, csv is safe, pdf renders…" (PDF strict with a Chromium) |
+| Sends human-approved, permission-gated, explicit recipients, audited | `reportSend` (10) |
+| Payroll / cost data never sent to a recipient without the permission | `reportSend` "cost data: only company users holding view_costs…", "recipients are re-checked at approval…" |
+| Heavy work in the report worker (cap / 503) | `reportBuilder` "runs in the report worker…" |
+| Done when: built, shared, scheduled, exported | the above + browser check below |
+
+**Gate (12b):** `npm test` 425/425 with `PLAYWRIGHT_CHROMIUM_PATH` (strict PDF); `npm run build` ok. Migration gate on a copy of the baseline-built database (505b407 code: migrate + seed-demo-company + seed-ledger-demo + 2 closed production orders): 0030–0032 applied, re-run "up to date", schema identical to a fresh init (425 objects excl. `schema_migrations`, 0 diff), integrity 0 for both companies, FK 0. Browser check (Chromium, built frontend + reports scenario): nav entry; source sales, item dimension, net / qty / cost + a % ratio, custom March, compare previous period -> 2 rows, compare / change / change % columns, totals; drill rows; saved as shared; CSV file produced; daily schedule (next run 2026-11-21 05:00 UTC); send requested to a user (cost notice shown); second user sees it pending (bell notification), approves -> recorded `failed`, "WhatsApp not connected" (no WhatsApp session in this environment). Console: only the two 401s of the pre-login session check.
+
+**12b limits / open items:**
+- **E-mail:** no transport (open decision: provider / SMTP / dependency). Approved e-mail sends are recorded as failed.
+- **WhatsApp file sending** (`sendFileToNumber`) was not exercised against a real session: tests use an injected transport; the browser check only reached "not connected".
+- **Time zone:** schedules use a fixed UTC offset (default +03:00), not an IANA zone.
+- **`view_costs`** is enforced by the 12b engine only. 12a ready reports and `/api/analytics/drill` still show sales cost / stock value to every `view_financial_reports` holder (Prompt 13).
+- Shared reports are listed only to users who already hold their needs; a private report's runs can be sent only by someone who can see it (the owner), but are approved by any holder of the data's permissions.
+
+**Tests so far:** `test/reportExpr.test.js` (5), `test/reportBuilder.test.js` (12), `test/pivotGolden.test.js` (1), `test/reportSaved.test.js` (6), `test/reportSchedule.test.js` (7), `test/reportSend.test.js` (10). Mutation checks: removing the permission checks, the tenantRefs check, or the NULL-keeping `not_in` (engine); the needs check on user recipients, the outside-address refusal, the re-check at approval, or the SoD guard (sends) — each fails a test. Migration gate 0030–0032 on a baseline-built copy: schema identical to fresh (425 objects), re-run no-op, the 4 permissions granted to both owners and nobody else (+8 rows), integrity 0, FK 0, data counts unchanged. `npm test` 424/424 (strict PDF).
 
 ## CI status
 
