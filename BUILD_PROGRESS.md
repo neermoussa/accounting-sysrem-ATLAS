@@ -14,15 +14,15 @@
 | 1 | Ledger core | done |
 | 2 | Auto-posting + sales documents | done |
 | 3 | Receivables | done |
-| 4 | Financial reports | pending |
-| 5 | Multi-currency | pending |
-| 6 | Purchasing | pending |
-| 7 | Cash & bank | pending |
-| 8 | Inventory valuation & lots | pending |
+| 4 | Financial reports | done |
+| 5 | Multi-currency | done |
+| 6 | Purchasing | done |
+| 7 | Cash & bank | done |
+| 8 | Inventory valuation & lots | done (8a + 8b) |
 | 9 | Manufacturing | done |
 | 10 | Fixed assets & tax | done |
 | 11 | HR & payroll — replaced by 11-lite (payroll accounting only) | done (11-lite) |
-| 12 | Reporting engine | pending |
+| 12 | Reporting engine | 12a done; 12b in progress; 12c pending |
 | 13 | Roles, approvals, audit | pending |
 | 14 | Integrations API | pending |
 | 15 | Hardening | pending |
@@ -649,6 +649,16 @@ Decisions:
 - A report run refreshes the facts first (bounded, 5000 queue rows); if that refresh fails the report still answers from the old facts and its stamp says up_to_date: false.
 - Timeout default 30 s (`ATLAS_REPORT_TIMEOUT_MS`), row cap 5000 (`ATLAS_REPORT_ROW_CAP`), fact sweep every 60 s (`ATLAS_FACT_SWEEP_MS`).
 - One worker per report request (no pool yet); a pool belongs to Prompt 15's load work.
+
+## Repository move (2026-10-19) and NEXT ACTION round
+
+The original repository (`hamada010502/accounting-sysrem-ATLAS`) was not reachable from the new session's GitHub account. The project was imported from the owner's zip (`ATLAS-ACCOUNTING-CODE.zip`, = 73b44db + the handoff docs commit) into `neermoussa/accounting-sysrem-ATLAS` as ONE commit; the zip has no git history. **Every SHA and CI run number above this section refers to the old repository**; from here on they refer to the new one.
+
+| Commit | Item | CI |
+|---|---|---|
+| 505b407 | Baseline import (files identical to the zip, verified file by file); local `npm test` 369/369 (also strict PDF with `PLAYWRIGHT_CHROMIUM_PATH`), `npm run build` ok | green #1 (main) / #2 (branch) — all steps; test counts not readable here (log host blocked) |
+
+Item 0 — the six pre-12a items are present in this import (tests run locally, 17/17 pass): year rollover (`test/yearRollover.test.js`), deduction types (`test/payrollDeductions.test.js`), advance-recovery property (`test/payrollAdvancesProperty.test.js`), import format (`test/payrollImportFormat.test.js` + `docs/payroll-import-*`), payroll 403 / isolation (`test/payrollIsolation.test.js`), CI SHAs recorded (table "Before Prompt 12" — old-repo SHAs).
 
 ## CI status
 
