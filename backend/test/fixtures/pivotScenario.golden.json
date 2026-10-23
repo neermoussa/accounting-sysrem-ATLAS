@@ -1,0 +1,138 @@
+{
+  "pivot_region_month_value": {
+    "status": 200,
+    "body": {
+      "rows": [
+        {
+          "dimension": "دمشق",
+          "values": {
+            "2026-08": 80,
+            "2026-09": 84
+          },
+          "total": 164
+        },
+        {
+          "dimension": "حلب",
+          "values": {
+            "2026-09": 105
+          },
+          "total": 105
+        }
+      ],
+      "columns": [
+        "2026-08",
+        "2026-09"
+      ]
+    }
+  },
+  "pivot_product_city_qty": {
+    "status": 200,
+    "body": {
+      "rows": [
+        {
+          "dimension": "لوز",
+          "values": {
+            "المزة": 4,
+            "الميدان": 1,
+            "العزيزية": 5
+          },
+          "total": 10
+        },
+        {
+          "dimension": "كاجو",
+          "values": {
+            "المزة": 8
+          },
+          "total": 8
+        },
+        {
+          "dimension": "فستق",
+          "values": {
+            "العزيزية": 3
+          },
+          "total": 3
+        }
+      ],
+      "columns": [
+        "المزة",
+        "الميدان",
+        "العزيزية"
+      ]
+    }
+  },
+  "pivot_month_branch_count": {
+    "status": 200,
+    "body": {
+      "rows": [
+        {
+          "dimension": "2026-08",
+          "values": {
+            "غير محدد": 3
+          },
+          "total": 3
+        },
+        {
+          "dimension": "2026-09",
+          "values": {
+            "غير محدد": 3
+          },
+          "total": 3
+        }
+      ],
+      "columns": [
+        "غير محدد"
+      ]
+    }
+  },
+  "pivot_bad_dim": {
+    "status": 400,
+    "body": {
+      "error": "invalid_pivot_dimension"
+    }
+  },
+  "heatmap_sales": {
+    "status": 200,
+    "body": [
+      {
+        "lat": 33.5,
+        "lng": 36.25,
+        "weight": 164
+      },
+      {
+        "lat": 36.2,
+        "lng": 37.15,
+        "weight": 105
+      }
+    ]
+  },
+  "heatmap_customers": {
+    "status": 200,
+    "body": [
+      {
+        "lat": 33.5,
+        "lng": 36.25,
+        "weight": 3
+      },
+      {
+        "lat": 36.2,
+        "lng": 37.15,
+        "weight": 1
+      }
+    ]
+  },
+  "heatmap_default": {
+    "status": 200,
+    "body": [
+      {
+        "lat": 33.5,
+        "lng": 36.25,
+        "weight": 164
+      },
+      {
+        "lat": 36.2,
+        "lng": 37.15,
+        "weight": 105
+      }
+    ]
+  }
+}
