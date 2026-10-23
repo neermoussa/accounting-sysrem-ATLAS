@@ -676,6 +676,13 @@ Item 0 — the six pre-12a items are present in this import (tests run locally, 
 - Test infra: `test/helpers.js` responses now carry `headers` as a NON-enumerable property. (First version made it enumerable and broke the flag-off golden, which serialises whole responses; caught by the full run, fixed before commit.)
 - **Gate:** `npm test` 377/377 (strict PDF); build ok. No schema change.
 
+### Item 3 — branch reports with two real branches, rename, disable
+
+- **Gaps the test found (fixed):** the ready `expense_analysis` had no branch dimension (`invalid_dimension`), and the ready `trial_balance` had no branch filter, although `fact_journal_lines` / `fact_expenses` carry `branch_id` and the Prompt 4 reports have both. Added `by=branch` and `branchId` (tenant-checked; the TB drill carries it). Unfiltered output unchanged.
+- **Behaviour documented by the test (unchanged code):** a rename is "remove + add" (decision Fix 3, after Prompt 1): the old branch keeps its id, name and history (inactive), new documents go to the new id; reports show both, nothing is merged. A disabled branch refuses new invoices and journal entries (`invalid_branch`) and keeps its history in every report. Re-adding the same name re-activates the same id.
+- **Tests (`test/branchReports.test.js`, 4):** sales by branch, expenses by branch and TB by branch split exactly per branch (an unbranched invoice shows as "—"); ready TB by branch == Prompt 4 TB with the same filter (per-account period columns and totals); drill rows add up; incremental facts == full rebuild after every step; rename; disable; foreign company's branch id refused.
+- **Gate:** `npm test` 381/381 (strict PDF); build ok. No schema change.
+
 ## CI status
 
 | Commit | What | CI |
