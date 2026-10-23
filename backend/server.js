@@ -325,6 +325,12 @@ setTimeout(() => {
     try { require('./lib/analytics/facts').sweep(); } catch (err) { console.error('[analytics] fact sweep failed:', err.message); }
   };
   setInterval(runFactSweep, FACT_SWEEP_MS);
+  // Prompt 12b: scheduled reports (due slots, idempotent per slot, missed
+  // slots run once). Every minute; ATLAS_REPORT_SCHEDULE_MS overrides.
+  const runReportSchedules = () => {
+    require('./lib/reportBuilder').sweepSchedules({ runSpec: require('./routes/reportBuilder').runSpec }).catch((err) => console.error('[report-builder] schedule sweep failed:', err.message));
+  };
+  setInterval(runReportSchedules, Number(process.env.ATLAS_REPORT_SCHEDULE_MS) || 60000);
   runFactSweep();
   const runAdjustments = () => {
     try {

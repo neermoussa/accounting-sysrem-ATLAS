@@ -1959,6 +1959,8 @@ require('./manufacturingSchema').applyManufacturingSchema(db);
 require('./accountingExtrasSchema').applyAccountingExtrasSchema(db);
 require('./payrollSchema').applyPayrollSchema(db);
 require('./rolloverSchema').applyRolloverSchema(db);
+// Report Builder (Prompt 12b): saved / scheduled / sent reports — same statements as migrations/0032_report_builder.js.
+require('./reportBuilderSchema').applyReportBuilderSchema(db);
 // Analytics (Prompt 12a): fact tables + change-capture triggers — last, after every source table.
 require('./factSchema').applyFactSchema(db);
 

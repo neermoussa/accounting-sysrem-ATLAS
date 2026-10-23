@@ -4,13 +4,20 @@
 //  GET  /drill                fact rows behind a builder row (cost / payroll
 //                             columns removed without the permission)
 //  GET  /dimension-values     values of one dimension (for the filter picker)
+//  POST /export               { spec, format, lang } -> the file now (nothing stored)
+//  /saved, /saved/:id[/run|/runs|/schedules], /runs/:id/file, /schedules/:id,
+//  /runs/:id/sends, /sends[/:id/approve|reject] — saved, scheduled and sent
+//  reports (lib/reportBuilder.js)
 // The query spec, its validation and every permission check live in the
 // engine (lib/analytics/query.js); this router only passes the caller's
 // company, permissions and the injected clock's "today".
 
 const express = require('express');
 const db = require('../db/init');
-const { requireAnyPermission } = require('../middleware/auth');
+const fs = require('fs');
+const { requireAnyPermission, requirePermission } = require('../middleware/auth');
+const { logAudit } = require('../lib/auditLog');
+const RB = require('../lib/reportBuilder');
 const tenantRefs = require('../lib/tenantRefs');
 const facts = require('../lib/analytics/facts');
 const reports = require('../lib/analytics/reports');
@@ -28,9 +35,11 @@ function handle(fn) {
       const out = await fn(req, res);
       if (out !== undefined && !res.headersSent) res.json(out);
     } catch (err) {
-      if (err instanceof reports.ReportError || err instanceof tenantRefs.ForeignRefError || err instanceof E.ExprError || err.status) {
+      if (err instanceof reports.ReportError || err instanceof tenantRefs.ForeignRefError || err instanceof E.ExprError || err instanceof RB.BuilderError || err.status) {
         if (err.retryAfter) res.set('Retry-After', String(err.retryAfter));
-        return res.status(err.status || 400).json({ error: err.code || 'error', message: err.message });
+        // Extra fields an error carries (e.g. break_glass_available) go to the client.
+        const { code, status, retryAfter, ...extra } = err;
+        return res.status(status || 400).json({ ...extra, error: code || 'error', message: err.message });
       }
       next(err);
     }
@@ -68,6 +77,62 @@ router.get('/dimension-values', requireAnyPermission(...VIEW), handle((req) => {
   const q = String(req.query.q || '').trim();
   return values.map((v) => ({ value: v, label: dim.text ? (v ?? '—') : reports.label(db, dim.labelAs, v) })).filter((x) => !q || String(x.label).includes(q));
 }));
+
+// ---------------------------------------------------------------------
+// Export of an unsaved spec (download now; nothing stored)
+// ---------------------------------------------------------------------
+router.post('/export', requireAnyPermission(...VIEW), handle(async (req, res) => {
+  const { spec, format = 'xlsx', lang = 'ar', title } = req.body || {};
+  if (!RB.MIME[format]) throw new RB.BuilderError('invalid_format', 'الصيغة: xlsx أو pdf أو csv');
+  const result = await runSpec(req.companyId, req.user.permissions, spec, clock.today());
+  const name = String(title || result.label_ar).slice(0, 80);
+  const file = await RB.renderFile(req.companyId, result, { format, lang: lang === 'en' ? 'en' : 'ar', title: name });
+  logAudit({ companyId: req.companyId, actor: { id: req.user.id, name: req.user.name }, action: 'report.export', entityType: 'report_spec', entityId: null, before: null, after: { format, spec: result.spec, rows: result.row_count } });
+  res.setHeader('Content-Type', file.mime);
+  res.setHeader('Content-Disposition', `attachment; filename="report.${file.ext}"; filename*=UTF-8''${encodeURIComponent(`${name}-${result.period.to}.${file.ext}`)}`);
+  res.end(file.buffer);
+}));
+
+// ---------------------------------------------------------------------
+// Saved reports, runs, schedules, sends (lib/reportBuilder.js)
+// ---------------------------------------------------------------------
+router.get('/saved', requireAnyPermission(...VIEW), handle((req) => RB.listSaved(req.companyId, req.user)));
+router.post('/saved', requireAnyPermission(...VIEW), handle((req, res) => { res.status(201); return RB.createSaved(req.companyId, req.user, req.body || {}); }));
+router.get('/saved/:id', requireAnyPermission(...VIEW), handle((req) => RB.getSaved(req.companyId, req.params.id, req.user)));
+router.put('/saved/:id', requireAnyPermission(...VIEW), handle((req) => RB.updateSaved(req.companyId, req.params.id, req.user, req.body || {})));
+router.delete('/saved/:id', requireAnyPermission(...VIEW), handle((req) => RB.deleteSaved(req.companyId, req.params.id, req.user)));
+// Run a saved report and return the rows (no file).
+router.post('/saved/:id/run', requireAnyPermission(...VIEW), handle((req) => {
+  const row = RB.getSaved(req.companyId, req.params.id, req.user);
+  return runSpec(req.companyId, req.user.permissions, row.spec, clock.today());
+}));
+// Produce a file now (a manual run).
+router.post('/saved/:id/runs', requireAnyPermission(...VIEW), handle(async (req, res) => {
+  const run = await RB.runNow(req.companyId, req.params.id, req.user, req.body || {}, runSpec);
+  res.status(run.status === 'done' ? 201 : 422);
+  return run;
+}));
+router.get('/saved/:id/runs', requireAnyPermission(...VIEW), handle((req) => RB.listRuns(req.companyId, req.params.id, req.user)));
+router.get('/runs/:id/file', requireAnyPermission(...VIEW), handle((req, res) => {
+  const f = RB.runFile(req.companyId, req.params.id, req.user);
+  res.setHeader('Content-Type', f.mime);
+  res.setHeader('Content-Disposition', `attachment; filename="report"; filename*=UTF-8''${encodeURIComponent(f.name)}`);
+  res.end(fs.readFileSync(f.path));
+}));
+router.get('/saved/:id/schedules', requireAnyPermission(...VIEW), handle((req) => RB.listSchedules(req.companyId, req.params.id, req.user)));
+router.post('/saved/:id/schedules', requirePermission('schedule_reports'), handle((req, res) => { res.status(201); return RB.createSchedule(req.companyId, req.params.id, req.user, req.body || {}); }));
+router.put('/schedules/:id', requirePermission('schedule_reports'), handle((req) => RB.updateSchedule(req.companyId, req.params.id, req.user, req.body || {})));
+router.delete('/schedules/:id', requirePermission('schedule_reports'), handle((req) => RB.deleteSchedule(req.companyId, req.params.id, req.user)));
+router.post('/runs/:id/sends', requirePermission('send_reports'), handle((req, res) => { res.status(201); return RB.requestSend(req.companyId, req.params.id, req.user, req.body || {}); }));
+router.get('/sends', requirePermission('send_reports'), handle((req) => RB.listSends(req.companyId, { status: req.query.status })));
+router.get('/sends/:id/file', requirePermission('send_reports'), handle((req, res) => {
+  const f = RB.sendFile(req.companyId, req.params.id, req.user);
+  res.setHeader('Content-Type', f.mime);
+  res.setHeader('Content-Disposition', `attachment; filename="report"; filename*=UTF-8''${encodeURIComponent(f.name)}`);
+  res.end(fs.readFileSync(f.path));
+}));
+router.post('/sends/:id/approve', requirePermission('send_reports'), handle((req) => RB.approveSend(req.companyId, req.params.id, req.user, req.body || {})));
+router.post('/sends/:id/reject', requirePermission('send_reports'), handle((req) => RB.rejectSend(req.companyId, req.params.id, req.user, req.body || {})));
 
 module.exports = router;
 module.exports.runSpec = runSpec;

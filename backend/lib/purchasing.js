@@ -89,6 +89,8 @@ const SOD_STEPS = {
   voucher: { first: 'create_vouchers', second: 'approve_vouchers', label: 'اعتماد سندات الخزينة' },
   count: { first: 'manage_stock_counts', second: 'approve_stock_counts', label: 'اعتماد الجرد' },
   payroll: { first: 'manage_payroll_intake', second: 'approve_payroll_posting', label: 'ترحيل الرواتب' },
+  // Prompt 12b: a report send is approved by another send_reports holder than the one who requested it.
+  report_send: { first: 'send_reports', second: 'send_reports', label: 'اعتماد إرسال التقارير' },
 };
 // Users (other than `exceptUserId`) who could do the second step.
 function otherHolders(companyId, kind, exceptUserId) {
