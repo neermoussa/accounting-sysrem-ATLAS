@@ -648,7 +648,7 @@ Decisions:
 - Lot trace / recall run live on the main connection (graph traversal over live tables).
 - A report run refreshes the facts first (bounded, 5000 queue rows); if that refresh fails the report still answers from the old facts and its stamp says up_to_date: false.
 - Timeout default 30 s (`ATLAS_REPORT_TIMEOUT_MS`), row cap 5000 (`ATLAS_REPORT_ROW_CAP`), fact sweep every 60 s (`ATLAS_FACT_SWEEP_MS`).
-- One worker per report request (no pool yet); a pool belongs to Prompt 15's load work.
+- ~~One worker per report request (no pool yet)~~ — capped after 12a (NEXT ACTION item 2, below).
 
 ## Repository move (2026-10-19) and NEXT ACTION round
 
@@ -666,7 +666,15 @@ Item 0 — the six pre-12a items are present in this import (tests run locally, 
 - **Fix:** closing an order stores its theoretical cost for all three bases (`latest`, `average`, `standard`) on the production date, in the same transaction as the close (`mfg_order_theoretical_costs`, source `close`). `variances()` reads that snapshot; an order without one (none should remain) is computed live and marked `theoretical_source: 'live'`. An unknown `basis` is now refused (400 `invalid_basis`); it used to be silently treated as `latest`.
 - **Migration 0030:** creates the table and snapshots every already-closed order (source `migration`) from the data as it stands when it runs. `latest` equals what the report showed; `average` is frozen at that moment.
 - **Tests (`test/costVarianceStable.test.js`, 4):** failure injection at `mfg.close.after_moves` leaves no snapshot; close stores 3 snapshots and the October report (default, `basis=average`, and `/api/analytics/run/cost_variances`) is identical after October is closed and November purchases + a new labour rate are posted, while the live calculation for that date has moved; an order without a snapshot is marked `live`; snapshot company = order company. Existing variance numbers in `test/manufacturing.test.js` unchanged.
+- **Commit / CI:** ebecacb — green #5 (push) / #6 (PR).
 - **Gate:** `npm test` 373/373 (strict PDF); build ok. Migration gate: database built by the BASELINE code (505b407 worktree: `migrate` + `seed-demo-company` + `seed-ledger-demo` + a manufacturing company with 2 closed orders through the API) -> copy -> `node db/migrate.js` with the new code: applied 0030, re-run "up to date", schema identical to a fresh init (416 objects excl. `schema_migrations`, 0 diff), integrity 0 violations for both companies, 0 FK violations, row counts unchanged, 6 snapshot rows; the variance report after migration == before migration for all three bases.
+
+### Item 2 — report workers capped, queued, 503 + Retry-After
+
+- `lib/analytics/runner.js`: at most `ATLAS_REPORT_WORKERS` reports run at once (default 2); the next `ATLAS_REPORT_QUEUE` wait in arrival order (default 8); beyond that `503 reports_busy` with `Retry-After: ATLAS_REPORT_RETRY_AFTER_S` (default 5) — the analytics route sets the header. A queued report's timeout starts when it starts running. A report that fails, times out or cannot start frees its slot. Bad env values fall back to the defaults. `configure()` (change limits at run time) is test-only.
+- **Tests (`test/reportPool.test.js`, 4):** defaults / env overrides / bad values (child process); 2 workers + 2 queued, the fifth refused directly and over HTTP (503, `Retry-After: 7`), peak never above 2, queued ones run after the first two, API free again afterwards; queued report waits ~2 s (longer than its own 1.2 s timeout) and still runs; failing and timed-out reports release the worker; `configure` refused outside NODE_ENV=test. All 4 fail on the old runner.
+- Test infra: `test/helpers.js` responses now carry `headers` as a NON-enumerable property. (First version made it enumerable and broke the flag-off golden, which serialises whole responses; caught by the full run, fixed before commit.)
+- **Gate:** `npm test` 377/377 (strict PDF); build ok. No schema change.
 
 ## CI status
 

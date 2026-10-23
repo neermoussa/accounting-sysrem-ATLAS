@@ -29,6 +29,7 @@ function handle(fn) {
       if (out !== undefined && !res.headersSent) res.json(out);
     } catch (err) {
       if (err instanceof reports.ReportError || err instanceof tenantRefs.ForeignRefError) {
+        if (err.retryAfter) res.set('Retry-After', String(err.retryAfter));
         return res.status(err.status || 400).json({ error: err.code, message: err.message });
       }
       next(err);
