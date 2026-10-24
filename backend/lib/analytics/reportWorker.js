@@ -10,7 +10,8 @@ try {
   dbh = new DatabaseSync(dbPath, { readOnly: true });
   dbh.exec('PRAGMA busy_timeout = 5000');
   if (testDelayMs) { const end = Date.now() + testDelayMs; while (Date.now() < end) { /* simulated heavy query */ } }
-  const out = reports.run(dbh, companyId, key, params);
+  // '__query': a Report Builder spec already validated on the main thread (lib/analytics/query.js).
+  const out = key === '__query' ? require('./query').execute(dbh, companyId, params.spec) : reports.run(dbh, companyId, key, params);
   const total = out.rows.length;
   const truncated = total > rowCap;
   parentPort.postMessage({ ok: true, result: { ...out, rows: truncated ? out.rows.slice(0, rowCap) : out.rows, row_count: total, truncated, row_cap: rowCap } });

@@ -53,8 +53,8 @@ async function request(path, options = {}) {
   return res.json();
 }
 
-async function downloadFile(path) {
-  const res = await fetchOrMarkOffline(`/api${path}`, { credentials: 'same-origin' });
+async function downloadFile(path, options = {}) {
+  const res = await fetchOrMarkOffline(`/api${path}`, { credentials: 'same-origin', ...options });
   if (!res.ok) {
     let detail;
     try {
@@ -441,6 +441,13 @@ export const api = {
   runAnalyticsReport: (key, params = {}) => request(`/analytics/run/${encodeURIComponent(key)}?${new URLSearchParams(Object.entries(params).filter(([, v]) => v !== '' && v !== undefined && v !== null)).toString()}`),
   analyticsDrill: (fact, filters = {}) => request(`/analytics/drill?fact=${encodeURIComponent(fact)}&filters=${encodeURIComponent(JSON.stringify(filters))}`),
   refreshAnalytics: () => request('/analytics/refresh', { method: 'POST', body: '{}' }),
+  // Prompt 12b: Report Builder (/api/report-builder)
+  rbGet: (path) => request(`/report-builder${path}`),
+  rbPost: (path, body = {}) => request(`/report-builder${path}`, { method: 'POST', body: JSON.stringify(body) }),
+  rbPut: (path, body = {}) => request(`/report-builder${path}`, { method: 'PUT', body: JSON.stringify(body) }),
+  rbDelete: (path) => request(`/report-builder${path}`, { method: 'DELETE' }),
+  rbDownload: (path) => downloadFile(`/report-builder${path}`),
+  rbExport: (body) => downloadFile('/report-builder/export', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }),
   // Prompt 11-lite: payroll accounting (/api/payroll)
   prGet: (path) => request(`/payroll${path}`),
   prPost: (path, body = {}) => request(`/payroll${path}`, { method: 'POST', body: JSON.stringify(body) }),

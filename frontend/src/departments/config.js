@@ -29,7 +29,7 @@ export const NAV_GROUPS = [
     to: '/accounting',
     icon: 'ledger',
     labelKey: 'dept.accounting',
-    items: ['/collections', '/uploads', '/ledger/accounts', '/ledger/entries', '/ledger/periods', '/ledger/opening-balances', '/sales/invoices', '/sales/credit-notes', '/sales/customers', '/receivables/receipts', '/receivables/cheques', '/receivables/reports', '/reports/financial', '/reports/budgets', '/reports/year-end', '/ledger/exchange-rates', '/reports/currency', '/purchasing', '/purchasing/suppliers', '/purchasing/reports', '/treasury', '/treasury/bank', '/purchasing/settings', '/stock', '/accounting/adjustments', '/payroll', '/ledger/posting-failures'],
+    items: ['/collections', '/uploads', '/ledger/accounts', '/ledger/entries', '/ledger/periods', '/ledger/opening-balances', '/sales/invoices', '/sales/credit-notes', '/sales/customers', '/receivables/receipts', '/receivables/cheques', '/receivables/reports', '/reports/financial', '/reports/budgets', '/reports/year-end', '/ledger/exchange-rates', '/reports/currency', '/purchasing', '/purchasing/suppliers', '/purchasing/reports', '/treasury', '/treasury/bank', '/purchasing/settings', '/stock', '/accounting/adjustments', '/payroll', '/ledger/posting-failures', '/reports/ready', '/reports/builder'],
   },
   {
     key: 'vendors',

@@ -38,6 +38,7 @@ import AdjustmentsPage from './pages/accounting/AdjustmentsPage.jsx';
 import PayrollPage from './pages/payroll/PayrollPage.jsx';
 import PostingFailuresPage from './pages/ledger/PostingFailuresPage.jsx';
 import ReadyReportsPage from './pages/analytics/ReadyReportsPage.jsx';
+import ReportBuilderPage from './pages/analytics/ReportBuilderPage.jsx';
 import FloorPage from './pages/manufacturing/FloorPage.jsx';
 import BankReconciliationPage from './pages/treasury/BankReconciliationPage.jsx';
 
@@ -66,6 +67,7 @@ export const APP_ROUTES = [
   { id: 'bank-reconciliation', Component: BankReconciliationPage, nav: { to: '/treasury/bank', labelKey: 'nav.bankReconciliation', anyOf: ['view_treasury', 'manage_cash_boxes', 'create_vouchers', 'approve_vouchers', 'manage_cheques', 'reconcile_bank'], icon: 'stats' }, route: { anyOf: ['view_treasury', 'manage_cash_boxes', 'create_vouchers', 'approve_vouchers', 'manage_cheques', 'reconcile_bank'] } },
   { id: 'controls-settings', Component: ControlsSettingsPage, nav: { to: '/purchasing/settings', labelKey: 'nav.controls', anyOf: ['manage_settings', 'approve_purchase_orders', 'view_purchases', 'view_treasury'], icon: 'shield' }, route: { anyOf: ['manage_settings', 'approve_purchase_orders', 'view_purchases', 'view_treasury'] } },
   { id: 'ready-reports', Component: ReadyReportsPage, nav: { to: '/reports/ready', labelKey: 'nav.readyReports', anyOf: ['view_financial_reports'], icon: 'ledger' }, route: { anyOf: ['view_financial_reports'] } },
+  { id: 'report-builder', Component: ReportBuilderPage, nav: { to: '/reports/builder', labelKey: 'nav.reportBuilder', anyOf: ['view_financial_reports'], icon: 'stats' }, route: { anyOf: ['view_financial_reports'] } },
   { id: 'posting-failures', Component: PostingFailuresPage, nav: { to: '/ledger/posting-failures', labelKey: 'nav.postingFailures', anyOf: ['view_ledger', 'post_journal_entries', 'manage_fiscal_periods'], icon: 'ledger' }, route: { anyOf: ['view_ledger', 'post_journal_entries', 'manage_fiscal_periods'] } },
   { id: 'payroll', Component: PayrollPage, nav: { to: '/payroll', labelKey: 'nav.payroll', anyOf: ['manage_payroll_intake', 'approve_payroll_posting'], icon: 'ledger' }, route: { anyOf: ['manage_payroll_intake', 'approve_payroll_posting'] } },
   { id: 'adjustments', Component: AdjustmentsPage, nav: { to: '/accounting/adjustments', labelKey: 'nav.adjustments', anyOf: ['manage_fixed_assets', 'manage_tax_codes', 'manage_recurring_entries'], icon: 'ledger' }, route: { anyOf: ['manage_fixed_assets', 'manage_tax_codes', 'manage_recurring_entries'] } },

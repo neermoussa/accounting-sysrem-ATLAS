@@ -248,6 +248,20 @@ CREATE TABLE IF NOT EXISTS mfg_order_costs (
   rate_minor INTEGER,
   amount_minor INTEGER NOT NULL
 );
+
+-- The theoretical cost of a closed order, fixed when it closes (one row per
+-- price basis), so the cost-variance report of a closed period does not move
+-- when a later purchase changes prices. source: 'close' (taken at close) or
+-- 'migration' (orders closed before migration 0030, taken when it ran).
+CREATE TABLE IF NOT EXISTS mfg_order_theoretical_costs (
+  company_id INTEGER NOT NULL REFERENCES companies(id) ON DELETE CASCADE,
+  order_id INTEGER NOT NULL REFERENCES mfg_orders(id),
+  basis TEXT NOT NULL CHECK (basis IN ('latest', 'average', 'standard')),
+  cost_json TEXT NOT NULL,
+  source TEXT NOT NULL CHECK (source IN ('close', 'migration')),
+  captured_at TEXT NOT NULL DEFAULT (datetime('now')),
+  PRIMARY KEY (order_id, basis)
+);
 `;
 
 function applyManufacturingSchema(db) {

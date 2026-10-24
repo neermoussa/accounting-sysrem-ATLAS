@@ -255,9 +255,27 @@ async function sendToNumber(companyId, rawNumber, message) {
   }
 }
 
+// Prompt 12b: a file (an approved report send) to a number, same gating
+// as sendToNumber. Returns true when WhatsApp accepted it.
+async function sendFileToNumber(companyId, rawNumber, filePath, caption) {
+  const s = sessionFor(companyId);
+  if (s.status !== 'connected' || !s.client) return false;
+  const number = String(rawNumber || '').replace(/[^\d]/g, '');
+  if (!number) return false;
+  try {
+    const { MessageMedia } = require('whatsapp-web.js');
+    await s.client.sendMessage(`${number}@c.us`, MessageMedia.fromFilePath(filePath), { caption });
+    return true;
+  } catch (err) {
+    console.error('[whatsapp] file send failed:', err.message);
+    return false;
+  }
+}
+
 module.exports = {
   connect,
   sendToNumber,
+  sendFileToNumber,
   disconnect,
   getState,
   requestLink,

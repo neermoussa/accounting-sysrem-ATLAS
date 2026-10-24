@@ -105,6 +105,10 @@ const PERMISSIONS = {
   manage_fixed_assets: 'إدارة الأصول الثابتة والإهلاك والاستبعاد',
   manage_tax_codes: 'إدارة رموز الضريبة ونسبها وتقرير الضريبة',
   manage_recurring_entries: 'إدارة القيود الدورية والاستحقاقات والمصروفات المدفوعة مقدمًا',
+  view_costs: 'عرض التكاليف وهوامش الربح وأسعار الشراء في منشئ التقارير',
+  share_reports: 'مشاركة التقارير المحفوظة مع المستخدمين',
+  schedule_reports: 'جدولة التقارير وتصديرها تلقائيًا',
+  send_reports: 'اعتماد وإرسال التقارير بالبريد أو واتساب',
 };
 
 // The meta-permission: whoever holds it can grant/revoke any permission

@@ -14,15 +14,15 @@
 | 1 | Ledger core | done |
 | 2 | Auto-posting + sales documents | done |
 | 3 | Receivables | done |
-| 4 | Financial reports | pending |
-| 5 | Multi-currency | pending |
-| 6 | Purchasing | pending |
-| 7 | Cash & bank | pending |
-| 8 | Inventory valuation & lots | pending |
+| 4 | Financial reports | done |
+| 5 | Multi-currency | done |
+| 6 | Purchasing | done |
+| 7 | Cash & bank | done |
+| 8 | Inventory valuation & lots | done (8a + 8b) |
 | 9 | Manufacturing | done |
 | 10 | Fixed assets & tax | done |
 | 11 | HR & payroll — replaced by 11-lite (payroll accounting only) | done (11-lite) |
-| 12 | Reporting engine | pending |
+| 12 | Reporting engine | 12a done; 12b built (awaiting review); 12c pending |
 | 13 | Roles, approvals, audit | pending |
 | 14 | Integrations API | pending |
 | 15 | Hardening | pending |
@@ -648,7 +648,107 @@ Decisions:
 - Lot trace / recall run live on the main connection (graph traversal over live tables).
 - A report run refreshes the facts first (bounded, 5000 queue rows); if that refresh fails the report still answers from the old facts and its stamp says up_to_date: false.
 - Timeout default 30 s (`ATLAS_REPORT_TIMEOUT_MS`), row cap 5000 (`ATLAS_REPORT_ROW_CAP`), fact sweep every 60 s (`ATLAS_FACT_SWEEP_MS`).
-- One worker per report request (no pool yet); a pool belongs to Prompt 15's load work.
+- ~~One worker per report request (no pool yet)~~ — capped after 12a (NEXT ACTION item 2, below).
+
+## Repository move (2026-10-19) and NEXT ACTION round
+
+The original repository (`hamada010502/accounting-sysrem-ATLAS`) was not reachable from the new session's GitHub account. The project was imported from the owner's zip (`ATLAS-ACCOUNTING-CODE.zip`, = 73b44db + the handoff docs commit) into `neermoussa/accounting-sysrem-ATLAS` as ONE commit; the zip has no git history. **Every SHA and CI run number above this section refers to the old repository**; from here on they refer to the new one.
+
+| Commit | Item | CI |
+|---|---|---|
+| 505b407 | Baseline import (files identical to the zip, verified file by file); local `npm test` 369/369 (also strict PDF with `PLAYWRIGHT_CHROMIUM_PATH`), `npm run build` ok | green #1 (main) / #2 (branch) — all steps; test counts not readable here (log host blocked) |
+
+Item 0 — the six pre-12a items are present in this import (tests run locally, 17/17 pass): year rollover (`test/yearRollover.test.js`), deduction types (`test/payrollDeductions.test.js`), advance-recovery property (`test/payrollAdvancesProperty.test.js`), import format (`test/payrollImportFormat.test.js` + `docs/payroll-import-*`), payroll 403 / isolation (`test/payrollIsolation.test.js`), CI SHAs recorded (table "Before Prompt 12" — old-repo SHAs).
+
+### Item 1 — cost-variance report stable for closed periods
+
+- **What actually moved (premise check):** the "latest" price already reads only goods receipts dated on or before the production date. What moved a closed period: a material with NO receipt by then (opening stock, count surplus) falls back to the CURRENT stock average, and `basis=average` is always the current average. Shown on the old code: October's theoretical materials went 19.00 -> 26.69 after a November purchase (`test/costVarianceStable.test.js` with the snapshot assertions removed, run before the fix).
+- **Fix:** closing an order stores its theoretical cost for all three bases (`latest`, `average`, `standard`) on the production date, in the same transaction as the close (`mfg_order_theoretical_costs`, source `close`). `variances()` reads that snapshot; an order without one (none should remain) is computed live and marked `theoretical_source: 'live'`. An unknown `basis` is now refused (400 `invalid_basis`); it used to be silently treated as `latest`.
+- **Migration 0030:** creates the table and snapshots every already-closed order (source `migration`) from the data as it stands when it runs. `latest` equals what the report showed; `average` is frozen at that moment.
+- **Tests (`test/costVarianceStable.test.js`, 4):** failure injection at `mfg.close.after_moves` leaves no snapshot; close stores 3 snapshots and the October report (default, `basis=average`, and `/api/analytics/run/cost_variances`) is identical after October is closed and November purchases + a new labour rate are posted, while the live calculation for that date has moved; an order without a snapshot is marked `live`; snapshot company = order company. Existing variance numbers in `test/manufacturing.test.js` unchanged.
+- **Commit / CI:** ebecacb — green #5 (push) / #6 (PR).
+- **Gate:** `npm test` 373/373 (strict PDF); build ok. Migration gate: database built by the BASELINE code (505b407 worktree: `migrate` + `seed-demo-company` + `seed-ledger-demo` + a manufacturing company with 2 closed orders through the API) -> copy -> `node db/migrate.js` with the new code: applied 0030, re-run "up to date", schema identical to a fresh init (416 objects excl. `schema_migrations`, 0 diff), integrity 0 violations for both companies, 0 FK violations, row counts unchanged, 6 snapshot rows; the variance report after migration == before migration for all three bases.
+
+### Item 2 — report workers capped, queued, 503 + Retry-After
+
+- `lib/analytics/runner.js`: at most `ATLAS_REPORT_WORKERS` reports run at once (default 2); the next `ATLAS_REPORT_QUEUE` wait in arrival order (default 8); beyond that `503 reports_busy` with `Retry-After: ATLAS_REPORT_RETRY_AFTER_S` (default 5) — the analytics route sets the header. A queued report's timeout starts when it starts running. A report that fails, times out or cannot start frees its slot. Bad env values fall back to the defaults. `configure()` (change limits at run time) is test-only.
+- **Tests (`test/reportPool.test.js`, 4):** defaults / env overrides / bad values (child process); 2 workers + 2 queued, the fifth refused directly and over HTTP (503, `Retry-After: 7`), peak never above 2, queued ones run after the first two, API free again afterwards; queued report waits ~2 s (longer than its own 1.2 s timeout) and still runs; failing and timed-out reports release the worker; `configure` refused outside NODE_ENV=test. All 4 fail on the old runner.
+- Test infra: `test/helpers.js` responses now carry `headers` as a NON-enumerable property. (First version made it enumerable and broke the flag-off golden, which serialises whole responses; caught by the full run, fixed before commit.)
+- **Commit / CI:** 54a9a68 — green #7 (push; slow Chromium install step on the runner) / #8 (PR).
+- **Gate:** `npm test` 377/377 (strict PDF); build ok. No schema change.
+
+### Item 3 — branch reports with two real branches, rename, disable
+
+- **Gaps the test found (fixed):** the ready `expense_analysis` had no branch dimension (`invalid_dimension`), and the ready `trial_balance` had no branch filter, although `fact_journal_lines` / `fact_expenses` carry `branch_id` and the Prompt 4 reports have both. Added `by=branch` and `branchId` (tenant-checked; the TB drill carries it). Unfiltered output unchanged.
+- **Behaviour documented by the test (unchanged code):** a rename is "remove + add" (decision Fix 3, after Prompt 1): the old branch keeps its id, name and history (inactive), new documents go to the new id; reports show both, nothing is merged. A disabled branch refuses new invoices and journal entries (`invalid_branch`) and keeps its history in every report. Re-adding the same name re-activates the same id.
+- **Tests (`test/branchReports.test.js`, 4):** sales by branch, expenses by branch and TB by branch split exactly per branch (an unbranched invoice shows as "—"); ready TB by branch == Prompt 4 TB with the same filter (per-account period columns and totals); drill rows add up; incremental facts == full rebuild after every step; rename; disable; foreign company's branch id refused.
+- **Commit / CI:** 2689600 — green #9 (push) / #10 (PR).
+- **Gate:** `npm test` 381/381 (strict PDF); build ok. No schema change.
+
+### Item 4 — randomized property test: facts incremental == full rebuild
+
+- **Test (`test/factsProperty.test.js`):** 3 seeds (11, 2026, 90210) × 60 random operations through the real API: sales invoices (2 warehouses, 2 branches or none, product + service lines), credit notes (restock or not), approved returns (live: credit note), customer receipts, purchase receipts (2 warehouses), supplier invoices (with and without price difference), supplier payments, debit notes with returned goods, stock adjustments, transfers, wastage, production orders closed (with wastage events) or rejected, payroll imports + posts, payroll corrections (reopen -> re-import -> re-post), manual entries and their reversals.
+- **After every operation:** the queue is drained incrementally in random chunks of 1–6 documents, then all nine fact tables are compared row for row with a full rebuild. The rebuild runs inside a transaction that is ROLLED BACK, so the incremental state is never reset and carries across the whole sequence (the test also asserts the rollback left it untouched). Each seed must run every core operation kind and fill every fact table.
+- **Mutation check:** skipping the incremental builder of one group (sales, production, payroll or purchase) fails all 3 seeds; restored afterwards (no diff).
+- **Result:** no mismatch found. ~10 s for the file.
+- **Commit / CI:** 574afe9 — green #11 (push) / #12 (PR).
+- **Gate:** `npm test` 384/384 (strict PDF); build ok. No schema change.
+
+## Prompt 12b — Report Builder, saved and scheduled reports, exports, sends (built; awaiting review)
+
+| Commit | Step |
+|---|---|
+| a028465 | Golden of the legacy pivot / heatmap, recorded on the baseline commit 505b407 BEFORE any 12b change (`test/pivotGolden.test.js`, `test/fixtures/pivotScenario.js` + `.golden.json`) — CI green #13 / #14 |
+| 90d2f1b | a. Safe expression parser (`lib/analytics/expr.js`); b. the query spec engine (`lib/analytics/query.js`), `/api/report-builder` (catalog, run, drill, dimension values), facts mode of `/api/reports/pivot/table` and `/heatmap/data`, permissions `view_costs`, `share_reports`, `schedule_reports`, `send_reports` (migration 0031 grants them to owners) — CI green #15 / #16 |
+
+| 843fb54 | c–f. Saved reports (private / shared), manual and scheduled runs into files (xlsx / pdf / csv), downloads, human-approved e-mail / WhatsApp sends — `lib/reportBuilder.js`, tables in `db/reportBuilderSchema.js` (migration 0032), routes under `/api/report-builder`, schedule sweep every minute in `server.js` — CI green #17 / #18 |
+| (this) | g. Screen `/reports/builder` (`frontend/src/pages/analytics/ReportBuilderPage.jsx`): builder, saved reports (files, schedules, send requests), send approvals; ar + en strings; nav entry in the accounting group (also `/reports/ready`, which 12a left in the system group); `GET /recipients` (no contact details) and base-currency digits in `/catalog`; `docs/report-builder.md`, builder drill in `docs/drill-down.md` |
+
+**Decisions (12b so far):**
+- **Cost data** = per-item / per-document cost and margin: sales `cost` / `margin`, stock move values, production batch costs, purchase prices (the whole purchases and payables sources). Ledger account totals (incl. COGS in the journal source) are financial statements, already open to `view_financial_reports`, so they are not gated. `view_costs` is new; it applies to the 12b engine only. **The 12a ready reports and `/api/analytics/drill` do not check it yet** (they show sales cost / stock value to any `view_financial_reports` holder) — Prompt 13's "hide costs" item.
+- **Payroll data:** the payroll source, and the `employee` dimension of expenses, need `manage_payroll_intake` or `approve_payroll_posting`; the builder's drill drops `employee_id` without them.
+- The builder has its own drill (`/api/report-builder/drill`) with those column rules; the 12a drill is unchanged.
+- The journal source leaves year-end closing entries out unless `includeClosing: true`.
+- Unknown spec keys, sources, measures, dimensions, filter ops or sort keys are refused (400); filter ids go through tenantRefs; values are bound parameters, never SQL text; a calc reads only the measures selected in the same spec.
+- Comparison: `previous_year` = same dates a year earlier (29 Feb -> 28 Feb); `previous_period` = the same number of whole months before when the period is whole months, else the same number of days just before. Change % is null when the base is 0.
+
+- **Saved reports:** private = owner only; shared needs `share_reports` and is visible to users with `view_financial_reports` AND what the spec needs (a cost report is invisible without `view_costs`, and disappears when it is taken away). Only the owner edits; owner or a `share_reports` holder deletes (soft delete; its schedules stop). Presets are stored as presets and re-resolved on every run.
+- **Runs and files:** a run produces one file under `uploads/report-runs/<company>/` (or `ATLAS_REPORT_RUNS_DIR`), never served statically; downloads are permission-checked (report visible + the file's needs) and audited. xlsx / pdf through the existing `xlsxExport.addSheet` / `pdfExport.renderTablePdf`; CSV is new (UTF-8 BOM, RFC 4180, a text cell starting with = + - @ gets a leading ' against formula injection). A totals row is added when there are dimensions.
+- **Schedules:** daily / weekly / monthly (31 = last day) at a local time with a FIXED UTC offset (default +180, Damascus; Syria has no DST) — not an IANA time zone. The sweep (every minute, `ATLAS_REPORT_SCHEDULE_MS`) claims each due slot in a `BEGIN IMMEDIATE` transaction; `UNIQUE (schedule_id, scheduled_for)` makes a slot run once; after downtime only the LATEST missed slot runs (`missed_slots` records how many were skipped). Presets resolve on the slot's local date. A scheduled run uses the owner's CURRENT permissions; if they no longer allow it, the run is recorded as failed without a file. A run left `running` for 30 minutes (crash) is closed as `interrupted`.
+- **Sends:** request (needs `send_reports`) names 1..20 explicit recipients — a company user, a phone (WhatsApp) or an e-mail; nothing is delivered until approved. Approval = delivery; the requester cannot approve while another `send_reports` holder exists (new SoD step `report_send` in `lib/purchasing.js` SOD_STEPS, owner break-glass with a reason, audited). The approver must hold the data's permissions (report + the run's needs); they can review the file first (`GET /sends/:id/file`, audited), even when the saved report is private to the requester. A run with cost / payroll data goes only to company users holding that permission (no outside address) — checked at request AND again at approval. A double approval cannot send twice (status claimed first).
+- **Transports:** WhatsApp = the existing per-company session; `lib/whatsapp.js` gained `sendFileToNumber` (MessageMedia, same connection gating as `sendToNumber`). **E-mail has no transport in Atlas**: an approved e-mail send is recorded as `failed` / `email_not_configured` per recipient — open decision for Hamada (provider / SMTP, and a new dependency). Results are stored per recipient (`sent`, `partially_sent`, `failed`).
+
+**Requirement -> test (12b):**
+
+| Requirement | Test |
+|---|---|
+| Fields, filters, grouping | `reportBuilder` "sales by region x month equals independent SQL…", "filters: in / not_in, with null…" |
+| Period-vs-period and YoY | `reportBuilder` "compare: March vs February…", "period presets follow the injected clock…" |
+| Calculated ratios through a SAFE parser (no eval / new Function) | `reportExpr` (5, incl. hostile input and a source scan), `reportBuilder` "calculated ratios…" |
+| Extend the existing pivot and heatmap, do not replace them | `pivotGolden` (legacy output byte-for-byte as recorded on 505b407), `reportBuilder` "pivot and heatmap facts mode…" |
+| ONE whitelisted JSON spec validated against a catalog | `reportBuilder` "hostile or malformed specs are refused…" (20 cases) |
+| Company scoping inside the engine | `reportBuilder` "tenant isolation…"; `reportSaved` / `reportSend` tenant tests |
+| Payroll / cost permission checks inside the engine | `reportBuilder` "permissions inside the engine…" (catalog, run, drill, dimension values, pivot; `Q.validate` directly) |
+| Saved reports private / shared, permission-gated | `reportSaved` (6) |
+| Scheduling idempotent per (report, scheduled time) | `reportSchedule` "idempotent per slot…" |
+| Missed runs catch up once, not N times | `reportSchedule` "…a missed stretch runs once (the latest slot)…" |
+| Injected-clock tests incl. the year boundary | `reportSchedule` "slot maths…", "year boundary…" |
+| Export PDF / Excel / CSV through the existing path | `reportSchedule` "files: xlsx reads back, csv is safe, pdf renders…" (PDF strict with a Chromium) |
+| Sends human-approved, permission-gated, explicit recipients, audited | `reportSend` (10) |
+| Payroll / cost data never sent to a recipient without the permission | `reportSend` "cost data: only company users holding view_costs…", "recipients are re-checked at approval…" |
+| Heavy work in the report worker (cap / 503) | `reportBuilder` "runs in the report worker…" |
+| Done when: built, shared, scheduled, exported | the above + browser check below |
+
+**Gate (12b):** `npm test` 425/425 with `PLAYWRIGHT_CHROMIUM_PATH` (strict PDF); `npm run build` ok. Migration gate on a copy of the baseline-built database (505b407 code: migrate + seed-demo-company + seed-ledger-demo + 2 closed production orders): 0030–0032 applied, re-run "up to date", schema identical to a fresh init (425 objects excl. `schema_migrations`, 0 diff), integrity 0 for both companies, FK 0. Browser check (Chromium, built frontend + reports scenario): nav entry; source sales, item dimension, net / qty / cost + a % ratio, custom March, compare previous period -> 2 rows, compare / change / change % columns, totals; drill rows; saved as shared; CSV file produced; daily schedule (next run 2026-11-21 05:00 UTC); send requested to a user (cost notice shown); second user sees it pending (bell notification), approves -> recorded `failed`, "WhatsApp not connected" (no WhatsApp session in this environment). Console: only the two 401s of the pre-login session check.
+
+**12b limits / open items:**
+- **E-mail:** no transport (open decision: provider / SMTP / dependency). Approved e-mail sends are recorded as failed.
+- **WhatsApp file sending** (`sendFileToNumber`) was not exercised against a real session: tests use an injected transport; the browser check only reached "not connected".
+- **Time zone:** schedules use a fixed UTC offset (default +03:00), not an IANA zone.
+- **`view_costs`** is enforced by the 12b engine only. 12a ready reports and `/api/analytics/drill` still show sales cost / stock value to every `view_financial_reports` holder (Prompt 13).
+- Shared reports are listed only to users who already hold their needs; a private report's runs can be sent only by someone who can see it (the owner), but are approved by any holder of the data's permissions.
+
+**Tests so far:** `test/reportExpr.test.js` (5), `test/reportBuilder.test.js` (12), `test/pivotGolden.test.js` (1), `test/reportSaved.test.js` (6), `test/reportSchedule.test.js` (7), `test/reportSend.test.js` (10). Mutation checks: removing the permission checks, the tenantRefs check, or the NULL-keeping `not_in` (engine); the needs check on user recipients, the outside-address refusal, the re-check at approval, or the SoD guard (sends) — each fails a test. Migration gate 0030–0032 on a baseline-built copy: schema identical to fresh (425 objects), re-run no-op, the 4 permissions granted to both owners and nobody else (+8 rows), integrity 0, FK 0, data counts unchanged. `npm test` 424/424 (strict PDF).
 
 ## CI status
 

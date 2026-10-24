@@ -58,12 +58,60 @@ router.get('/:reportKey', (req, res) => {
   }
 });
 
-router.get('/heatmap/data', (req, res) => {
+// Prompt 12b: `source=facts` runs a Report Builder spec (two dimensions,
+// one measure) through the query engine (lib/analytics/query.js: catalog
+// whitelist, company scoping, view_financial_reports / costs / payroll
+// checks, report worker). Without it the order-based pivot and heatmap
+// below answer exactly as before (test/pivotGolden.test.js).
+async function factsMatrix(req) {
+  let spec;
+  try { spec = JSON.parse(req.query.spec || 'null'); } catch { throw Object.assign(new Error('invalid_spec'), { status: 400, code: 'invalid_spec' }); }
+  if (!spec || !Array.isArray(spec.dimensions) || spec.dimensions.length !== 2 || !Array.isArray(spec.measures) || spec.measures.length !== 1 || (spec.calcs && spec.calcs.length)) {
+    throw Object.assign(new Error('pivot_needs_two_dimensions_one_measure'), { status: 400, code: 'invalid_spec' });
+  }
+  const { runSpec } = require('./reportBuilder');
+  const out = await runSpec(req.companyId, req.user.permissions, { ...spec, compare: null }, require('../lib/clock').today());
+  const [rd, cd] = out.spec.dimensions;
+  const m = out.spec.measures[0];
+  return { out, rd, cd, m };
+}
+function factsError(res, err) {
+  if (err.retryAfter) res.set('Retry-After', String(err.retryAfter));
+  res.status(err.status || 500).json({ error: err.code || err.message || 'server_error', message: err.message });
+}
+
+router.get('/heatmap/data', async (req, res) => {
+  if (req.query.source === 'facts') {
+    try {
+      const { out, rd, cd, m } = await factsMatrix(req);
+      const max = out.rows.reduce((x, r) => Math.max(x, Math.abs(r[m] || 0)), 0);
+      return res.json({
+        source: 'facts', measure: m, rows: [...new Set(out.rows.map((r) => r[rd]))], columns: [...new Set(out.rows.map((r) => r[cd]))], max,
+        cells: out.rows.map((r) => ({ row: r[rd], col: r[cd], value: r[m], intensity: max ? Math.round((Math.abs(r[m] || 0) / max) * 1000) / 1000 : 0, drill: r.drill })),
+        period: out.period, freshness: out.freshness,
+      });
+    } catch (err) { return factsError(res, err); }
+  }
   const metric = req.query.metric === 'customers' ? 'customers' : 'sales';
   res.json(getHeatmapData(req.companyId, { metric, filters: filters(req) }));
 });
 
-router.get('/pivot/table', (req, res) => {
+router.get('/pivot/table', async (req, res) => {
+  if (req.query.source === 'facts') {
+    try {
+      const { out, rd, cd, m } = await factsMatrix(req);
+      const table = new Map();
+      for (const r of out.rows) {
+        if (!table.has(r[rd])) table.set(r[rd], {});
+        table.get(r[rd])[r[cd]] = (table.get(r[rd])[r[cd]] || 0) + (r[m] || 0);
+      }
+      return res.json({
+        source: 'facts', measure: m, columns: [...new Set(out.rows.map((r) => r[cd]))],
+        rows: [...table.entries()].map(([dimension, values]) => ({ dimension, values, total: Object.values(values).reduce((s, v) => s + v, 0) })),
+        totals: out.totals, period: out.period, freshness: out.freshness,
+      });
+    } catch (err) { return factsError(res, err); }
+  }
   const { rowDim, colDim, measure } = req.query;
   try {
     res.json(getPivotReport(req.companyId, { rowDim, colDim, measure, filters: filters(req) }));

@@ -42,16 +42,19 @@ const num = (v) => (v === undefined || v === null || v === '' ? null : Number(v)
 // Financial (fact_journal_lines)
 // ---------------------------------------------------------------------
 
+// Optional branchId: only lines of entries posted for that branch (the
+// Prompt 4 trial balance filter); the drill carries it.
 function trialBalance(dbh, cid, p) {
   const { from, to } = range(p);
+  const branchId = num(p.branchId);
   const rows = dbh.prepare(`SELECT a.id account_id, a.code, a.name_ar, a.type,
       COALESCE(SUM(CASE WHEN f.entry_date < ? THEN f.debit_minor - f.credit_minor END), 0) opening,
       COALESCE(SUM(CASE WHEN f.entry_date >= ? THEN f.debit_minor END), 0) period_debit,
       COALESCE(SUM(CASE WHEN f.entry_date >= ? THEN f.credit_minor END), 0) period_credit
     FROM fact_journal_lines f JOIN accounts a ON a.id = f.account_id
-    WHERE f.company_id = ? AND f.entry_date <= ? GROUP BY a.id ORDER BY a.code`).all(from, from, from, cid, to).map((r) => {
+    WHERE f.company_id = ? AND f.entry_date <= ? ${branchId ? 'AND f.branch_id = ?' : ''} GROUP BY a.id ORDER BY a.code`).all(from, from, from, cid, to, ...(branchId ? [branchId] : [])).map((r) => {
     const closing = r.opening + r.period_debit - r.period_credit;
-    return { ...r, opening_debit: Math.max(r.opening, 0), opening_credit: Math.max(-r.opening, 0), closing_debit: Math.max(closing, 0), closing_credit: Math.max(-closing, 0), drill: { kind: 'gl', accountId: r.account_id, from, to } };
+    return { ...r, opening_debit: Math.max(r.opening, 0), opening_credit: Math.max(-r.opening, 0), closing_debit: Math.max(closing, 0), closing_credit: Math.max(-closing, 0), drill: { kind: 'gl', accountId: r.account_id, from, to, ...(branchId ? { branchId } : {}) } };
   }).filter((r) => r.opening || r.period_debit || r.period_credit);
   return {
     columns: [col('code', 'الرمز', 'Code'), col('name_ar', 'الحساب', 'Account'), money('opening_debit', 'افتتاحي مدين', 'Opening Dr'), money('opening_credit', 'افتتاحي دائن', 'Opening Cr'), money('period_debit', 'حركة مدين', 'Period Dr'), money('period_credit', 'حركة دائن', 'Period Cr'), money('closing_debit', 'ختامي مدين', 'Closing Dr'), money('closing_credit', 'ختامي دائن', 'Closing Cr')],
@@ -165,7 +168,7 @@ function budgetVsActual(dbh, cid, p) {
   return { columns: [col('code', 'الرمز', 'Code'), col('name_ar', 'الحساب', 'Account'), money('budget', 'الموازنة', 'Budget'), money('actual', 'الفعلي', 'Actual'), money('variance', 'الفرق', 'Variance')], rows, totals: { budget: sum(rows, 'budget'), actual: sum(rows, 'actual'), variance: sum(rows, 'variance') } };
 }
 
-const EXP_BY = { account: 'account_id', cost_center: 'cost_center_id', project: 'project_id', supplier: 'supplier_id', employee: 'employee_id', month: 'ym' };
+const EXP_BY = { account: 'account_id', cost_center: 'cost_center_id', project: 'project_id', supplier: 'supplier_id', employee: 'employee_id', month: 'ym', branch: 'branch_id' };
 function expenseAnalysis(dbh, cid, p) {
   const { from, to } = range(p);
   const by = EXP_BY[p.by || 'account'] ? (p.by || 'account') : fail('invalid_dimension', 'بُعد غير مدعوم');

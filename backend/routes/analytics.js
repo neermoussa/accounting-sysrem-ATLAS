@@ -29,6 +29,7 @@ function handle(fn) {
       if (out !== undefined && !res.headersSent) res.json(out);
     } catch (err) {
       if (err instanceof reports.ReportError || err instanceof tenantRefs.ForeignRefError) {
+        if (err.retryAfter) res.set('Retry-After', String(err.retryAfter));
         return res.status(err.status || 400).json({ error: err.code, message: err.message });
       }
       next(err);
@@ -39,7 +40,7 @@ const bad = (code, message, status = 400) => { throw new reports.ReportError(cod
 
 // Ids in report params / drill filters -> the tenantRefs kind that owns them.
 const ID_KINDS = {
-  accountId: 'account', account_id: 'account', expense_account_id: 'account',
+  accountId: 'account', account_id: 'account', branchId: 'branch', expense_account_id: 'account',
   product_id: 'product', customer_id: 'shop', supplier_id: 'supplier',
   cost_center_id: 'cost_center', project_id: 'project', branch_id: 'branch',
   warehouse_id: 'warehouse', rep_id: 'user', employee_id: 'user', entry_id: 'journal_entry',

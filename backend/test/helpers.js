@@ -110,7 +110,9 @@ function makeClient(baseUrl) {
         json = text;
       }
     }
-    return { status: res.status, body: json };
+    // headers: non-enumerable, so serialised responses (golden fixtures)
+    // keep exactly their old shape.
+    return Object.defineProperty({ status: res.status, body: json }, 'headers', { value: res.headers, enumerable: false });
   }
 
   return {
